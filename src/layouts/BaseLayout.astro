@@ -8,8 +8,8 @@ interface Props {
 }
 
 const {
-  title = 'Putovny muzsky kruh',
-  description = 'Putovny muzsky kruh - okres Blansko. Bezpecny priestor pre muzov, ktori hladaju viac nez len povrchne debaty.',
+  title = 'Putovný mužský kruh',
+  description = 'Putovný mužský kruh - okres Blansko. Bezpečný priestor pre mužov, ktorí hľadajú viac než len povrchné debaty.',
 } = Astro.props;
 
 // Generate optimized favicons from the high-res logo
@@ -29,7 +29,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     <meta name="description" content={description} />
 
     <!-- Open Graph -->
-    <meta property="og:site_name" content="Putovny muzsky kruh" />
+    <meta property="og:site_name" content="Putovný mužský kruh" />
     <meta property="og:title" content={title} />
     <meta property="og:type" content="website" />
     <meta property="og:description" content={description} />
@@ -48,7 +48,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap&subset=latin-ext"
       rel="stylesheet"
     />
 
