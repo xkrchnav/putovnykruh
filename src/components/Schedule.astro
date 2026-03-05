@@ -1,7 +1,10 @@
 ---
 /**
  * Schedule section - upcoming circle dates and topics
+ * Marketing-first: clear next action, urgency, easy signup path
  */
+import { Image } from 'astro:assets';
+import mapImage from '../assets/images/image02.jpg';
 ---
 
 <section id="terminy" class="section" aria-labelledby="terminy-title">
@@ -15,13 +18,14 @@
         </p>
       </div>
       <div class="schedule__image-wrap">
-        <img
-          src="/images/image02.jpg"
+        <Image
+          src={mapImage}
           alt="Fiktivna mapa stretnuti"
           class="rounded-img"
-          width="450"
-          height="450"
+          width={450}
+          height={450}
           loading="lazy"
+          format="webp"
         />
       </div>
     </div>
@@ -62,11 +66,21 @@
       </p>
     </div>
 
-    <p class="schedule__cta">Pridaj sa?</p>
-    <p>
-      Na WhatsApp skupine mozes dat svoje slovo, ze sa zucastnis. Pripadne
-      potvrď svoju ucast priamo cez SMS na cislo v paticke.
-    </p>
+    <div class="schedule__action">
+      <p class="schedule__cta">Pridaj sa?</p>
+      <p>
+        Na WhatsApp skupine mozes dat svoje slovo, ze sa zucastnis. Pripadne
+        potvrď svoju ucast priamo cez SMS na cislo v paticke.
+      </p>
+      <a
+        href="https://chat.whatsapp.com/JVL1HKS5Jj0K8hsY5YBsL4"
+        class="btn btn--primary"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Pripojit sa na WhatsApp
+      </a>
+    </div>
   </div>
 </section>
 
@@ -120,6 +134,11 @@
     color: var(--color-text-muted);
   }
 
+  .schedule__action {
+    text-align: center;
+    padding-top: var(--space-lg);
+  }
+
   .schedule__cta {
     font-family: var(--font-heading);
     font-size: 1rem;
@@ -128,5 +147,9 @@
     text-transform: uppercase;
     color: var(--color-heading);
     margin-bottom: var(--space-sm) !important;
+  }
+
+  .schedule__action .btn {
+    margin-top: var(--space-md);
   }
 </style>

@@ -2,6 +2,17 @@
 /**
  * Past Circles - history of previous gatherings with galleries
  */
+import { Image } from 'astro:assets';
+import gallery03_1 from '../assets/images/gallery03/dfa6b9ac.jpg';
+import gallery03_2 from '../assets/images/gallery03/cfbc7686.jpg';
+import gallery03_3 from '../assets/images/gallery03/8453a2c9.jpg';
+import gallery03_4 from '../assets/images/gallery03/3bae7497.jpg';
+import image06 from '../assets/images/image06.jpg';
+import gallery01_1 from '../assets/images/gallery01/5017e92a.jpg';
+import gallery01_2 from '../assets/images/gallery01/f7995c85.jpg';
+import image05 from '../assets/images/image05.jpg';
+import gallery02_1 from '../assets/images/gallery02/11e02508.jpg';
+import gallery02_2 from '../assets/images/gallery02/d272647a.jpg';
 ---
 
 <section class="section" aria-labelledby="minule-title">
@@ -21,33 +32,37 @@
         prejavene je alebo aspon bol vnutorne pyroman zavislostou :)?
       </p>
       <div class="gallery gallery--four">
-        <img
-          src="/images/gallery03/dfa6b9ac.jpg"
+        <Image
+          src={gallery03_1}
           alt="Pyroman"
-          width="506"
-          height="900"
+          width={506}
+          height={900}
           loading="lazy"
+          format="webp"
         />
-        <img
-          src="/images/gallery03/cfbc7686.jpg"
+        <Image
+          src={gallery03_2}
           alt="To je ziar!"
-          width="506"
-          height="900"
+          width={506}
+          height={900}
           loading="lazy"
+          format="webp"
         />
-        <img
-          src="/images/gallery03/8453a2c9.jpg"
+        <Image
+          src={gallery03_3}
           alt="Stromcek upaleny"
-          width="506"
-          height="900"
+          width={506}
+          height={900}
           loading="lazy"
+          format="webp"
         />
-        <img
-          src="/images/gallery03/3bae7497.jpg"
+        <Image
+          src={gallery03_4}
           alt="Zima velika"
-          width="506"
-          height="900"
+          width={506}
+          height={900}
           loading="lazy"
+          format="webp"
         />
       </div>
     </article>
@@ -74,13 +89,14 @@
         Nakoniec sme sa u nas na zahrade zisli v peknom pocte 4. Staronova
         kombinacia.
       </p>
-      <img
-        src="/images/image06.jpg"
+      <Image
+        src={image06}
         alt="Stretnutie pri ohni - slovo ako zbran"
         class="rounded-img past-event__single-img"
-        width="1184"
-        height="864"
+        width={800}
+        height={584}
         loading="lazy"
+        format="webp"
       />
     </article>
 
@@ -105,19 +121,21 @@
         pozornost.
       </p>
       <div class="gallery">
-        <img
-          src="/images/gallery01/5017e92a.jpg"
+        <Image
+          src={gallery01_1}
           alt="Ohnivy zivel"
-          width="621"
-          height="900"
+          width={621}
+          height={900}
           loading="lazy"
+          format="webp"
         />
-        <img
-          src="/images/gallery01/f7995c85.jpg"
+        <Image
+          src={gallery01_2}
           alt="Vodny kontrast"
-          width="1020"
-          height="900"
+          width={1020}
+          height={900}
           loading="lazy"
+          format="webp"
         />
       </div>
     </article>
@@ -140,13 +158,14 @@
         sme sa teraz stretli aj lucili uz po tme a bez triciek sme teda tiez
         neboli :-).
       </p>
-      <img
-        src="/images/image05.jpg"
+      <Image
+        src={image05}
         alt="Nocny ohen v zime"
         class="rounded-img past-event__single-img"
-        width="895"
-        height="894"
+        width={895}
+        height={894}
         loading="lazy"
+        format="webp"
       />
     </article>
 
@@ -179,19 +198,21 @@
         chcel niekto prestudovat a pripomenut co bolo inspiraciou temy.
       </p>
       <div class="gallery">
-        <img
-          src="/images/gallery02/11e02508.jpg"
+        <Image
+          src={gallery02_1}
           alt="Babi lom za svetla"
-          width="1213"
-          height="899"
+          width={800}
+          height={593}
           loading="lazy"
+          format="webp"
         />
-        <img
-          src="/images/gallery02/d272647a.jpg"
+        <Image
+          src={gallery02_2}
           alt="Babi lom za tmy pri ohni"
-          width="1062"
-          height="900"
+          width={800}
+          height={678}
           loading="lazy"
+          format="webp"
         />
       </div>
     </article>

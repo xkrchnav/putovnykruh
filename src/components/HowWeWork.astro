@@ -2,6 +2,8 @@
 /**
  * How We Work section - communication, participation rules
  */
+import { Image } from 'astro:assets';
+import speakingObject from '../assets/images/image01.jpg';
 ---
 
 <section class="section" aria-labelledby="fungovanie-title">
@@ -27,13 +29,14 @@
         </p>
       </div>
       <div class="how__image-wrap">
-        <img
-          src="/images/image01.jpg"
+        <Image
+          src={speakingObject}
           alt="Hovoriaci predmet tvaru lingamu"
           class="rounded-img"
-          width="450"
-          height="450"
+          width={450}
+          height={450}
           loading="lazy"
+          format="webp"
         />
       </div>
     </div>

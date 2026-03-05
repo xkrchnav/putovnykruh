@@ -2,23 +2,22 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
-import Pillars from '../components/Pillars.astro';
+import Testimonials from '../components/Testimonials.astro';
 import Schedule from '../components/Schedule.astro';
+import Pillars from '../components/Pillars.astro';
 import HowWeWork from '../components/HowWeWork.astro';
 import ContactForm from '../components/ContactForm.astro';
 import PastCircles from '../components/PastCircles.astro';
 import Footer from '../components/Footer.astro';
 ---
 
-<BaseLayout
-  title="Putovny muzsky kruh"
-  description="Putovny muzsky kruh - okres Blansko. Bezpecny priestor pre muzov, ktori hladaju viac nez len povrchne debaty."
->
+<BaseLayout>
   <Header />
   <main>
     <Hero />
-    <Pillars />
+    <Testimonials />
     <Schedule />
+    <Pillars />
     <HowWeWork />
     <ContactForm />
     <PastCircles />

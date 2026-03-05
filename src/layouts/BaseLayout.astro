@@ -1,4 +1,7 @@
 ---
+import { getImage } from 'astro:assets';
+import faviconSrc from '../assets/images/favicon-source.jpg';
+
 interface Props {
   title?: string;
   description?: string;
@@ -6,8 +9,15 @@ interface Props {
 
 const {
   title = 'Putovny muzsky kruh',
-  description = 'Putovny muzsky kruh - okres Blansko',
+  description = 'Putovny muzsky kruh - okres Blansko. Bezpecny priestor pre muzov, ktori hladaju viac nez len povrchne debaty.',
 } = Astro.props;
+
+// Generate optimized favicons from the high-res logo
+const favicon32 = await getImage({ src: faviconSrc, width: 32, height: 32, format: 'png' });
+const favicon192 = await getImage({ src: faviconSrc, width: 192, height: 192, format: 'png' });
+const appleTouchIcon = await getImage({ src: faviconSrc, width: 180, height: 180, format: 'png' });
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -17,23 +27,38 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark" />
     <meta name="description" content={description} />
+
+    <!-- Open Graph -->
     <meta property="og:site_name" content="Putovny muzsky kruh" />
     <meta property="og:title" content={title} />
     <meta property="og:type" content="website" />
     <meta property="og:description" content={description} />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:locale" content="sk_SK" />
+
+    <!-- Favicons - generated from high-res logo -->
+    <link rel="icon" type="image/png" sizes="32x32" href={favicon32.src} />
+    <link rel="icon" type="image/png" sizes="192x192" href={favicon192.src} />
+    <link rel="apple-touch-icon" sizes="180x180" href={appleTouchIcon.src} />
+
+    <!-- Canonical -->
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Fonts - preconnect for speed, swap for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap"
       rel="stylesheet"
     />
+
     <title>{title}</title>
   </head>
   <body>
     <div class="bg-pattern" aria-hidden="true"></div>
     <slot />
+
+    <!-- Google Analytics -->
     <script
       is:inline
       async

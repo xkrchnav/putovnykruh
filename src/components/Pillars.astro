@@ -1,7 +1,9 @@
 ---
 /**
- * Pillars overview - teaser on homepage linking to full pillars
+ * Pillars overview - the 5 foundational principles
  */
+import { Image } from 'astro:assets';
+import fireImage from '../assets/images/image04.jpg';
 ---
 
 <section id="piliere" class="section" aria-labelledby="piliere-title">
@@ -18,13 +20,14 @@
         </p>
       </div>
       <div class="piliere__image-wrap">
-        <img
-          src="/images/image04.jpg"
+        <Image
+          src={fireImage}
           alt="Ohnisko v lese"
           class="rounded-img"
-          width="450"
-          height="740"
+          width={450}
+          height={740}
           loading="lazy"
+          format="webp"
         />
       </div>
     </div>

@@ -1,18 +1,22 @@
 ---
 /**
  * Hero section - logo, title, subtitle, intro text
+ * Marketing-first: strong value proposition, emotional hook
  */
+import { Image } from 'astro:assets';
+import heroLogo from '../assets/images/image03.jpg';
 ---
 
 <section id="domov" class="hero section" aria-labelledby="hero-title">
   <div class="container hero__content">
-    <img
-      src="/images/image03.jpg"
-      alt="Logo Putovneho kruhu - ohen a kruh"
+    <Image
+      src={heroLogo}
+      alt="Logo Putovneho kruhu - ohen a kruh muzov"
       class="hero__logo"
-      width="96"
-      height="96"
+      width={128}
+      height={128}
       loading="eager"
+      format="webp"
     />
     <h1 id="hero-title">Putovny kruh</h1>
     <hr class="divider" />
@@ -23,6 +27,10 @@
       sudenia. Stretavame sa pri ohni, aby sme nasli spojenie sami so sebou a s
       ostatnymi chlapmi na svojej ceste.
     </p>
+    <div class="hero__cta">
+      <a href="#terminy" class="btn btn--primary">Najblizsi kruh</a>
+      <a href="#skusenosti" class="btn">Co hovoria chlapi</a>
+    </div>
   </div>
 </section>
 
@@ -44,9 +52,9 @@
   }
 
   .hero__logo {
-    width: 6rem;
+    width: 7rem;
     height: auto;
-    border-radius: 0.375rem;
+    border-radius: 0.5rem;
     margin-bottom: var(--space-xl);
   }
 
@@ -66,5 +74,13 @@
     font-size: 1.05rem;
     line-height: 1.8;
     color: var(--color-text);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    justify-content: center;
   }
 </style>
