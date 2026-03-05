@@ -1,0 +1,100 @@
+---
+/**
+ * Contact form - email/phone signup for circle notifications
+ */
+---
+
+<section id="kontakt" class="section" aria-labelledby="kontakt-title">
+  <div class="container contact">
+    <h3 id="kontakt-title">Nechces byt v dalsej WhatsApp skupine?</h3>
+    <p>
+      Chapeme to. Ak chces len vediet, kedy a kde sa kona najblizsi kruh,
+      nechaj nam na seba kontakt. Posielame <strong>len</strong> pozvanku na
+      najblizsi kruh. Ziadny spam, ziadne motivacne citaty.
+    </p>
+
+    <form class="contact__form" method="post" action="#" novalidate>
+      <div class="contact__fields">
+        <div>
+          <label for="form-meno" class="sr-only">Meno</label>
+          <input
+            type="text"
+            id="form-meno"
+            name="meno"
+            placeholder="Meno"
+            maxlength="256"
+            required
+            class="form-field"
+            autocomplete="name"
+          />
+        </div>
+        <div>
+          <label for="form-email" class="sr-only">E-mail</label>
+          <input
+            type="email"
+            id="form-email"
+            name="email"
+            placeholder="E-mail (volitelne)"
+            maxlength="128"
+            class="form-field"
+            autocomplete="email"
+          />
+        </div>
+        <div>
+          <label for="form-phone" class="sr-only">Telefon</label>
+          <input
+            type="tel"
+            id="form-phone"
+            name="telefon"
+            placeholder="Telefon (volitelne)"
+            pattern="[0-9\-\(\)+ #*]+"
+            minlength="7"
+            maxlength="28"
+            class="form-field"
+            autocomplete="tel"
+          />
+        </div>
+      </div>
+      <p class="contact__hint">
+        <strong>Vypln aspon jedno z toho.</strong>
+      </p>
+      <p class="contact__privacy">
+        <em
+          >Tvoje udaje sluzia vyhradne na zasielanie informacii o stretnutiach
+          Putovneho kruhu.</em
+        >
+      </p>
+      <button type="submit" class="btn btn--primary">
+        Chcem dostavat pozvanky
+      </button>
+    </form>
+  </div>
+</section>
+
+<style>
+  .contact {
+    max-width: 32rem;
+  }
+
+  .contact__form {
+    margin-top: var(--space-xl);
+  }
+
+  .contact__fields {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .contact__hint {
+    font-size: 0.9rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .contact__privacy {
+    font-size: 0.85rem;
+    color: var(--color-text-dim);
+    margin-bottom: var(--space-lg);
+  }
+</style>

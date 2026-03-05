@@ -1,0 +1,132 @@
+---
+/**
+ * Schedule section - upcoming circle dates and topics
+ */
+---
+
+<section id="terminy" class="section" aria-labelledby="terminy-title">
+  <div class="container">
+    <div class="two-col two-col--reverse">
+      <div>
+        <h2 id="terminy-title">Terminy a miesta</h2>
+        <hr class="divider" />
+        <p class="schedule__dates">
+          Temy, terminy a miesta putovneho kruhu.
+        </p>
+      </div>
+      <div class="schedule__image-wrap">
+        <img
+          src="/images/image02.jpg"
+          alt="Fiktivna mapa stretnuti"
+          class="rounded-img"
+          width="450"
+          height="450"
+          loading="lazy"
+        />
+      </div>
+    </div>
+
+    <hr class="divider--wide" />
+
+    <div class="schedule__next card">
+      <p class="schedule__label">Najblizsi kruh</p>
+      <div class="schedule__meta">
+        <p><strong>Kedy:</strong> 4. 3. 2026 17:30</p>
+        <p><strong>Kde:</strong> Babi doly</p>
+        <p><strong>Tema: Akou si chystam buducnost?</strong></p>
+      </div>
+      <p>
+        V tomto case, ked sa priroda pomaly chysta na novy zaciatok, je to
+        otazka, ktora ide priamo do hlbky.
+      </p>
+      <p>
+        Sucastou vecera bude opat aj moznost skocit do vody (povinne len pre
+        odvaznych) a samozrejme ohen, ktory je uz takmer nasou povinnostou
+        &ndash; tou najlepsou, aka moze byt.
+      </p>
+      <p>
+        Okrajovo sa mozeme dotyknut aj toho, ako do nasich planov vstupuje svet
+        technologii a AI, ktory potichku meni pravidla hry.
+      </p>
+      <p class="schedule__questions-label"><u>Otazky na spolocne zamyslenie a zdielanie:</u></p>
+      <ul class="styled-list">
+        <li>Viem vobec, co chcem?</li>
+        <li>Alebo ma viac zamestnavaju obavy z toho, co pride?</li>
+        <li>Pozeram sa na detaily, alebo na celkovy obraz svojej cesty?</li>
+      </ul>
+    </div>
+
+    <div class="schedule__upcoming">
+      <p class="schedule__meta-line">
+        <strong>18. 3. 2026 17:30</strong> &ndash; ???
+      </p>
+    </div>
+
+    <p class="schedule__cta">Pridaj sa?</p>
+    <p>
+      Na WhatsApp skupine mozes dat svoje slovo, ze sa zucastnis. Pripadne
+      potvrď svoju ucast priamo cez SMS na cislo v paticke.
+    </p>
+  </div>
+</section>
+
+<style>
+  .schedule__image-wrap {
+    display: flex;
+    justify-content: center;
+  }
+
+  .schedule__image-wrap img {
+    max-width: 15rem;
+    height: auto;
+  }
+
+  .schedule__next {
+    margin-bottom: var(--space-xl);
+  }
+
+  .schedule__label {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: var(--space-md);
+  }
+
+  .schedule__meta {
+    margin-bottom: var(--space-lg);
+  }
+
+  .schedule__meta p {
+    margin-bottom: var(--space-xs);
+  }
+
+  .schedule__questions-label {
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-sm);
+  }
+
+  .schedule__upcoming {
+    padding: var(--space-md) var(--space-lg);
+    background-color: var(--color-surface);
+    border-radius: 0.375rem;
+    margin-bottom: var(--space-xl);
+  }
+
+  .schedule__meta-line {
+    margin-bottom: 0;
+    color: var(--color-text-muted);
+  }
+
+  .schedule__cta {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-heading);
+    margin-bottom: var(--space-sm) !important;
+  }
+</style>
