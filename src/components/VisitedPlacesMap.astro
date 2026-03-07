@@ -1,0 +1,175 @@
+---
+/**
+ * Visited Places + approximate map (privacy-friendly)
+ * Static-first Astro section with minimal client script (Leaflet only for this block)
+ */
+
+type Place = {
+  name: string;
+  lat: number;
+  lng: number;
+};
+
+const places: Place[] = [
+  { name: 'Adamov', lat: 49.300, lng: 16.650 },
+  { name: 'Babí doly', lat: 49.2895031, lng: 16.6026444 },
+  { name: 'Bílovice nad Svitavou', lat: 49.250, lng: 16.670 },
+  { name: 'Lysice', lat: 49.451, lng: 16.537 },
+  { name: 'Olešná', lat: 49.339, lng: 16.636 },
+  { name: 'Žernovník', lat: 49.40761, lng: 16.5465 },
+];
+
+const placesJson = JSON.stringify(places);
+---
+
+<section id="miesta" class="section places" aria-labelledby="miesta-title">
+  <div class="container">
+    <h2 id="miesta-title">Putovný kruh v pohybe</h2>
+    <hr class="divider" />
+
+    <p class="places__lead">
+      <strong>Putovný kruh</strong> znamená, že meníme miesta &ndash; ideme tam, kde
+      sa dá vytvoriť bezpečný priestor pre chlapský rozhovor.
+    </p>
+
+    <div class="places__grid">
+      <div class="places__card card">
+        <h3>Kde sme už boli</h3>
+        <ul class="styled-list places__list">
+          {places.map((place) => (
+            <li>{place.name}</li>
+          ))}
+        </ul>
+
+        <div class="places__cta">
+          <p>
+            Máš svoje miesto, kde by sa mohol konať ďalší kruh?
+            <strong> Poskytni ho a pozvi kruh k sebe domov.</strong>
+          </p>
+          <a href="#kontakt" class="btn">Chcem hostiť kruh</a>
+        </div>
+      </div>
+
+      <div class="places__card card">
+        <h3>Mapa doterajších miest</h3>
+        <p class="places__note">
+          Niektoré miesta sú súkromné, preto ich na mape zobrazujeme iba približne.
+        </p>
+
+        <div id="places-map" class="places__map" data-places={placesJson} aria-label="Mapa doterajších miest"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""
+/>
+<script
+  is:inline
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+  crossorigin=""
+></script>
+<script is:inline>
+  const mapEl = document.getElementById('places-map');
+  const leaflet = window.L;
+
+  if (mapEl && leaflet) {
+    const placesRaw = mapEl.getAttribute('data-places') ?? '[]';
+    const places = JSON.parse(placesRaw);
+
+    const map = leaflet.map(mapEl, {
+      scrollWheelZoom: false,
+      zoomControl: false,
+    });
+
+    leaflet
+      .tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      })
+      .addTo(map);
+
+    const markers = [];
+    places.forEach((place) => {
+      const marker = leaflet.circleMarker([place.lat, place.lng], {
+        radius: 7,
+        color: '#ff8c42',
+        weight: 2,
+        fillColor: '#d44a00',
+        fillOpacity: 0.8,
+      });
+
+      marker.bindPopup(place.name);
+      marker.addTo(map);
+      markers.push([place.lat, place.lng]);
+    });
+
+    if (markers.length > 0) {
+      map.fitBounds(markers, { padding: [24, 24] });
+    } else {
+      map.setView([49.35, 16.56], 10);
+    }
+  }
+</script>
+
+<style>
+  .places {
+    background: radial-gradient(ellipse at 50% 0%, rgba(180, 60, 0, 0.08) 0%, transparent 50%);
+  }
+
+  .places__lead {
+    margin-bottom: var(--space-xl);
+    color: var(--color-text-muted);
+  }
+
+  .places__grid {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  @media (min-width: 48rem) {
+    .places__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .places__card h3 {
+    margin-bottom: var(--space-md);
+    text-transform: none;
+    letter-spacing: 0.03em;
+  }
+
+  .places__list {
+    margin-bottom: var(--space-lg);
+  }
+
+  .places__cta {
+    padding: var(--space-md);
+    border: 1px solid rgba(255, 100, 30, 0.2);
+    border-radius: 0.375rem;
+    background: linear-gradient(135deg, rgba(180, 60, 0, 0.06), rgba(224, 112, 48, 0.05));
+  }
+
+  .places__cta p {
+    margin-bottom: var(--space-md);
+  }
+
+  .places__note {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
+    font-size: 0.95rem;
+  }
+
+  .places__map {
+    width: 100%;
+    min-height: 20rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+</style>
