@@ -1,20 +1,43 @@
 ---
 /**
- * Navigation header - minimal, fixed
+ * Navigation header - bold, mobile-friendly
  */
 ---
 
 <header class="site-header">
   <nav class="container nav" aria-label="Hlavná navigácia">
     <a href="#domov" class="nav__logo">Putovný kruh</a>
+    <button class="nav__toggle" aria-label="Menu" aria-expanded="false">
+      <span class="nav__toggle-bar"></span>
+      <span class="nav__toggle-bar"></span>
+      <span class="nav__toggle-bar"></span>
+    </button>
     <ul class="nav__links" role="list">
+      <li><a href="#prihlaska">Prihlásiť sa</a></li>
       <li><a href="#skusenosti">Skúsenosti</a></li>
-      <li><a href="#terminy">Termíny</a></li>
       <li><a href="#piliere">Piliere</a></li>
       <li><a href="#kontakt">Kontakt</a></li>
     </ul>
   </nav>
 </header>
+
+<script>
+  const toggle = document.querySelector('.nav__toggle');
+  const links = document.querySelector('.nav__links');
+  if (toggle && links) {
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      links.classList.toggle('nav__links--open');
+    });
+    links.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        toggle.setAttribute('aria-expanded', 'false');
+        links.classList.remove('nav__links--open');
+      });
+    });
+  }
+</script>
 
 <style>
   .site-header {
@@ -23,9 +46,9 @@
     left: 0;
     right: 0;
     z-index: 100;
-    background-color: rgba(15, 13, 11, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background-color: rgba(10, 8, 6, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--color-border);
   }
 
@@ -33,14 +56,15 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 3.5rem;
+    height: 4rem;
+    position: relative;
   }
 
   .nav__logo {
     font-family: var(--font-heading);
-    font-size: 0.75rem;
-    font-weight: 400;
-    letter-spacing: 0.2em;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--color-heading);
     text-decoration: none;
@@ -50,34 +74,80 @@
     color: var(--color-accent);
   }
 
-  .nav__links {
+  /* Hamburger */
+  .nav__toggle {
     display: flex;
-    gap: var(--space-lg);
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 110;
+  }
+
+  .nav__toggle-bar {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--color-text);
+    transition: all var(--transition-base);
+  }
+
+  .nav__links {
+    display: none;
+    position: absolute;
+    top: 4rem;
+    left: 0;
+    right: 0;
+    background-color: rgba(10, 8, 6, 0.97);
+    border-bottom: 1px solid var(--color-border);
     list-style: none;
+    padding: var(--space-lg);
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .nav__links--open {
+    display: flex;
   }
 
   .nav__links a {
     font-family: var(--font-heading);
-    font-size: 0.65rem;
-    font-weight: 300;
-    letter-spacing: 0.15em;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--color-text-muted);
     text-decoration: none;
     transition: color var(--transition-fast);
+    display: block;
+    padding: var(--space-sm) 0;
   }
 
   .nav__links a:hover {
     color: var(--color-accent);
   }
 
-  @media (max-width: 30rem) {
+  @media (min-width: 40rem) {
+    .nav__toggle {
+      display: none;
+    }
+
     .nav__links {
-      gap: var(--space-md);
+      display: flex;
+      position: static;
+      background: none;
+      border: none;
+      padding: 0;
+      flex-direction: row;
+      gap: var(--space-xl);
     }
 
     .nav__links a {
-      font-size: 0.6rem;
+      font-size: 0.75rem;
+      font-weight: 400;
+      padding: 0;
     }
   }
 </style>

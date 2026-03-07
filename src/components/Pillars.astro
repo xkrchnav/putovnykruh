@@ -1,6 +1,7 @@
 ---
 /**
- * Pillars overview - the 5 foundational principles
+ * Pillars - condensed, scannable format with icons
+ * 5 principles in a compact grid
  */
 import { Image } from 'astro:assets';
 import fireImage from '../assets/images/image04.jpg';
@@ -8,117 +9,132 @@ import fireImage from '../assets/images/image04.jpg';
 
 <section id="piliere" class="section" aria-labelledby="piliere-title">
   <div class="container">
-    <div class="two-col">
-      <div>
-        <h2 id="piliere-title">Základné piliere</h2>
-        <hr class="divider" />
-        <p>
-          Mužský kruh je bezpečný priestor, kde môžeme byť sami sebou &ndash;
-          bez masiek, bez pretvárky a bez strachu z hodnotenia. Aby sme takýto
-          priestor spoločne vytvorili a udržali, riadime sa niekoľkými
-          jednoduchými, ale kľúčovými princípmi.
-        </p>
+    <h2 id="piliere-title">Na čom stojíme</h2>
+    <hr class="divider" />
+    <p class="piliere__intro">
+      Bez pravidiel nie je kruh bezpečný. Toto je základ, na&nbsp;ktorom staviame dôveru.
+    </p>
+
+    <div class="piliere__grid">
+      <div class="piliere__item">
+        <span class="piliere__number">01</span>
+        <h3>Dôvera a&nbsp;diskrétnosť</h3>
+        <p>Čo sa povie v&nbsp;kruhu, zostane v&nbsp;kruhu. Bez výnimky.</p>
       </div>
-      <div class="piliere__image-wrap">
-        <Image
-          src={fireImage}
-          alt="Ohnisko v lese"
-          class="rounded-img"
-          width={450}
-          height={740}
-          loading="lazy"
-          format="webp"
-        />
+
+      <div class="piliere__item">
+        <span class="piliere__number">02</span>
+        <h3>Hovorím za seba</h3>
+        <p>Zdieľam svoje pocity a&nbsp;skúsenosti. Hovorím &bdquo;ja&ldquo;, nie &bdquo;ty by si mal&ldquo;.</p>
+      </div>
+
+      <div class="piliere__item">
+        <span class="piliere__number">03</span>
+        <h3>Načúvam s&nbsp;rešpektom</h3>
+        <p>Keď iný muž hovorí, počúvam. Neradím, nehodnotím, neprerušujem.</p>
+      </div>
+
+      <div class="piliere__item">
+        <span class="piliere__number">04</span>
+        <h3>Hovoriaci predmet</h3>
+        <p>Slovo má ten, kto ho drží. Ticho je rovnako cenné ako slová.</p>
+      </div>
+
+      <div class="piliere__item">
+        <span class="piliere__number">05</span>
+        <h3>Plná prítomnosť</h3>
+        <p>Prichádzame včas. Nechávame za sebou bežný deň. Sme tu a&nbsp;teraz.</p>
       </div>
     </div>
 
-    <hr class="divider--wide" />
-
-    <div class="piliere__detail">
-      <div class="piliere__item">
-        <h3>1. Dôvera a diskrétnosť</h3>
-        <p>
-          <strong>Čo sa povie v kruhu, zostane v kruhu.</strong> Toto je
-          najdôležitejšie pravidlo a absolútny základ našej dôvery. Príbehy,
-          pocity a myšlienky, ktoré sú zdieľané v kruhu, sú posvätné a nikdy ich
-          nevynášame von, ani o nich nehovoríme s nikým mimo kruhu. To nám
-          všetkým dáva odvahu byť úprimní a zraniteľní.
-        </p>
-      </div>
-
-      <div class="piliere__item">
-        <h3>2. Hovorím od srdca a za seba</h3>
-        <p>
-          Keď zdieľame, hovoríme v prvej osobe &ndash; formou
-          <em>&bdquo;Ja&ldquo;</em>. Zdieľame svoje vlastné pocity, skúsenosti a
-          pohľady (&bdquo;Ja cítim...&ldquo;, &bdquo;Ja vnímam...&ldquo;,
-          &bdquo;V mojom živote...&ldquo;). Nehovoríme za ostatných,
-          negeneralizujeme a nefilozofujeme. Cieľom je hovoriť autenticky a
-          spontánne to, čo je v nás práve teraz živé.
-        </p>
-      </div>
-
-      <div class="piliere__item">
-        <h3>3. Načúvam srdcom a s rešpektom</h3>
-        <p>
-          Keď iný muž zdieľa, dávame mu plnú pozornosť a dar nášho prítomného
-          načúvania. Neplánujeme si v hlave vlastnú reč, neprerušujeme ho a
-          nekomentujeme jeho zdieľanie. V kruhu si neradíme, neanalyzujeme ani
-          nehodnotíme príbehy ostatných. Každý z nás je expertom na svoj vlastný
-          život; našou úlohou je byť svedkom, nie sudcom či záchrancom.
-        </p>
-      </div>
-
-      <div class="piliere__item">
-        <h3>4. Hovoriaci predmet</h3>
-        <p>
-          Slovo má vždy ten, kto v ruke drží hovoriaci kameň (alebo iný predmet
-          určený kruhom). Tento predmet mu dáva plné právo na priestor a čas.
-          Nikto iný v tej chvíli nehovorí. Ak sa muž rozhodne so slovami
-          podeliť, je to v poriadku. Ak sa rozhodne v tichosti prežiť svoj čas s
-          kameňom v ruke, je to rovnako cenné a plne rešpektované.
-        </p>
-      </div>
-
-      <div class="piliere__item">
-        <h3>5. Príchod a odchod v plnej prítomnosti</h3>
-        <p>
-          Na stretnutia prichádzame včas, aby sme nerušili už vytvorenú
-          atmosféru. Dávame si čas na to, aby sme &bdquo;vnútorne
-          dorazili&ldquo; a nechali za sebou starosti bežného dňa. Celý proces
-          kruhu, od zapálenia ohňa až po záverečné slovo, vnímame ako spoločný
-          rituál, ktorý si zaslúži našu plnú prítomnosť.
-        </p>
-      </div>
+    <div class="piliere__image-wrap">
+      <Image
+        src={fireImage}
+        alt="Ohnisko v lese"
+        class="rounded-img"
+        width={800}
+        height={500}
+        loading="lazy"
+        format="webp"
+      />
     </div>
   </div>
 </section>
 
 <style>
-  .piliere__image-wrap {
-    display: flex;
-    justify-content: center;
+  .piliere__intro {
+    max-width: 32rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-2xl);
+    font-size: 1.1rem;
   }
 
-  .piliere__image-wrap img {
-    max-width: 15rem;
-    height: auto;
+  .piliere__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-2xl);
   }
 
-  .piliere__detail {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xl);
+  @media (min-width: 35rem) {
+    .piliere__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 55rem) {
+    .piliere__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   .piliere__item {
     padding: var(--space-lg);
-    border-left: 2px solid var(--color-accent);
     background-color: var(--color-surface);
-    border-radius: 0 0.375rem 0.375rem 0;
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  .piliere__item:hover {
+    border-color: rgba(255, 100, 30, 0.2);
+    box-shadow: 0 0 25px rgba(255, 80, 0, 0.06);
+  }
+
+  .piliere__number {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--color-fire), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: var(--space-sm);
   }
 
   .piliere__item h3 {
-    color: var(--color-accent);
+    font-size: 1rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .piliere__item p {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+
+  .piliere__image-wrap {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    max-height: 20rem;
+  }
+
+  .piliere__image-wrap img {
+    width: 100%;
+    height: 20rem;
+    object-fit: cover;
   }
 </style>

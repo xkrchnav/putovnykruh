@@ -2,6 +2,7 @@
    Putovny Kruh - Global Styles
    Dark, masculine, fire-inspired design
    Mobile-first responsive approach
+   BIGGER fonts, BOLDER presence
    ======================================== */
 
 /* --- Reset & Base --- */
@@ -14,21 +15,24 @@
 }
 
 :root {
-  /* Colors - earthy, dark, fire-inspired */
-  --color-bg: #0f0d0b;
-  --color-surface: #1a1714;
-  --color-surface-elevated: #231f1b;
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-text: #e8e0d8;
-  --color-text-muted: #9a9089;
-  --color-text-dim: #6b6159;
+  /* Colors - deep fire, ember, ash */
+  --color-bg: #0a0806;
+  --color-surface: #151110;
+  --color-surface-elevated: #1e1915;
+  --color-border: rgba(255, 140, 50, 0.1);
+  --color-text: #ede5dc;
+  --color-text-muted: #a89888;
+  --color-text-dim: #6b5d50;
   --color-heading: #fff;
-  --color-accent: #d4845a;
-  --color-accent-hover: #e8a070;
-  --color-fire: #c4602a;
-  --color-ember: #8b3a1a;
+  --color-accent: #e07030;
+  --color-accent-hover: #ff8c42;
+  --color-fire: #d44a00;
+  --color-fire-bright: #ff6a1a;
+  --color-ember: #992200;
+  --color-ember-glow: rgba(255, 80, 0, 0.15);
+  --color-ash: #2a2220;
 
-  /* Typography */
+  /* Typography - bigger, bolder */
   --font-heading: 'Montserrat', system-ui, sans-serif;
   --font-body: 'Source Sans 3', 'Source Sans Pro', system-ui, sans-serif;
 
@@ -43,25 +47,31 @@
   --space-4xl: 6rem;
 
   /* Layout */
-  --max-width: 48rem;
+  --max-width: 52rem;
   --content-padding: var(--space-lg);
 
   /* Transitions */
   --transition-fast: 150ms ease;
-  --transition-base: 250ms ease;
+  --transition-base: 300ms ease;
 }
 
 html {
-  font-size: 16px;
+  font-size: 18px;
   scroll-behavior: smooth;
   scroll-padding-top: 4.5rem;
   -webkit-text-size-adjust: 100%;
 }
 
+@media (min-width: 48rem) {
+  html {
+    font-size: 20px;
+  }
+}
+
 body {
   font-family: var(--font-body);
-  font-weight: 300;
-  line-height: 1.7;
+  font-weight: 400;
+  line-height: 1.75;
   color: var(--color-text);
   background-color: var(--color-bg);
   min-height: 100vh;
@@ -73,32 +83,34 @@ body {
 /* --- Typography --- */
 h1, h2, h3, h4 {
   font-family: var(--font-heading);
-  font-weight: 400;
+  font-weight: 600;
   color: var(--color-heading);
-  line-height: 1.3;
-  letter-spacing: 0.15em;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 h1 {
-  font-size: clamp(2rem, 6vw, 3.5rem);
-  letter-spacing: 0.3em;
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  letter-spacing: 0.12em;
+  font-weight: 700;
 }
 
 h2 {
-  font-size: clamp(1.25rem, 3vw, 1.75rem);
-  letter-spacing: 0.2em;
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  letter-spacing: 0.1em;
   margin-bottom: var(--space-lg);
 }
 
 h3 {
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  letter-spacing: 0.15em;
+  font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+  letter-spacing: 0.08em;
   margin-bottom: var(--space-md);
 }
 
 p {
   margin-bottom: var(--space-md);
+  font-size: 1.05rem;
 }
 
 p:last-child {
@@ -108,7 +120,7 @@ p:last-child {
 a {
   color: var(--color-accent);
   text-decoration: underline;
-  text-underline-offset: 0.15em;
+  text-underline-offset: 0.2em;
   transition: color var(--transition-fast);
 }
 
@@ -118,7 +130,7 @@ a:hover {
 
 a:focus-visible {
   outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
+  outline-offset: 3px;
   border-radius: 2px;
 }
 
@@ -161,16 +173,18 @@ img {
 /* --- Divider --- */
 .divider {
   border: none;
-  height: 2px;
-  width: 3rem;
-  background-color: var(--color-accent);
-  margin-block: var(--space-xs);
+  height: 3px;
+  width: 4rem;
+  background: linear-gradient(90deg, var(--color-fire), var(--color-accent));
+  margin-block: var(--space-sm);
+  border-radius: 2px;
 }
 
 .divider--wide {
   width: 100%;
   height: 1px;
-  background-color: var(--color-border);
+  border: none;
+  background: linear-gradient(90deg, transparent, var(--color-fire), transparent);
   margin-block: var(--space-2xl);
 }
 
@@ -179,40 +193,49 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.6rem 1.8rem;
+  padding: 0.85rem 2.2rem;
   font-family: var(--font-heading);
-  font-size: 0.7rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   text-decoration: none;
   color: var(--color-text);
-  border: 1px solid var(--color-text-muted);
-  border-radius: 2rem;
+  border: 2px solid var(--color-text-muted);
+  border-radius: 0;
   background: transparent;
   cursor: pointer;
-  transition: color var(--transition-base), border-color var(--transition-base), background-color var(--transition-base);
+  transition: all var(--transition-base);
   white-space: nowrap;
 }
 
 .btn:hover,
 .btn:focus-visible {
-  color: var(--color-accent);
-  border-color: var(--color-accent);
+  color: var(--color-fire-bright);
+  border-color: var(--color-fire-bright);
   text-decoration: none;
+  box-shadow: 0 0 20px rgba(255, 80, 0, 0.15);
 }
 
 .btn--primary {
-  color: var(--color-bg);
-  background-color: var(--color-accent);
-  border-color: var(--color-accent);
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-fire), var(--color-accent));
+  border-color: transparent;
+  font-weight: 700;
 }
 
 .btn--primary:hover,
 .btn--primary:focus-visible {
-  background-color: var(--color-accent-hover);
-  border-color: var(--color-accent-hover);
-  color: var(--color-bg);
+  background: linear-gradient(135deg, var(--color-fire-bright), var(--color-accent-hover));
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 4px 30px rgba(255, 80, 0, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn--large {
+  padding: 1rem 2.8rem;
+  font-size: 1rem;
 }
 
 /* --- Card --- */
@@ -225,7 +248,7 @@ img {
 }
 
 .card:hover {
-  border-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 100, 30, 0.2);
 }
 
 /* --- Image styles --- */
@@ -260,14 +283,14 @@ img {
 .form-field {
   display: block;
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.9rem 1.1rem;
   font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 300;
+  font-size: 1.05rem;
+  font-weight: 400;
   color: var(--color-text);
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 0.375rem;
+  border: 2px solid var(--color-border);
+  border-radius: 0;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   appearance: none;
 }
@@ -278,8 +301,8 @@ img {
 
 .form-field:focus {
   outline: none;
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(212, 132, 90, 0.15);
+  border-color: var(--color-fire);
+  box-shadow: 0 0 0 3px rgba(224, 112, 48, 0.2);
 }
 
 /* --- Two Column Layout --- */
@@ -314,16 +337,17 @@ img {
   position: relative;
   padding-left: 1.5rem;
   margin-bottom: var(--space-sm);
+  font-size: 1.05rem;
 }
 
 .styled-list li::before {
   content: '';
   position: absolute;
   left: 0;
-  top: 0.7em;
-  width: 6px;
-  height: 6px;
-  background-color: var(--color-accent);
+  top: 0.65em;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, var(--color-fire), var(--color-accent));
   border-radius: 50%;
 }
 
@@ -346,13 +370,26 @@ img {
   inset: 0;
   z-index: -1;
   background-image:
-    linear-gradient(180deg, var(--color-bg) 0%, transparent 30%, transparent 70%, var(--color-bg) 100%),
+    radial-gradient(ellipse at 50% 0%, rgba(180, 60, 0, 0.12) 0%, transparent 60%),
+    linear-gradient(180deg, var(--color-bg) 0%, transparent 20%, transparent 80%, var(--color-bg) 100%),
     url('/images/bg.jpg');
-  background-size: cover, cover;
-  background-position: center, center;
-  background-repeat: no-repeat, no-repeat;
-  opacity: 0.15;
+  background-size: cover, cover, cover;
+  background-position: center, center, center;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  opacity: 0.2;
   pointer-events: none;
+}
+
+/* --- Fire glow accent for emphasis --- */
+.fire-glow {
+  text-shadow: 0 0 40px rgba(255, 80, 0, 0.3);
+}
+
+.fire-text {
+  background: linear-gradient(135deg, var(--color-fire-bright), var(--color-accent), #ffaa44);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* --- Responsive adjustments --- */

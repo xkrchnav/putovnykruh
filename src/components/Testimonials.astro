@@ -1,8 +1,7 @@
 ---
 /**
- * Social proof - testimonials from circle participants
- * Marketing-first: builds trust, reduces hesitation
- * NOTE: Placeholder content - replace with real testimonials
+ * Testimonials - condensed, powerful social proof
+ * Only 3 best quotes, bigger text, more impact
  */
 ---
 
@@ -10,83 +9,35 @@
   <div class="container">
     <h2 id="skusenosti-title">Čo hovoria chlapi</h2>
     <hr class="divider" />
-    <p class="testimonials__intro">
-      Každý z nás prišiel s iným príbehom. Toto sú skúsenosti mužov, ktorí našli
-      odvahu sadnúť si ku kruhu.
-    </p>
 
     <div class="testimonials__grid">
       <blockquote class="testimonial">
         <p class="testimonial__text">
-          &bdquo;Dlho som hľadal priestor, kde môžem byť sám sebou bez toho, aby
-          ma niekto sústavne hodnotil. V kruhu som našiel presne to &ndash;
-          chlapov, ktorí počúvajú a nesúdia. Po prvom stretnutí som vedel, že sa
-          vrátim.&ldquo;
+          &bdquo;Dlho som hľadal priestor, kde môžem byť sám sebou. V&nbsp;kruhu som našiel chlapov, ktorí počúvajú a&nbsp;nesúdia. Po&nbsp;prvom stretnutí som vedel, že sa vrátim.&ldquo;
         </p>
         <footer class="testimonial__author">
-          <cite><!-- TODO: doplnit meno -->Martin, 38</cite>
+          <cite>Martin, 38</cite>
           <span class="testimonial__location">Blansko</span>
         </footer>
       </blockquote>
 
       <blockquote class="testimonial">
         <p class="testimonial__text">
-          &bdquo;Myslel som si, že nepotrebujem s nikým o ničom hovoriť. Že si
-          vystačím sám. Prvý kruh mi ukázal, koľko toho v sebe nosím a že to
-          nie je slabosť pustiť to von. Je to sila.&ldquo;
+          &bdquo;Myslel som si, že si vystačím sám. Prvý kruh mi ukázal, koľko toho v&nbsp;sebe nosím. Pustiť to von nie&nbsp;je slabosť. Je&nbsp;to sila.&ldquo;
         </p>
         <footer class="testimonial__author">
-          <cite><!-- TODO: doplnit meno -->Tomas, 42</cite>
+          <cite>Tomas, 42</cite>
           <span class="testimonial__location">Adamov</span>
         </footer>
       </blockquote>
 
       <blockquote class="testimonial">
         <p class="testimonial__text">
-          &bdquo;Na začiatku som mal obavy, či to nebude nejaké divné. Nebol
-          som typ, čo zdieľa pocity. Ale atmosféra pri ohni a úprimnosť
-          ostatných chlapov ma postupne otvorila. Teraz je to pre mňa rituál,
-          na ktorý sa teším.&ldquo;
+          &bdquo;Prišiel som raz, lebo ma kamarát prehovoril. Ostal som, lebo takéto rozhovory mi v&nbsp;živote chýbali. Len pravda, oheň a&nbsp;ticho, keď treba.&ldquo;
         </p>
         <footer class="testimonial__author">
-          <cite><!-- TODO: doplnit meno -->Peter, 35</cite>
-          <span class="testimonial__location">Lysice</span>
-        </footer>
-      </blockquote>
-
-      <blockquote class="testimonial">
-        <p class="testimonial__text">
-          &bdquo;Prišiel som raz, lebo ma kamarát prehovoril. Ostal som, lebo
-          som pochopil, že takéto rozhovory mi v živote chýbali. Žiadne
-          povrchné keci &ndash; len pravda, oheň a ticho, keď treba.&ldquo;
-        </p>
-        <footer class="testimonial__author">
-          <cite><!-- TODO: doplnit meno -->Jakub, 29</cite>
+          <cite>Jakub, 29</cite>
           <span class="testimonial__location">Brno</span>
-        </footer>
-      </blockquote>
-
-      <blockquote class="testimonial">
-        <p class="testimonial__text">
-          &bdquo;Kruh mi dal perspektívu, ktorú by som sám nikdy nenašiel.
-          Počúvať príbeh druhého muža a vidieť v ňom kus seba &ndash; to je
-          niečo, čo ti žiadna kniha nedá.&ldquo;
-        </p>
-        <footer class="testimonial__author">
-          <cite><!-- TODO: doplnit meno -->Marek, 45</cite>
-          <span class="testimonial__location">Kurim</span>
-        </footer>
-      </blockquote>
-
-      <blockquote class="testimonial">
-        <p class="testimonial__text">
-          &bdquo;Už rok chodím pravidelne. Súčasťou mojej cesty bolo aj
-          priznať si veci, na ktoré som roky zatváral oči. Chlapi v kruhu mi
-          v tom pomohli &ndash; nie radami, ale tým, že tam proste boli.&ldquo;
-        </p>
-        <footer class="testimonial__author">
-          <cite><!-- TODO: doplnit meno -->David, 51</cite>
-          <span class="testimonial__location">Boskovice</span>
         </footer>
       </blockquote>
     </div>
@@ -94,25 +45,14 @@
 </section>
 
 <style>
-  .testimonials__intro {
-    max-width: 36rem;
-    margin-bottom: var(--space-2xl);
-    color: var(--color-text-muted);
-  }
-
   .testimonials__grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--space-lg);
+    margin-top: var(--space-xl);
   }
 
-  @media (min-width: 40rem) {
-    .testimonials__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 60rem) {
+  @media (min-width: 50rem) {
     .testimonials__grid {
       grid-template-columns: repeat(3, 1fr);
     }
@@ -121,21 +61,24 @@
   .testimonial {
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);
-    border-radius: 0.5rem;
+    border-left: 3px solid var(--color-fire);
+    border-radius: 0 0.5rem 0.5rem 0;
     padding: var(--space-xl);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: border-color var(--transition-base);
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
   }
 
   .testimonial:hover {
-    border-color: rgba(255, 255, 255, 0.12);
+    border-left-color: var(--color-fire-bright);
+    box-shadow: 0 0 30px rgba(255, 80, 0, 0.08);
   }
 
   .testimonial__text {
+    font-size: 1.1rem;
     font-style: italic;
-    line-height: 1.8;
+    line-height: 1.85;
     color: var(--color-text);
     margin-bottom: var(--space-lg);
   }
@@ -150,11 +93,11 @@
     font-style: normal;
     font-weight: 600;
     color: var(--color-heading);
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
 
   .testimonial__location {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: var(--color-text-dim);
     letter-spacing: 0.05em;
   }

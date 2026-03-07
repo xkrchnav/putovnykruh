@@ -1,86 +1,131 @@
 ---
 /**
- * Hero section - logo, title, subtitle, intro text
- * Marketing-first: strong value proposition, emotional hook
+ * Hero section - powerful, condensed, men-for-men
+ * Full-screen impact with fire energy
  */
 import { Image } from 'astro:assets';
 import heroLogo from '../assets/images/image03.jpg';
 ---
 
-<section id="domov" class="hero section" aria-labelledby="hero-title">
+<section id="domov" class="hero" aria-labelledby="hero-title">
+  <div class="hero__bg" aria-hidden="true"></div>
   <div class="container hero__content">
     <Image
       src={heroLogo}
-      alt="Logo Putovného kruhu - oheň a kruh mužov"
+      alt="Logo Putovného kruhu"
       class="hero__logo"
-      width={128}
-      height={128}
+      width={160}
+      height={160}
       loading="eager"
       format="webp"
     />
-    <h1 id="hero-title">Putovný kruh</h1>
+    <h1 id="hero-title" class="hero__title">
+      Putovný<br/>kruh
+    </h1>
     <hr class="divider" />
-    <p class="hero__subtitle">Mužský kruh &ndash; okres Blansko</p>
+    <p class="hero__claim">Od mužov. Pre mužov.</p>
     <p class="hero__intro">
-      Toto je priestor pre mužov, ktorí hľadajú viac než len povrchné debaty.
-      Priestor, kde môžeme odložiť svoje masky, hovoriť pravdu a načúvať bez
-      súdenia. Stretávame sa pri ohni, aby sme našli spojenie sami so sebou a s
-      ostatnými chlapmi na svojej ceste.
+      Odlož masku. Hovor pravdu, zo srdca. Počúvaj bez súdenia.<br/>
+      Stretávame sa pri ohni, aby sme rástli.
     </p>
     <div class="hero__cta">
-      <a href="#terminy" class="btn btn--primary">Najbližší kruh</a>
-      <a href="#skusenosti" class="btn">Čo hovoria chlapi</a>
+      <a href="#prihlaska" class="btn btn--primary btn--large">Chcem prísť</a>
+      <a href="#skusenosti" class="btn btn--large">Čo hovoria chlapi</a>
     </div>
+    <p class="hero__free">Všetko zadarmo. Platí sa chlapským slovom.</p>
   </div>
 </section>
 
 <style>
   .hero {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 80vh;
-    padding-top: calc(3.5rem + var(--space-3xl));
+    min-height: 100vh;
+    min-height: 100dvh;
     text-align: center;
+    overflow: hidden;
+  }
+
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 80%, rgba(180, 60, 0, 0.25) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 20%, rgba(100, 30, 0, 0.15) 0%, transparent 60%),
+      var(--color-bg);
+    z-index: -1;
   }
 
   .hero__content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 36rem;
+    padding-top: 5rem;
+    padding-bottom: 3rem;
   }
 
   .hero__logo {
-    width: 7rem;
+    width: 8rem;
     height: auto;
-    border-radius: 0.5rem;
+    border-radius: 50%;
     margin-bottom: var(--space-xl);
+    border: 3px solid rgba(224, 112, 48, 0.3);
+    box-shadow: 0 0 60px rgba(255, 80, 0, 0.15);
+  }
+
+  .hero__title {
+    line-height: 1.05;
+    margin-bottom: var(--space-sm);
   }
 
   .hero .divider {
-    margin-block: var(--space-md);
+    margin-block: var(--space-md) var(--space-lg);
+    width: 5rem;
   }
 
-  .hero__subtitle {
-    font-family: var(--font-body);
-    font-size: 1rem;
-    font-weight: 300;
-    color: var(--color-text-muted);
-    margin-bottom: var(--space-2xl);
+  .hero__claim {
+    font-family: var(--font-heading);
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, var(--color-fire-bright), var(--color-accent), #ffaa44);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: var(--space-xl);
   }
 
   .hero__intro {
-    font-size: 1.05rem;
+    font-size: clamp(1.1rem, 2.5vw, 1.35rem);
     line-height: 1.8;
     color: var(--color-text);
+    max-width: 30rem;
     margin-bottom: var(--space-2xl);
   }
 
   .hero__cta {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: var(--space-md);
-    justify-content: center;
+    width: 100%;
+    max-width: 20rem;
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero__free {
+    font-size: 0.85rem;
+    color: var(--color-text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  @media (min-width: 30rem) {
+    .hero__cta {
+      flex-direction: row;
+      max-width: none;
+      width: auto;
+    }
   }
 </style>

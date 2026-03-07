@@ -1,6 +1,7 @@
 ---
 /**
- * How We Work section - communication, participation rules
+ * How We Work - merged with commitment messaging
+ * Compact, clear, direct
  */
 import { Image } from 'astro:assets';
 import speakingObject from '../assets/images/image01.jpg';
@@ -8,33 +9,49 @@ import speakingObject from '../assets/images/image01.jpg';
 
 <section class="section" aria-labelledby="fungovanie-title">
   <div class="container">
-    <div class="two-col">
-      <div>
-        <h2 id="fungovanie-title">Ako fungujeme?</h2>
+    <div class="how__content">
+      <div class="how__text">
+        <h2 id="fungovanie-title">Ako to funguje</h2>
         <hr class="divider" />
-        <p>
-          Naše fungovanie je priame a jednoduché, postavené na dôvere a osobnej
-          zodpovednosti.
-        </p>
-        <p>
-          <strong>Hlavný komunikačný kanál: WhatsApp skupina</strong><br />
-          <em>Odkaz na pripojenie sa nájdeš v pätičke stránky.</em>
-        </p>
-        <p>
-          <strong>Potvrdenie účasti: Chlapské slovo</strong><br />
-          V Putovnom kruhu neplatíme peniazmi, ale integritou. Tvoja registrácia
-          nie je len anonymné kliknutie do štatistiky. Je to tvoje slovo, ktoré
-          dávaš sám sebe a ostatným mužom v kruhu. Počítame s tebou &ndash; tak,
-          ako sa ty môžeš spoľahnúť na nás.
-        </p>
+
+        <div class="how__points">
+          <div class="how__point">
+            <span class="how__point-num">1</span>
+            <div>
+              <strong>Prihlás sa</strong>
+              <p>Vyplň formulár alebo napíš na WhatsApp. Dávaš tým slovo, že prídeš.</p>
+            </div>
+          </div>
+          <div class="how__point">
+            <span class="how__point-num">2</span>
+            <div>
+              <strong>Príď k ohňu</strong>
+              <p>Stretávame sa vonku, pri ohni. Prinášaš len seba a&nbsp;ochotu byť úprimný.</p>
+            </div>
+          </div>
+          <div class="how__point">
+            <span class="how__point-num">3</span>
+            <div>
+              <strong>Zdieľaj a&nbsp;počúvaj</strong>
+              <p>Hovoríme zo srdca, načúvame bez súdenia. Každý hlas má rovnakú váhu.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="how__commitment">
+          <p>
+            <strong>Neplatíme peniazmi. Platíme integritou.</strong> Tvoja prihláška je slovo muža &ndash; záväzok voči sebe a&nbsp;ostatným.
+          </p>
+        </div>
       </div>
+
       <div class="how__image-wrap">
         <Image
           src={speakingObject}
-          alt="Hovoriaci predmet tvaru lingamu"
+          alt="Hovoriaci predmet"
           class="rounded-img"
-          width={450}
-          height={450}
+          width={400}
+          height={400}
           loading="lazy"
           format="webp"
         />
@@ -44,13 +61,88 @@ import speakingObject from '../assets/images/image01.jpg';
 </section>
 
 <style>
+  .how__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+
+  @media (min-width: 40rem) {
+    .how__content {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .how__text {
+      flex: 1.2;
+    }
+
+    .how__image-wrap {
+      flex: 0.8;
+    }
+  }
+
+  .how__points {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0;
+  }
+
+  .how__point {
+    display: flex;
+    gap: var(--space-md);
+    align-items: flex-start;
+  }
+
+  .how__point-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, var(--color-fire), var(--color-accent));
+    border-radius: 50%;
+  }
+
+  .how__point strong {
+    display: block;
+    font-size: 1.05rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .how__point p {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+  }
+
+  .how__commitment {
+    padding: var(--space-lg);
+    background: linear-gradient(135deg, rgba(180, 60, 0, 0.08), rgba(224, 112, 48, 0.05));
+    border: 1px solid rgba(255, 100, 30, 0.15);
+    border-radius: 0.5rem;
+  }
+
+  .how__commitment p {
+    margin-bottom: 0;
+    font-size: 1.05rem;
+  }
+
   .how__image-wrap {
     display: flex;
     justify-content: center;
   }
 
   .how__image-wrap img {
-    max-width: 15rem;
+    max-width: 18rem;
     height: auto;
+    border-radius: 0.5rem;
+    border: 2px solid rgba(255, 100, 30, 0.1);
   }
 </style>

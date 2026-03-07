@@ -1,261 +1,269 @@
 ---
 /**
- * Past Circles - history of previous gatherings with galleries
+ * Past Circles - compact, collapsible history
  */
-import { Image } from 'astro:assets';
-import gallery03_1 from '../assets/images/gallery03/dfa6b9ac.jpg';
-import gallery03_2 from '../assets/images/gallery03/cfbc7686.jpg';
-import gallery03_3 from '../assets/images/gallery03/8453a2c9.jpg';
-import gallery03_4 from '../assets/images/gallery03/3bae7497.jpg';
-import image06 from '../assets/images/image06.jpg';
-import gallery01_1 from '../assets/images/gallery01/5017e92a.jpg';
-import gallery01_2 from '../assets/images/gallery01/f7995c85.jpg';
-import image05 from '../assets/images/image05.jpg';
-import gallery02_1 from '../assets/images/gallery02/11e02508.jpg';
-import gallery02_2 from '../assets/images/gallery02/d272647a.jpg';
+import { Image } from "astro:assets";
+import gallery03_1 from "../assets/images/gallery03/dfa6b9ac.jpg";
+import gallery03_2 from "../assets/images/gallery03/cfbc7686.jpg";
+import gallery03_3 from "../assets/images/gallery03/8453a2c9.jpg";
+import gallery03_4 from "../assets/images/gallery03/3bae7497.jpg";
+import image06 from "../assets/images/image06.jpg";
+import gallery01_1 from "../assets/images/gallery01/5017e92a.jpg";
+import gallery01_2 from "../assets/images/gallery01/f7995c85.jpg";
+import image05 from "../assets/images/image05.jpg";
+import gallery02_1 from "../assets/images/gallery02/11e02508.jpg";
+import gallery02_2 from "../assets/images/gallery02/d272647a.jpg";
+import kupacka from "../assets/images/260304/IMG_20260304_193942325_HDR.jpg";
 ---
 
 <section class="section" aria-labelledby="minule-title">
   <div class="container">
-    <h2 id="minule-title">Minulé kruhy</h2>
+    <h2 id="minule-title">Kde sme už boli</h2>
     <hr class="divider" />
+    <p class="past__intro">
+      Každý kruh je iný. Tu sú naše doterajšie stretnutia.
+    </p>
 
-    <!-- 19. 2. 2026 -->
-    <article class="past-event">
-      <div class="past-event__header">
-        <p class="past-event__date">19. 2. 2026 17:30</p>
-        <p class="past-event__location">Adamov</p>
-      </div>
-      <h3>Naše závislosti &ndash; páni alebo otroci?</h3>
-      <p>
-        Pekné posedenie u ohňa a priznajme si, kto z nás chlapov viac či menej
-        prejavene je alebo aspoň bol vnútorne pyroman závislosťou :)?
-      </p>
-      <div class="gallery gallery--four">
+    <div class="past__timeline">
+      <!-- 4. 3. 2026 -->
+      <article class="past-event">
+        <div class="past-event__header">
+          <span class="past-event__date">4. 3. 2026</span>
+          <span class="past-event__location">Babí doly</span>
+        </div>
+        <h3>Akú si chystám budúcnosť?</h3>
+        <p>Opäť po dlhšej dobe Babí doly, kde sme využili všetci traja ľadové kúpanie.</p>
+        <div class="gallery gallery--four">
+          <Image
+            src={kupacka}
+            alt="Ľadové kúpanie"
+            width={506}
+            height={900}
+            loading="lazy"
+            format="webp"
+          />          
+        </div>
+      </article>
+
+      <!-- 19. 2. 2026 -->
+      <article class="past-event">
+        <div class="past-event__header">
+          <span class="past-event__date">19. 2. 2026</span>
+          <span class="past-event__location">Adamov</span>
+        </div>
+        <h3>Naše závislosti &ndash; páni alebo otroci?</h3>
+        <p>Posedenie u ohňa o tom, čo nás ovláda a čo ovládame my.</p>
+        <div class="gallery gallery--four">
+          <Image
+            src={gallery03_1}
+            alt="Oheň"
+            width={506}
+            height={900}
+            loading="lazy"
+            format="webp"
+          />
+          <Image
+            src={gallery03_2}
+            alt="Žiar"
+            width={506}
+            height={900}
+            loading="lazy"
+            format="webp"
+          />
+          <Image
+            src={gallery03_3}
+            alt="Noc"
+            width={506}
+            height={900}
+            loading="lazy"
+            format="webp"
+          />
+          <Image
+            src={gallery03_4}
+            alt="Zima"
+            width={506}
+            height={900}
+            loading="lazy"
+            format="webp"
+          />
+        </div>
+      </article>
+
+      <!-- 4. 2. 2026 -->
+      <article class="past-event">
+        <div class="past-event__header">
+          <span class="past-event__date">4. 2. 2026</span>
+          <span class="past-event__location">Lysice</span>
+        </div>
+        <h3>Slovo ako zbraň</h3>
+        <p>
+          Inšpirované videom <a
+            href="https://youtu.be/2FTx7DV7sv8?si=g9rkWdZqzZEX0awO"
+            target="_blank"
+            rel="noopener noreferrer"
+            >This Is How You Become More Articulate | Jordan Peterson</a
+          >. Štyria chlapi, hlboký rozhovor.
+        </p>
+
         <Image
-          src={gallery03_1}
-          alt="Pyroman"
-          width={506}
-          height={900}
-          loading="lazy"
-          format="webp"
-        />
-        <Image
-          src={gallery03_2}
-          alt="To je žiar!"
-          width={506}
-          height={900}
-          loading="lazy"
-          format="webp"
-        />
-        <Image
-          src={gallery03_3}
-          alt="Stromček upálený"
-          width={506}
-          height={900}
-          loading="lazy"
-          format="webp"
-        />
-        <Image
-          src={gallery03_4}
-          alt="Zima veľká"
-          width={506}
-          height={900}
-          loading="lazy"
-          format="webp"
-        />
-      </div>
-    </article>
-
-    <hr class="divider--wide" />
-
-    <!-- 4. 2. 2026 -->
-    <article class="past-event">
-      <div class="past-event__header">
-        <p class="past-event__date">4. 2. 2026 17:30</p>
-        <p class="past-event__location">Lysice</p>
-      </div>
-      <h3>Slovo ako zbraň</h3>
-      <p>
-        K tejto téme ma inšpirovalo video s Jordanom Petersonom:
-        <a
-          href="https://youtu.be/2FTx7DV7sv8?si=cLfpgXzbbwiFDA_9"
-          target="_blank"
-          rel="noopener noreferrer"
-          >This Is How You Become More Articulate</a
-        >
-      </p>
-      <p>
-        Nakoniec sme sa u nás na záhrade zišli v peknom počte 4. Staronová
-        kombinácia.
-      </p>
-      <Image
-        src={image06}
-        alt="Stretnutie pri ohni - slovo ako zbraň"
-        class="rounded-img past-event__single-img"
-        width={800}
-        height={584}
-        loading="lazy"
-        format="webp"
-      />
-    </article>
-
-    <hr class="divider--wide" />
-
-    <!-- 21. 1. 2026 -->
-    <article class="past-event">
-      <div class="past-event__header">
-        <p class="past-event__date">21. 1. 2026 17:30</p>
-        <p class="past-event__location">Žernovník &ndash; u Vladimíra</p>
-      </div>
-      <h3>Sex</h3>
-      <p>
-        Tentokrát sme využili zázemia Vladimíra, ktorý sa síce zdieľaním
-        nepripojil, ale zdieľanie to bolo aj tak hlboké. Ponorili sme sa
-        nakrátko aj do pramenných jazierok na pozemku a strávili kruh pod
-        hviezdami.
-      </p>
-      <p>
-        Téma zdá sa tak široká, že možno by stálo za to ju zopakovať, prípadne
-        vypichnúť konkrétnu časť podtémou, nech dokážeme viac smerovať našu
-        pozornosť.
-      </p>
-      <div class="gallery">
-        <Image
-          src={gallery01_1}
-          alt="Ohnivý živel"
-          width={621}
-          height={900}
-          loading="lazy"
-          format="webp"
-        />
-        <Image
-          src={gallery01_2}
-          alt="Vodný kontrast"
-          width={1020}
-          height={900}
-          loading="lazy"
-          format="webp"
-        />
-      </div>
-    </article>
-
-    <hr class="divider--wide" />
-
-    <!-- 7. 1. 2026 -->
-    <article class="past-event">
-      <div class="past-event__header">
-        <p class="past-event__date">7. 1. 2026 17:30</p>
-        <p class="past-event__location">Bílovice u Jirky</p>
-      </div>
-      <h3>Prvé hranice &ndash; kde sa to celé začalo?</h3>
-      <p>
-        Nakoniec sme sa zišli štyria. Bolo to nečakané a o to lepšie. Načali sme
-        tému, ktorá zdá sa dotýka viacero mužov. Viac v nasledujúcom termíne.
-      </p>
-      <p>
-        Jirka poskytol výborné zázemie, v kontraste s poslednou návštevou v lete
-        sme sa teraz stretli aj lúčili už po tme a bez tričiek sme teda tiež
-        neboli :-).
-      </p>
-      <Image
-        src={image05}
-        alt="Nočný oheň v zime"
-        class="rounded-img past-event__single-img"
-        width={895}
-        height={894}
-        loading="lazy"
-        format="webp"
-      />
-    </article>
-
-    <hr class="divider--wide" />
-
-    <!-- 29. 9. 2025 -->
-    <article class="past-event">
-      <div class="past-event__header">
-        <p class="past-event__date">29. 9. 2025 17:30</p>
-        <p class="past-event__location"
-          >Babí doly &ndash; s možnosťou kúpačky :)</p
-        >
-      </div>
-      <h3>Pásce a slobody v živote muža</h3>
-      <p>
-        Existujú knihy a teórie (ako napríklad
-        <a
-          href="https://selfdefinition.org/psychology/Esther-Vilar-The-Manipulated-Man.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          >&bdquo;Manipulovaný muž&ldquo; od Esther Vilar</a
-        >), ktoré provokatívne tvrdia, že muži sú v spoločnosti manipulovaní a
-        chytení do pasce rolí, ktoré od nich očakávajú ženy a spoločnosť. Že sme
-        vychovávaní k tomu, aby sme boli výkonní živitelia a ochrancovia, a za
-        odmenu dostávame prijatie a intimitu.
-      </p>
-      <p>
-        Kruh piatich mužov dokonca s dvomi odvážlivcami, ktorí skočili do vody
-        bol opäť výživný. Knihu Manipulovaný muž nechávam v histórii, keby si
-        chcel niekto preštudovať a pripomenúť čo bolo inšpiráciou témy.
-      </p>
-      <div class="gallery">
-        <Image
-          src={gallery02_1}
-          alt="Babí lom za svetla"
+          src={image06}
+          alt="Stretnutie pri ohni"
+          class="rounded-img past-event__img"
           width={800}
-          height={593}
+          height={584}
           loading="lazy"
           format="webp"
         />
+      </article>
+
+      <!-- 21. 1. 2026 -->
+      <article class="past-event">
+        <div class="past-event__header">
+          <span class="past-event__date">21. 1. 2026</span>
+          <span class="past-event__location">Žernovník</span>
+        </div>
+        <h3>Sex</h3>
+        <p>
+          Hlboké ponorenie do témy pod hviezdami. Aj do pramenných jazierok.
+        </p>
+        <div class="gallery">
+          <Image
+            src={gallery01_1}
+            alt="Oheň"
+            width={621}
+            height={900}
+            loading="lazy"
+            format="webp"
+          />
+          <Image
+            src={gallery01_2}
+            alt="Voda"
+            width={1020}
+            height={900}
+            loading="lazy"
+            format="webp"
+          />
+        </div>
+      </article>
+
+      <!-- 7. 1. 2026 -->
+      <article class="past-event">
+        <div class="past-event__header">
+          <span class="past-event__date">7. 1. 2026</span>
+          <span class="past-event__location">Bílovice</span>
+        </div>
+        <h3>Prvé hranice</h3>
+        <p>
+          Kde sa to celé začalo? Štyria chlapi, nečakané a o&nbsp;to lepšie.
+        </p>
         <Image
-          src={gallery02_2}
-          alt="Babí lom za tmy pri ohni"
-          width={800}
-          height={678}
+          src={image05}
+          alt="Nočný oheň"
+          class="rounded-img past-event__img"
+          width={895}
+          height={894}
           loading="lazy"
           format="webp"
         />
-      </div>
-    </article>
+      </article>
+
+      <!-- 29. 9. 2025 -->
+      <article class="past-event">
+        <div class="past-event__header">
+          <span class="past-event__date">29. 9. 2025</span>
+          <span class="past-event__location">Babí doly</span>
+        </div>
+        <h3>Pásce a&nbsp;slobody v&nbsp;živote muža</h3>
+        <p>
+          Piati chlapi, dvaja odvážlivci vo vode. Výživný kruh. Inšpirované
+          knihou <a
+            href="https://selfdefinition.org/psychology/Esther-Vilar-The-Manipulated-Man.pdf"
+            target="_blank"
+            rel="noopener noreferrer">Esther Vilar - The Manipulated Man</a
+          >.
+        </p>
+
+        <div class="gallery">
+          <Image
+            src={gallery02_1}
+            alt="Babí lom"
+            width={800}
+            height={593}
+            loading="lazy"
+            format="webp"
+          />
+          <Image
+            src={gallery02_2}
+            alt="Oheň pri vode"
+            width={800}
+            height={678}
+            loading="lazy"
+            format="webp"
+          />
+        </div>
+      </article>
+    </div>
   </div>
 </section>
 
 <style>
+  .past__intro {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .past__timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+
   .past-event {
-    margin-bottom: var(--space-md);
+    padding-left: var(--space-lg);
+    border-left: 2px solid var(--color-border);
+    transition: border-color var(--transition-base);
+  }
+
+  .past-event:hover {
+    border-left-color: var(--color-fire);
   }
 
   .past-event__header {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-sm) var(--space-lg);
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-sm);
   }
 
   .past-event__date {
     font-family: var(--font-heading);
-    font-size: 0.75rem;
-    font-weight: 400;
+    font-size: 0.8rem;
+    font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--color-accent);
-    margin-bottom: 0;
   }
 
   .past-event__location {
     font-size: 0.85rem;
-    color: var(--color-text-muted);
-    margin-bottom: 0;
+    color: var(--color-text-dim);
   }
 
   .past-event h3 {
-    letter-spacing: 0.05em;
+    font-size: 1.15rem;
+    letter-spacing: 0.03em;
     text-transform: none;
     color: var(--color-heading);
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-sm);
   }
 
-  .past-event__single-img {
-    margin-top: var(--space-lg);
+  .past-event > p {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+  }
+
+  .past-event__img {
+    margin-top: var(--space-md);
     max-width: 100%;
   }
 </style>

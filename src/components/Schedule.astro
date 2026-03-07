@@ -1,155 +1,434 @@
 ---
 /**
- * Schedule section - upcoming circle dates and topics
- * Marketing-first: clear next action, urgency, easy signup path
+ * Schedule + Signup form - the core conversion section
+ * Next circle date + inline signup form (commitment-based)
  */
 import { Image } from 'astro:assets';
 import mapImage from '../assets/images/image02.jpg';
 ---
 
-<section id="terminy" class="section" aria-labelledby="terminy-title">
+<section id="prihlaska" class="section signup-section" aria-labelledby="prihlaska-title">
   <div class="container">
-    <div class="two-col two-col--reverse">
-      <div>
-        <h2 id="terminy-title">Termíny a miesta</h2>
-        <hr class="divider" />
-        <p class="schedule__dates">
-          Témy, termíny a miesta putovného kruhu.
+    <div class="signup__hero">
+      <h2 id="prihlaska-title">Najbližší kruh</h2>
+      <hr class="divider" />
+    </div>
+
+    <div class="signup__card card">
+      <div class="signup__details">
+        <div class="signup__meta">
+          <div class="signup__meta-item">
+            <span class="signup__meta-label">Kedy</span>
+            <span class="signup__meta-value">18. 3. 2026 o 17:30</span>
+          </div>
+          <div class="signup__meta-item">
+            <span class="signup__meta-label">Kde</span>
+            <span class="signup__meta-value">bude upresnené</span>
+          </div>
+          <div class="signup__meta-item">
+            <span class="signup__meta-label">Téma</span>
+            <span class="signup__meta-value">bude upresnené</span>
+          </div>
+        </div>
+        <p class="signup__desc">
+          
         </p>
+        <ul class="styled-list">
+
+        </ul>
       </div>
-      <div class="schedule__image-wrap">
-        <Image
-          src={mapImage}
-          alt="Fiktívna mapa stretnutí"
-          class="rounded-img"
-          width={450}
-          height={450}
-          loading="lazy"
-          format="webp"
-        />
+
+      <hr class="divider--wide" />
+
+      <div class="signup__form-wrap">
+        <h3 class="signup__form-title">Daj svoje slovo</h3>
+        <p class="signup__form-desc">
+          Tvoja prihlášku nie je kliknutie. Je to <strong>mužské slovo</strong> &ndash; záväzok voči sebe a&nbsp;ostatným. Počítame s&nbsp;tebou.
+        </p>
+
+        <form class="signup__form" id="signup__form" method="post" action="#" novalidate>
+          <div class="signup__fields">
+            <div>
+              <label for="signup-meno" class="sr-only">Meno</label>
+              <input
+                type="text"
+                id="signup-meno"
+                name="meno"
+                placeholder="Tvoje meno"
+                maxlength="256"
+                required
+                class="form-field"
+                autocomplete="name"
+              />
+            </div>
+            <div>
+              <label for="signup-kontakt" class="sr-only">Telefón alebo e-mail</label>
+              <input
+                type="text"
+                id="signup-kontakt"
+                name="kontakt"
+                placeholder="Telefón alebo e-mail"
+                maxlength="128"
+                required
+                class="form-field"
+                autocomplete="tel"
+              />
+            </div>
+          </div>
+
+          <div class="signup__commitment">
+            <label class="signup__checkbox">
+              <input type="checkbox" name="slovo" required />
+              <span>Dávam svoje slovo, že prídem.</span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--large signup__submit">
+            Zaväzujem sa &ndash; prídem
+          </button>
+
+          <div class="signup__message" id="signup__message" role="alert" aria-live="polite"></div>
+
+          <p class="signup__note">
+            Všetko je zadarmo. Žiadne poplatky. Len tvoja prítomnosť a&nbsp;odvaha.
+          </p>
+        </form>
+
+        <div class="signup__alt">
+          <p>Alebo sa pripoj cez WhatsApp:</p>
+          <a
+            href="https://chat.whatsapp.com/JVL1HKS5Jj0K8hsY5YBsL4"
+            class="btn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            WhatsApp skupina
+          </a>
+        </div>
       </div>
     </div>
 
-    <hr class="divider--wide" />
-
-    <div class="schedule__next card">
-      <p class="schedule__label">Najbližší kruh</p>
-      <div class="schedule__meta">
-        <p><strong>Kedy:</strong> 4. 3. 2026 17:30</p>
-        <p><strong>Kde:</strong> Babí doly</p>
-        <p><strong>Téma: Akú si chystám budúcnosť?</strong></p>
-      </div>
-      <p>
-        V tomto čase, keď sa príroda pomaly chystá na nový začiatok, je to
-        otázka, ktorá ide priamo do hĺbky.
-      </p>
-      <p>
-        Súčasťou večera bude opäť aj možnosť skočiť do vody (povinne len pre
-        odvážnych) a samozrejme oheň, ktorý je už takmer našou povinnosťou
-        &ndash; tou najlepšou, aká môže byť.
-      </p>
-      <p>
-        Okrajovo sa môžeme dotknúť aj toho, ako do našich plánov vstupuje svet
-        technológií a AI, ktorý potichu mení pravidlá hry.
-      </p>
-      <p class="schedule__questions-label"><u>Otázky na spoločné zamyslenie a zdieľanie:</u></p>
-      <ul class="styled-list">
-        <li>Viem vôbec, čo chcem?</li>
-        <li>Alebo ma viac zamestnávajú obavy z toho, čo príde?</li>
-        <li>Pozerám sa na detaily, alebo na celkový obraz svojej cesty?</li>
-      </ul>
-    </div>
-
-    <div class="schedule__upcoming">
-      <p class="schedule__meta-line">
-        <strong>18. 3. 2026 17:30</strong> &ndash; ???
-      </p>
-    </div>
-
-    <div class="schedule__action">
-      <p class="schedule__cta">Pridáš sa?</p>
-      <p>
-        Na WhatsApp skupine môžeš dať svoje slovo, že sa zúčastníš. Prípadne
-        potvrď svoju účasť priamo cez SMS na číslo v pätičke.
-      </p>
-      <a
-        href="https://chat.whatsapp.com/JVL1HKS5Jj0K8hsY5YBsL4"
-        class="btn btn--primary"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Pripojiť sa na WhatsApp
-      </a>
+    <div class="signup__upcoming">
+      <p class="signup__upcoming-label">Ďalší termín</p>
+      <p class="signup__upcoming-date"><strong>1. 4. 2026 17:30</strong> &ndash; miesto a téma budú upresnené</p>
     </div>
   </div>
 </section>
 
 <style>
-  .schedule__image-wrap {
-    display: flex;
-    justify-content: center;
+  .signup-section {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(180, 60, 0, 0.08) 0%, transparent 50%);
   }
 
-  .schedule__image-wrap img {
-    max-width: 15rem;
-    height: auto;
+  .signup__hero {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
   }
 
-  .schedule__next {
+  .signup__hero .divider {
+    margin-inline: auto;
+  }
+
+  .signup__card {
+    padding: var(--space-2xl) var(--space-xl);
+    border-color: rgba(255, 100, 30, 0.15);
+  }
+
+  .signup__meta {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
     margin-bottom: var(--space-xl);
   }
 
-  .schedule__label {
-    font-family: var(--font-heading);
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--color-accent);
-    margin-bottom: var(--space-md);
+  @media (min-width: 30rem) {
+    .signup__meta {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
-  .schedule__meta {
+  .signup__meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .signup__meta-label {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .signup__meta-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-heading);
+  }
+
+  .signup__desc {
+    font-size: 1.05rem;
     margin-bottom: var(--space-lg);
   }
 
-  .schedule__meta p {
-    margin-bottom: var(--space-xs);
+  .signup__form-wrap {
+    text-align: center;
   }
 
-  .schedule__questions-label {
-    margin-top: var(--space-md);
-    margin-bottom: var(--space-sm);
+  .signup__form-title {
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    background: linear-gradient(135deg, var(--color-fire-bright), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: var(--space-md);
   }
 
-  .schedule__upcoming {
-    padding: var(--space-md) var(--space-lg);
-    background-color: var(--color-surface);
-    border-radius: 0.375rem;
+  .signup__form-desc {
+    max-width: 32rem;
+    margin-inline: auto;
     margin-bottom: var(--space-xl);
-  }
-
-  .schedule__meta-line {
-    margin-bottom: 0;
     color: var(--color-text-muted);
   }
 
-  .schedule__action {
-    text-align: center;
-    padding-top: var(--space-lg);
+  .signup__fields {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    max-width: 28rem;
+    margin-inline: auto;
+    margin-bottom: var(--space-lg);
   }
 
-  .schedule__cta {
-    font-family: var(--font-heading);
+  @media (min-width: 30rem) {
+    .signup__fields {
+      flex-direction: row;
+    }
+
+    .signup__fields > div {
+      flex: 1;
+    }
+  }
+
+  .signup__commitment {
+    margin-bottom: var(--space-lg);
+  }
+
+  .signup__checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    cursor: pointer;
     font-size: 1rem;
-    font-weight: 400;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--color-heading);
-    margin-bottom: var(--space-sm) !important;
+    color: var(--color-text);
   }
 
-  .schedule__action .btn {
+  .signup__checkbox input {
+    width: 1.2rem;
+    height: 1.2rem;
+    accent-color: var(--color-fire);
+    cursor: pointer;
+  }
+
+  .signup__submit {
+    width: 100%;
+    max-width: 28rem;
+  }
+
+  .signup__note {
     margin-top: var(--space-md);
+    font-size: 0.85rem;
+    color: var(--color-text-dim);
+  }
+
+  .signup__message {
+    margin-top: var(--space-md);
+    padding: var(--space-md);
+    border-radius: 0.375rem;
+    font-size: 0.95rem;
+    text-align: center;
+    display: none;
+  }
+
+  .signup__message.visible {
+    display: block;
+  }
+
+  .signup__message.success {
+    background-color: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: rgb(34, 197, 94);
+  }
+
+  .signup__message.error {
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: rgb(239, 68, 68);
+  }
+
+  .signup__submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .signup__alt {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .signup__alt p {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
+  }
+
+  .signup__upcoming {
+    margin-top: var(--space-xl);
+    padding: var(--space-lg);
+    background-color: var(--color-surface);
+    border-radius: 0.375rem;
+    border-left: 3px solid var(--color-accent);
+    text-align: center;
+  }
+
+  .signup__upcoming-label {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: var(--space-xs);
+  }
+
+  .signup__upcoming-date {
+    color: var(--color-text-muted);
+    margin-bottom: 0;
   }
 </style>
+
+<script>
+  interface FormElements extends HTMLFormControlsCollection {
+    meno: HTMLInputElement;
+    kontakt: HTMLInputElement;
+    slovo: HTMLInputElement;
+  }
+
+  interface SignupForm extends HTMLFormElement {
+    readonly elements: FormElements;
+  }
+
+  const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbxuz-7bQYjVz3YlGAHslGdCIDUFI8tZd7XUnGMK8Vnb9LIRudL_Wet6EXQe6s4RuoPLiA/exec';
+
+  function showMessage(message: string, type: 'success' | 'error'): void {
+    const messageEl = document.getElementById('signup__message');
+    if (!messageEl) return;
+
+    messageEl.textContent = message;
+    messageEl.className = `signup__message visible ${type}`;
+
+    // Auto-hide success message after 5 seconds
+    if (type === 'success') {
+      setTimeout(() => {
+        messageEl.classList.remove('visible');
+      }, 5000);
+    }
+  }
+
+  function validateEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  function validatePhone(phone: string): boolean {
+    // Slovak phone number format (with or without prefix)
+    const phoneRegex = /^(\+421|00421|0)?[0-9]{9}$/;
+    return phoneRegex.test(phone.replace(/\s/g, ''));
+  }
+
+  function validateKontakt(kontakt: string): boolean {
+    const trimmed = kontakt.trim();
+    return validateEmail(trimmed) || validatePhone(trimmed);
+  }
+
+  async function handleSubmit(event: Event): Promise<void> {
+    event.preventDefault();
+
+    const form = event.target as SignupForm;
+    const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const messageEl = document.getElementById('signup__message');
+
+    // Validate form
+    const meno = form.elements.meno.value.trim();
+    const kontakt = form.elements.kontakt.value.trim();
+    const slovo = form.elements.slovo.checked;
+
+    if (!meno) {
+      showMessage('Prosím, zadaj svoje meno.', 'error');
+      form.elements.meno.focus();
+      return;
+    }
+
+    if (!kontakt) {
+      showMessage('Prosím, zadaj telefón alebo e-mail.', 'error');
+      form.elements.kontakt.focus();
+      return;
+    }
+
+    if (!validateKontakt(kontakt)) {
+      showMessage('Prosím, zadaj platný telefón alebo e-mail.', 'error');
+      form.elements.kontakt.focus();
+      return;
+    }
+
+    if (!slovo) {
+      showMessage('Musíš dať svoje slovo, že prídeš.', 'error');
+      form.elements.slovo.focus();
+      return;
+    }
+
+    // Disable submit button
+    submitButton.disabled = true;
+    submitButton.textContent = 'Odosielam...';
+
+    try {
+      const formData = new FormData();
+      formData.append('meno', meno);
+      formData.append('kontakt', kontakt);
+      formData.append('slovo', 'áno');
+      formData.append('timestamp', new Date().toISOString());
+
+      const response = await fetch(GOOGLE_SHEET_URL, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors', // Google Apps Script requires no-cors mode
+      });
+
+      // With no-cors, we can't read the response, so we assume success if no error was thrown
+      showMessage('Tvoje slovo bolo prijaté! Počítame s tebou. 🔥', 'success');
+      form.reset();
+
+      // Optional: Scroll to success message
+      if (messageEl) {
+        messageEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      showMessage('Niečo sa pokazilo. Skús to prosím znova alebo sa pripoj cez WhatsApp.', 'error');
+    } finally {
+      // Re-enable submit button
+      submitButton.disabled = false;
+      submitButton.textContent = 'Zaväzujem sa – prídem';
+    }
+  }
+
+  // Attach event listener to the form
+  const signupForm = document.getElementById('signup__form') as SignupForm | null;
+  if (signupForm) {
+    signupForm.addEventListener('submit', handleSubmit);
+  }
+</script>
