@@ -11,9 +11,9 @@ interface Props {
 }
 
 const {
-  title = 'Putovný mužský kruh Blansko, Brno | Zdieľanie pri ohni',
-  description = 'Mužský kruh Blansko a Brno. Bezpečný priestor pre mužov na Blanensku. Pravidelné stretnutia pri ohni, autentické zdieľanie, mužská podpora bez súdenia.',
-  ogImage = '/images/logo.jpg',
+  title = 'Putovní mužský kruh Blansko, Brno | Sdílení u ohně',
+  description = 'Mužský kruh Blansko a Brno. Bezpečný prostor pro muže na Blanensku. Pravidelná setkání u ohně, autentické sdílení, mužská podpora bez odsuzování.',
+  ogImage = '/images/og-image.jpg',
   schemaType = 'homepage'
 } = Astro.props;
 
@@ -27,36 +27,35 @@ const ogImageUrl = new URL(ogImage, Astro.site);
 ---
 
 <!doctype html>
-<html lang="sk">
+<html lang="cs">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark" />
     <meta name="description" content={description} />
-    <meta name="keywords" content="mužský kruh Brno, mužský kruh Blansko, Blanensko, zdieľanie u ohňa, muži Blansko, stretnutia mužov Brno, mužská podpora, kruh pre mužov, osobný rast muži" />
+    <meta name="keywords" content="mužský kruh Brno, mužský kruh Blansko, Blanensko, sdílení u ohně, muži Blansko, setkání mužů Brno, mužská podpora, kruh pro muže, osobní růst muži" />
     <meta name="geo.region" content="CZ-JM" />
     <meta name="geo.placename" content="Blansko, Brno" />
     <meta name="geo.position" content="49.3626;16.6441" />
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:site_name" content="Putovný mužský kruh" />
+    <meta property="og:site_name" content="Putovní mužský kruh" />
     <meta property="og:title" content={title} />
     <meta property="og:type" content="website" />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:locale" content="sk_SK" />
-    <meta property="og:locale:alternate" content="cs_CZ" />
+    <meta property="og:locale" content="cs_CZ" />
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Putovný mužský kruh - Logo a symbol ohňa" />
+    <meta property="og:image:alt" content="Putovní mužský kruh - logo a symbol ohně" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
-    <meta name="twitter:image:alt" content="Putovný mužský kruh - Logo a symbol ohňa" />
+    <meta name="twitter:image:alt" content="Putovní mužský kruh - logo a symbol ohně" />
 
     <!-- Favicons - generated from high-res logo -->
     <link rel="icon" type="image/png" sizes="32x32" href={favicon32.src} />

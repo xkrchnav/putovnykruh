@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
+import WhoWeAre from '../components/WhoWeAre.astro';
 import Testimonials from '../components/Testimonials.astro';
 import Schedule from '../components/Schedule.astro';
 import Pillars from '../components/Pillars.astro';
@@ -12,10 +13,11 @@ import VisitedPlacesMap from '../components/VisitedPlacesMap.astro';
 import Footer from '../components/Footer.astro';
 ---
 
-<BaseLayout>
+<BaseLayout schemaType="event">
   <Header />
   <main>
     <Hero />
+    <WhoWeAre />
     <Testimonials />
     <Schedule />
     <HowWeWork />

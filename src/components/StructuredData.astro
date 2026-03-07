@@ -7,15 +7,19 @@ interface Props {
 }
 
 const { type = 'homepage' } = Astro.props;
+import logoImage from '../assets/images/image03.jpg';
+
+const siteUrl = Astro.site ?? new URL('https://putovnykruh.cz');
+const logoUrl = new URL(logoImage.src, siteUrl).toString();
 
 // Organization Schema - appears on all pages
 const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'Putovný mužský kruh',
-  description: 'Bezpečný priestor pre mužov na Blanensku a v Brne. Zdieľanie pri ohni, autentické rozhovory, mužská podpora.',
+  name: 'Putovní mužský kruh',
+  description: 'Bezpečný prostor pro muže na Blanensku a v Brně. Sdílení u ohně, autentické rozhovory, mužská podpora.',
   url: 'https://putovnykruh.cz',
-  logo: 'https://putovnykruh.cz/images/logo.jpg',
+  logo: logoUrl,
   areaServed: [
     {
       '@type': 'City',
@@ -38,10 +42,20 @@ const organizationSchema = {
   ],
   contactPoint: {
     '@type': 'ContactPoint',
-    telephone: '+421',
+    telephone: '+420777347591',
     contactType: 'customer support',
-    availableLanguage: ['Slovak', 'Czech']
+    availableLanguage: ['Czech']
   },
+  founder: [
+    {
+      '@type': 'Person',
+      name: 'Jožo'
+    },
+    {
+      '@type': 'Person',
+      name: 'Martin'
+    }
+  ],
   sameAs: [
     'https://chat.whatsapp.com/JVL1HKS5Jj0K8hsY5YBsL4'
   ]
@@ -52,11 +66,11 @@ const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
   '@id': 'https://putovnykruh.cz/#localbusiness',
-  name: 'Putovný mužský kruh Blansko',
-  description: 'Mužský kruh pre mužov z Blanska, Brna a okolia. Stretnutia pri ohni, zdieľanie, autentické rozhovory bez súdenia.',
-  image: 'https://putovnykruh.cz/images/logo.jpg',
+  name: 'Putovní mužský kruh Blansko',
+  description: 'Mužský kruh pro muže z Blanska, Brna a okolí. Setkání u ohně, sdílení, autentické rozhovory bez odsuzování.',
+  image: logoUrl,
   url: 'https://putovnykruh.cz',
-  telephone: '+421',
+  telephone: '+420777347591',
   priceRange: 'FREE',
   geo: {
     '@type': 'GeoCoordinates',
@@ -90,29 +104,29 @@ const localBusinessSchema = {
     itemOffered: {
       '@type': 'Service',
       name: 'Mužský kruh',
-      description: 'Bezpečný priestor pre mužov na zdieľanie, podporu a osobný rast. Pravidelné stretnutia pri ohni.',
+      description: 'Bezpečný prostor pro muže pro sdílení, podporu a osobní růst. Pravidelná setkání u ohně.',
       areaServed: 'Blansko, Brno, Blanensko'
     },
     price: '0',
     priceCurrency: 'CZK'
   },
-  keywords: 'mužský kruh Brno, mužský kruh Blansko, Blanensko, zdieľanie u ohňa, muži Blansko, stretnutia mužov Brno, mužská podpora, kruh pre mužov'
+  keywords: 'mužský kruh Brno, mužský kruh Blansko, Blanensko, sdílení u ohně, muži Blansko, setkání mužů Brno, mužská podpora, kruh pro muže'
 };
 
 // Event Schema - for next circle meeting
 const eventSchema = {
   '@context': 'https://schema.org',
   '@type': 'Event',
-  name: 'Putovný mužský kruh - Stretnutie',
-  description: 'Stretnutie mužského kruhu pri ohni. Bezpečný priestor pre autentické zdieľanie, načúvanie a osobný rast mužov z Blanska a Brna.',
-  image: 'https://putovnykruh.cz/images/logo.jpg',
+  name: 'Putovní mužský kruh - Setkání',
+  description: 'Setkání mužského kruhu u ohně. Bezpečný prostor pro autentické sdílení, naslouchání a osobní růst mužů z Blanska a Brna.',
+  image: logoUrl,
   startDate: '2026-03-18T17:30:00+01:00',
   endDate: '2026-03-18T20:00:00+01:00',
   eventStatus: 'https://schema.org/EventScheduled',
   eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
   location: {
     '@type': 'Place',
-    name: 'Blansko - miesto bude upresnené',
+    name: 'Blansko - místo bude upřesněno',
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Blansko',
@@ -127,7 +141,7 @@ const eventSchema = {
   },
   organizer: {
     '@type': 'Organization',
-    name: 'Putovný mužský kruh',
+    name: 'Putovní mužský kruh',
     url: 'https://putovnykruh.cz'
   },
   offers: {
@@ -140,10 +154,10 @@ const eventSchema = {
   },
   audience: {
     '@type': 'Audience',
-    audienceType: 'Muži z Blanska, Brna a okolia'
+    audienceType: 'Muži z Blanska, Brna a okolí'
   },
-  keywords: 'mužský kruh Blansko, mužský kruh Brno, stretnutie mužov, zdieľanie pri ohni, Blanensko',
-  inLanguage: 'sk'
+  keywords: 'mužský kruh Blansko, mužský kruh Brno, setkání mužů, sdílení u ohně, Blanensko',
+  inLanguage: 'cs'
 };
 
 // Select schemas based on page type
@@ -153,5 +167,5 @@ const schemas = type === 'event'
 ---
 
 {schemas.map((schema) => (
-  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
 ))}

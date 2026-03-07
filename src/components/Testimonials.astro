@@ -7,42 +7,62 @@
 
 <section id="skusenosti" class="section" aria-labelledby="skusenosti-title">
   <div class="container">
-    <h2 id="skusenosti-title">Čo hovoria chlapi</h2>
+    <h2 id="skusenosti-title">Co říkají chlapi</h2>
     <hr class="divider" />
 
     <div class="testimonials__grid">
       <blockquote class="testimonial">
         <p class="testimonial__text">
-          &bdquo;Dlho som hľadal priestor, kde môžem byť sám sebou. V&nbsp;kruhu som našiel chlapov, ktorí počúvajú a&nbsp;nesúdia. Po&nbsp;prvom stretnutí som vedel, že sa vrátim.&ldquo;
+          &bdquo;Tady můžu otevírat témata, který by v&nbsp;hospodě nepřipadaly
+          v&nbsp;úvahu. Tím, že &bdquo;putujeme&ldquo;, vždycky to má někdo
+          skoro za domem. Platím jen svým časem a&nbsp;slovem 🙂&ldquo;
         </p>
         <footer class="testimonial__author">
-          <cite>Martin, 38</cite>
+          <cite>Jirka, <span data-member-age data-born-year="1991"></span></cite
+          >
+          <span class="testimonial__location">Bílovice nad Svitavou</span>
+        </footer>
+      </blockquote>
+
+      <blockquote class="testimonial">
+        <p class="testimonial__text">
+          &bdquo;Dlouho jsem hledal prostor, kde můžu být sám sebou.
+          V&nbsp;kruhu jsem našel chlapy, kteří poslouchají a&nbsp;nesoudí.
+          Po&nbsp;prvním setkání jsem věděl, že se vrátím.&ldquo;
+        </p>
+        <footer class="testimonial__author">
+          <cite>Jan, <span data-member-age data-born-year="1981"></span></cite>
           <span class="testimonial__location">Blansko</span>
         </footer>
       </blockquote>
 
       <blockquote class="testimonial">
         <p class="testimonial__text">
-          &bdquo;Myslel som si, že si vystačím sám. Prvý kruh mi ukázal, koľko toho v&nbsp;sebe nosím. Pustiť to von nie&nbsp;je slabosť. Je&nbsp;to sila.&ldquo;
+          &bdquo;Myslel jsem si, že si vystačím sám. První kruh mi ukázal, kolik
+          toho v&nbsp;sobě nosím. Pustit to ven není slabost. Je&nbsp;to
+          síla.&ldquo;
         </p>
         <footer class="testimonial__author">
-          <cite>Tomas, 42</cite>
-          <span class="testimonial__location">Adamov</span>
-        </footer>
-      </blockquote>
-
-      <blockquote class="testimonial">
-        <p class="testimonial__text">
-          &bdquo;Prišiel som raz, lebo ma kamarát prehovoril. Ostal som, lebo takéto rozhovory mi v&nbsp;živote chýbali. Len pravda, oheň a&nbsp;ticho, keď treba.&ldquo;
-        </p>
-        <footer class="testimonial__author">
-          <cite>Jakub, 29</cite>
+          <cite>Tomáš, <span data-member-age data-born-year="1975"></span></cite
+          >
           <span class="testimonial__location">Brno</span>
         </footer>
       </blockquote>
     </div>
   </div>
 </section>
+
+<script is:inline>
+  const memberAgeElements = document.querySelectorAll("[data-member-age]");
+
+  memberAgeElements.forEach((element) => {
+    const bornYear = Number(element.getAttribute("data-born-year"));
+    const currentYear = new Date().getFullYear();
+    if (!Number.isNaN(bornYear)) {
+      element.textContent = String(currentYear - bornYear);
+    }
+  });
+</script>
 
 <style>
   .testimonials__grid {
@@ -67,7 +87,9 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+    transition:
+      border-color var(--transition-base),
+      box-shadow var(--transition-base);
   }
 
   .testimonial:hover {

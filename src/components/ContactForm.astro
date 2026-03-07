@@ -6,21 +6,21 @@
 
 <section id="kontakt" class="section" aria-labelledby="kontakt-title">
   <div class="container contact">
-    <h3 id="kontakt-title">Nechceš byť v&nbsp;WhatsApp skupine?</h3>
+    <h3 id="kontakt-title">Nechceš být ve&nbsp;WhatsApp skupině?</h3>
     <hr class="divider" />
     <p class="contact__desc">
-      Nechaj nám kontakt. Pošleme ti len pozvánku na&nbsp;najbližší kruh. Žiadny spam.
+      Nech nám kontakt. Pošleme ti jen pozvánku na&nbsp;nejbližší kruh. Žádný spam.
     </p>
 
     <form class="contact__form" id="contact__form" method="post" action="#" novalidate>
       <div class="contact__fields">
         <div>
-          <label for="form-meno" class="sr-only">Meno</label>
+          <label for="form-meno" class="sr-only">Jméno</label>
           <input
             type="text"
             id="form-meno"
             name="meno"
-            placeholder="Meno"
+            placeholder="Jméno"
             maxlength="256"
             required
             class="form-field"
@@ -28,12 +28,12 @@
           />
         </div>
         <div>
-          <label for="form-kontakt" class="sr-only">Telefón alebo e-mail</label>
+          <label for="form-kontakt" class="sr-only">Telefon nebo e-mail</label>
           <input
             type="text"
             id="form-kontakt"
             name="kontakt"
-            placeholder="Telefón alebo e-mail"
+            placeholder="Telefon nebo e-mail"
             maxlength="128"
             required
             class="form-field"
@@ -42,13 +42,13 @@
         </div>
       </div>
       <button type="submit" class="btn btn--primary contact__submit">
-        Chcem dostávať pozvánky
+        Chci dostávat pozvánky
       </button>
 
       <div class="contact__message" id="contact__message" role="alert" aria-live="polite"></div>
 
       <p class="contact__privacy">
-        Tvoje údaje slúžia výhradne na informácie o&nbsp;stretnutiach.
+        Tvoje údaje slouží výhradně pro informace o&nbsp;setkáních.
       </p>
     </form>
   </div>
@@ -165,8 +165,8 @@
   }
 
   function validatePhone(phone: string): boolean {
-    // Slovak phone number format (with or without prefix)
-    const phoneRegex = /^(\+421|00421|0)?[0-9]{9}$/;
+    // Czech/Slovak phone number format (with or without prefix)
+    const phoneRegex = /^(\+420|00420|\+421|00421|0)?[0-9]{9}$/;
     return phoneRegex.test(phone.replace(/\s/g, ''));
   }
 
@@ -187,26 +187,26 @@
     const kontakt = form.elements.kontakt.value.trim();
 
     if (!meno) {
-      showMessage('Prosím, zadaj svoje meno.', 'error');
+      showMessage('Prosím, zadej svoje jméno.', 'error');
       form.elements.meno.focus();
       return;
     }
 
     if (!kontakt) {
-      showMessage('Prosím, zadaj telefón alebo e-mail.', 'error');
+      showMessage('Prosím, zadej telefon nebo e-mail.', 'error');
       form.elements.kontakt.focus();
       return;
     }
 
     if (!validateKontakt(kontakt)) {
-      showMessage('Prosím, zadaj platný telefón alebo e-mail.', 'error');
+      showMessage('Prosím, zadej platný telefon nebo e-mail.', 'error');
       form.elements.kontakt.focus();
       return;
     }
 
     // Disable submit button
     submitButton.disabled = true;
-    submitButton.textContent = 'Odosielam...';
+    submitButton.textContent = 'Odesílám...';
 
     try {
       const formData = new FormData();
@@ -214,14 +214,14 @@
       formData.append('kontakt', kontakt);
       formData.append('timestamp', new Date().toISOString());
 
-      const response = await fetch(GOOGLE_SHEET_URL, {
+      await fetch(GOOGLE_SHEET_URL, {
         method: 'POST',
         body: formData,
         mode: 'no-cors', // Google Apps Script requires no-cors mode
       });
 
       // With no-cors, we can't read the response, so we assume success if no error was thrown
-      showMessage('Ďakujeme! Budeme ťa informovať o najbližšom kruhu.', 'success');
+      showMessage('Děkujeme! Budeme tě informovat o nejbližším kruhu.', 'success');
       form.reset();
 
       // Optional: Scroll to success message
@@ -230,11 +230,11 @@
       }
     } catch (error) {
       console.error('Form submission error:', error);
-      showMessage('Niečo sa pokazilo. Skús to prosím znova.', 'error');
+      showMessage('Něco se pokazilo. Zkus to prosím znovu.', 'error');
     } finally {
       // Re-enable submit button
       submitButton.disabled = false;
-      submitButton.textContent = 'Chcem dostávať pozvánky';
+      submitButton.textContent = 'Chci dostávat pozvánky';
     }
   }
 
