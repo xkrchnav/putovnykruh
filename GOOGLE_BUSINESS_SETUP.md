@@ -6,6 +6,9 @@ Google Business Profile (formerly Google My Business) will help your men's circl
 - "mužský kruh Blansko"
 - "stretnutia mužov Brno"
 - "mužská podpora Blanensko"
+- "mužský kruh Blansko"
+- "setkání mužů Brno"
+- "mužská podpora Blanenska"
 
 ### Step-by-Step Setup
 
@@ -58,7 +61,7 @@ Putovný mužský kruh Blansko
 
 **Description (750 characters max):**
 ```
-Putovný mužský kruh je bezpečný priestor pre mužov z Blanska, Brna a okolia. Pravidelné stretnutia pri ohni zamerané na autentické zdieľanie, načúvanie a osobný rast. Vytvárame podporné prostredie, kde muži môžu hovoriť pravdu bez súdenia, zdieľať svoje výzvy a rásť spolu ako bratstvo. Stretávame sa vonku v prírode na Blanensku, vždy pri ohni. Žiadne poplatky - platí sa mužským slovom a integritou. Pre mužov, ktorí hľadajú viac než povrchné debaty.
+Putovný mužský kruh je bezpečný prostor pro muže z Blanska, Brna a okolí. Pravidelná setkání u ohně zaměřená na autentické sdílení, naslouchání a osobní růst. Vytváříme podpůrné prostředí, kde muži mohou mluvit pravdu bez odsuzování, sdílet své výzvy a růst spolu jako bratrstvo. Setkáváme se venku v přírodě na Blanensku, vždy u ohně. Žádné poplatky - platí se mužským slovem a integritou. Pro muže, kteří hledají více než povrchní debaty.
 ```
 
 **Phone Number:**
@@ -140,50 +143,50 @@ Google Business Posts appear in search results and keep your profile active.
 
 **Event Post (for each circle):**
 ```
-📅 Najbližší Putovný kruh
-18. marec 2026 o 17:30
-Miesto: [bude upresnené]
+📅 Nejbližší Putovný kruh
+18. březen 2026 v 17:30
+Místo: [bude upřesněno]
 
-Bezpečný priestor pre mužov na zdieľanie pri ohni.
-Prihlás sa: https://putovnykruh.cz/#prihlaska
+Bezpečný prostor pro muže ke sdílení u ohně.
+Přihlásit se: https://putovnykruh.cz/#prihlaska
 
-#MužskýKruhBlansko #Blanenského
+#MužskýKruhBlansko #Blanenska
 ```
 
 **Update Post (testimonials):**
 ```
-💬 "Dlho som hľadal priestor, kde môžem byť sám sebou..."
+💬 "Dlouho jsem hledal prostor, kde mohu být sám sebou..."
 - Martin, 38, Blansko
 
-Príď na naše stretnutie a zažij autentické mužské bratstvo.
+Přijď na naše setkání a zažij autentické mužské bratrství.
 ```
 
 **Offer Post (emphasize free):**
 ```
-🔥 Všetko zadarmo. Žiadne skryté poplatky.
-Platí sa len mužským slovom a integritou.
+🔥 Všechno zdarma. Žádné skryté poplatky.
+Platí se jen mužským slovem a integritou.
 
-Prihlásiť sa môžeš tu: https://putovnykruh.cz
+Přihlásit se můžeš zde: https://putovnykruh.cz
 ```
 
 #### 9. Q&A Section
 
 Pre-emptively add common questions:
 
-**Q: Je to naozaj zadarmo?**
-A: Áno, účasť je úplne zadarmo. Neplatíme peniazmi, platíme integritou a mužským slovom.
+**Q: Je to opravdu zdarma?**
+A: Ano, účast je zcela zdarma. Neplatíme penězi, platíme integritou a mužským slovem.
 
-**Q: Musím niečo priniesť?**
-A: Nie, stačí prísť. Prinášaš len seba a ochotu byť úprimný.
+**Q: Musím něco přinést?**
+A: Ne, stačí přijít. Přinášíš jen sebe a ochotu být upřímný.
 
-**Q: Kde sa stretávame?**
-A: Stretávame sa vonku v prírode na Blanensku, vždy pri ohni. Konkrétne miesto je upresnené pri každom stretnutí.
+**Q: Kde se setkáváme?**
+A: Setkáváme se venku v přírodě na Blanensku, vždy u ohně. Konkrétní místo je upřesněno před každým setkáním.
 
-**Q: Môžem prísť aj z Brna?**
-A: Určite! Mnohí účastníci prichádzajú z Brna a okolia.
+**Q: Můžu přijít i z Brna?**
+A: Určitě! Mnoho účastníků přijíždí z Brna a okolí.
 
-**Q: Je to len pre mužov?**
-A: Áno, kruh je určený výhradne pre mužov.
+**Q: Je to jen pro muže?**
+A: Ano, kruh je určen výhradně pro muže.
 
 #### 10. Reviews Management
 
