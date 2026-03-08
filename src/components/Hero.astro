@@ -5,6 +5,14 @@
  */
 import { Image } from 'astro:assets';
 import heroLogo from '../assets/images/image03.jpg';
+import type { CircleEntry } from '../lib/circles';
+import { formatCircleDateTime } from '../lib/circles';
+
+interface Props {
+  upcomingCircle?: CircleEntry | null;
+}
+
+const { upcomingCircle = null } = Astro.props;
 ---
 
 <section id="domov" class="hero" aria-labelledby="hero-title">
@@ -28,6 +36,18 @@ import heroLogo from '../assets/images/image03.jpg';
       Odlož masku. Mluv pravdu, ze srdce. Naslouchej bez odsuzování.<br/>
       Setkáváme se u ohně, abychom rostli.
     </p>
+
+    {
+      upcomingCircle && (
+        <div class="hero__upcoming card" aria-label="Nejbližší kruh">
+          <p class="hero__upcoming-label">Nejbližší kruh</p>
+          <p class="hero__upcoming-meta">{formatCircleDateTime(upcomingCircle.data.startsAt)}</p>
+          <p class="hero__upcoming-meta">{upcomingCircle.data.place}</p>
+          {upcomingCircle.data.topic && <p class="hero__upcoming-topic">{upcomingCircle.data.topic}</p>}
+        </div>
+      )
+    }
+
     <div class="hero__cta">
       <a href="#prihlaska" class="btn btn--primary btn--large">Chci přijít</a>
       <a href="#skusenosti" class="btn btn--large">Co říkají chlapi</a>
@@ -113,6 +133,38 @@ import heroLogo from '../assets/images/image03.jpg';
     width: 100%;
     max-width: 20rem;
     margin-bottom: var(--space-lg);
+  }
+
+  .hero__upcoming {
+    width: 100%;
+    max-width: 30rem;
+    margin-bottom: var(--space-xl);
+    padding: var(--space-lg);
+    border-left: 3px solid var(--color-accent);
+    text-align: center;
+  }
+
+  .hero__upcoming-label {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: var(--space-xs);
+  }
+
+  .hero__upcoming-meta {
+    margin-bottom: var(--space-xs);
+    font-size: 1rem;
+    color: var(--color-text);
+  }
+
+  .hero__upcoming-topic {
+    margin-bottom: 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-heading);
   }
 
   .hero__free {

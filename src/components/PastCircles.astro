@@ -3,17 +3,22 @@
  * Past Circles - compact, collapsible history
  */
 import { Image } from "astro:assets";
-import gallery03_1 from "../assets/images/gallery03/dfa6b9ac.jpg";
-import gallery03_2 from "../assets/images/gallery03/cfbc7686.jpg";
-import gallery03_3 from "../assets/images/gallery03/8453a2c9.jpg";
-import gallery03_4 from "../assets/images/gallery03/3bae7497.jpg";
-import image06 from "../assets/images/image06.jpg";
-import gallery01_1 from "../assets/images/gallery01/5017e92a.jpg";
-import gallery01_2 from "../assets/images/gallery01/f7995c85.jpg";
-import image05 from "../assets/images/image05.jpg";
-import gallery02_1 from "../assets/images/gallery02/11e02508.jpg";
-import gallery02_2 from "../assets/images/gallery02/d272647a.jpg";
-import kupacka from "../assets/images/260304/IMG_20260304_193942325_HDR.jpg";
+import { render } from 'astro:content';
+import type { CircleEntry } from '../lib/circles';
+import { formatCircleDate } from '../lib/circles';
+
+interface Props {
+  circles: CircleEntry[];
+}
+
+const { circles } = Astro.props;
+
+const renderedCircles = await Promise.all(
+  circles.map(async (circle) => {
+    const { Content } = await render(circle);
+    return { circle, Content };
+  }),
+);
 ---
 
 <section class="section" aria-labelledby="minule-title">
@@ -25,183 +30,37 @@ import kupacka from "../assets/images/260304/IMG_20260304_193942325_HDR.jpg";
     </p>
 
     <div class="past__timeline">
-      <!-- 4. 3. 2026 -->
-      <article class="past-event">
-        <div class="past-event__header">
-          <span class="past-event__date">4. 3. 2026</span>
-          <span class="past-event__location">Babí doly</span>
-        </div>
-        <h3>Jakou si chystám budoucnost?</h3>
-        <p>Po delší době opět Babí doly, kde jsme všichni tři využili ledové koupání.</p>
-        <div class="gallery gallery--four">
-          <Image
-            src={kupacka}
-            alt="Ledové koupání"
-            width={506}
-            height={900}
-            loading="lazy"
-            format="webp"
-          />          
-        </div>
-      </article>
+      {renderedCircles.map(({ circle, Content }) => (
+        <article class="past-event">
+          <div class="past-event__header">
+            <span class="past-event__date">{formatCircleDate(circle.data.startsAt)}</span>
+            <span class="past-event__location">{circle.data.place}</span>
+          </div>
+          <h3>{circle.data.title}</h3>
+          <p>{circle.data.description}</p>
 
-      <!-- 19. 2. 2026 -->
-      <article class="past-event">
-        <div class="past-event__header">
-          <span class="past-event__date">19. 2. 2026</span>
-          <span class="past-event__location">Adamov</span>
-        </div>
-        <h3>Naše závislosti &ndash; páni, nebo otroci?</h3>
-        <p>Posezení u ohně o tom, co nás ovládá a co ovládáme my.</p>
-        <div class="gallery gallery--four">
-          <Image
-            src={gallery03_1}
-            alt="Oheň"
-            width={506}
-            height={900}
-            loading="lazy"
-            format="webp"
-          />
-          <Image
-            src={gallery03_2}
-            alt="Žár"
-            width={506}
-            height={900}
-            loading="lazy"
-            format="webp"
-          />
-          <Image
-            src={gallery03_3}
-            alt="Noc"
-            width={506}
-            height={900}
-            loading="lazy"
-            format="webp"
-          />
-          <Image
-            src={gallery03_4}
-            alt="Zima"
-            width={506}
-            height={900}
-            loading="lazy"
-            format="webp"
-          />
-        </div>
-      </article>
+          <div class="past-event__body prose">
+            <Content />
+          </div>
 
-      <!-- 4. 2. 2026 -->
-      <article class="past-event">
-        <div class="past-event__header">
-          <span class="past-event__date">4. 2. 2026</span>
-          <span class="past-event__location">Lysice</span>
-        </div>
-        <h3>Slovo jako zbraň</h3>
-        <p>
-          Inspirováno videem <a
-            href="https://youtu.be/2FTx7DV7sv8?si=g9rkWdZqzZEX0awO"
-            target="_blank"
-            rel="noopener noreferrer"
-            >This Is How You Become More Articulate | Jordan Peterson</a
-          >. Čtyři chlapi, hluboký rozhovor.
-        </p>
-
-        <Image
-          src={image06}
-          alt="Setkání u ohně"
-          class="rounded-img past-event__img"
-          width={800}
-          height={584}
-          loading="lazy"
-          format="webp"
-        />
-      </article>
-
-      <!-- 21. 1. 2026 -->
-      <article class="past-event">
-        <div class="past-event__header">
-          <span class="past-event__date">21. 1. 2026</span>
-          <span class="past-event__location">Žernovník</span>
-        </div>
-        <h3>Sex</h3>
-        <p>
-          Hluboké ponoření do tématu pod hvězdami. A také do pramenných jezírek.
-        </p>
-        <div class="gallery">
-          <Image
-            src={gallery01_1}
-            alt="Oheň"
-            width={621}
-            height={900}
-            loading="lazy"
-            format="webp"
-          />
-          <Image
-            src={gallery01_2}
-            alt="Voda"
-            width={1020}
-            height={900}
-            loading="lazy"
-            format="webp"
-          />
-        </div>
-      </article>
-
-      <!-- 7. 1. 2026 -->
-      <article class="past-event">
-        <div class="past-event__header">
-          <span class="past-event__date">7. 1. 2026</span>
-          <span class="past-event__location">Bílovice</span>
-        </div>
-        <h3>První hranice</h3>
-        <p>
-          Kde to celé začalo? Čtyři chlapi, nečekané a o&nbsp;to lepší.
-        </p>
-        <Image
-          src={image05}
-          alt="Noční oheň"
-          class="rounded-img past-event__img"
-          width={895}
-          height={894}
-          loading="lazy"
-          format="webp"
-        />
-      </article>
-
-      <!-- 29. 9. 2025 -->
-      <article class="past-event">
-        <div class="past-event__header">
-          <span class="past-event__date">29. 9. 2025</span>
-          <span class="past-event__location">Babí doly</span>
-        </div>
-        <h3>Pouta a&nbsp;svobody v&nbsp;životě muže</h3>
-        <p>
-          Pět chlapů, dva odvážlivci ve vodě. Silný kruh. Inspirováno
-          knihou <a
-            href="https://selfdefinition.org/psychology/Esther-Vilar-The-Manipulated-Man.pdf"
-            target="_blank"
-            rel="noopener noreferrer">Esther Vilar - The Manipulated Man</a
-          >.
-        </p>
-
-        <div class="gallery">
-          <Image
-            src={gallery02_1}
-            alt="Babí důl"
-            width={800}
-            height={593}
-            loading="lazy"
-            format="webp"
-          />
-          <Image
-            src={gallery02_2}
-            alt="Oheň u vody"
-            width={800}
-            height={678}
-            loading="lazy"
-            format="webp"
-          />
-        </div>
-      </article>
+          {
+            circle.data.gallery.length > 0 && (
+              <div class={`gallery ${circle.data.gallery.length >= 4 ? 'gallery--four' : ''}`}>
+                {circle.data.gallery.map((image: CircleEntry['data']['gallery'][number]) => (
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    width={800}
+                    height={900}
+                    loading="lazy"
+                    format="webp"
+                  />
+                ))}
+              </div>
+            )
+          }
+        </article>
+      ))}
     </div>
   </div>
 </section>
@@ -260,10 +119,20 @@ import kupacka from "../assets/images/260304/IMG_20260304_193942325_HDR.jpg";
   .past-event > p {
     font-size: 0.95rem;
     color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
   }
 
-  .past-event__img {
-    margin-top: var(--space-md);
-    max-width: 100%;
+  .past-event__body {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .past-event__body :global(p) {
+    margin-bottom: var(--space-sm);
+  }
+
+  .past-event__body :global(a) {
+    color: var(--color-accent);
   }
 </style>

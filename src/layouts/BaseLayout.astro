@@ -8,13 +8,25 @@ interface Props {
   description?: string;
   ogImage?: string;
   schemaType?: 'homepage' | 'event';
+  schemaEvent?: {
+    title: string;
+    description: string;
+    startsAt: Date;
+    endsAt?: Date;
+    place: string;
+    locality: string;
+    addressRegion: string;
+    addressCountry: string;
+    topic?: string;
+  } | null;
 }
 
 const {
   title = 'Putovní mužský kruh Blansko, Brno | Sdílení u ohně',
   description = 'Mužský kruh Blansko a Brno. Bezpečný prostor pro muže na Blanensku. Pravidelná setkání u ohně, autentické sdílení, mužská podpora bez odsuzování.',
   ogImage = '/images/og-image.jpg',
-  schemaType = 'homepage'
+  schemaType = 'homepage',
+  schemaEvent = null,
 } = Astro.props;
 
 // Generate optimized favicons from the high-res logo
@@ -76,7 +88,7 @@ const ogImageUrl = new URL(ogImage, Astro.site);
     <title>{title}</title>
 
     <!-- Structured Data -->
-    <StructuredData type={schemaType} />
+    <StructuredData type={schemaType} event={schemaEvent} />
   </head>
   <body>
     <div class="bg-pattern" aria-hidden="true"></div>

@@ -4,9 +4,20 @@
 
 interface Props {
   type?: 'homepage' | 'event';
+  event?: {
+    title: string;
+    description: string;
+    startsAt: Date;
+    endsAt?: Date;
+    place: string;
+    locality: string;
+    addressRegion: string;
+    addressCountry: string;
+    topic?: string;
+  } | null;
 }
 
-const { type = 'homepage' } = Astro.props;
+const { type = 'homepage', event = null } = Astro.props;
 import logoImage from '../assets/images/image03.jpg';
 
 const siteUrl = Astro.site ?? new URL('https://putovnykruh.cz');
@@ -113,55 +124,59 @@ const localBusinessSchema = {
   keywords: 'mužský kruh Brno, mužský kruh Blansko, Blanensko, sdílení u ohně, muži Blansko, setkání mužů Brno, mužská podpora, kruh pro muže'
 };
 
-// Event Schema - for next circle meeting
-const eventSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Event',
-  name: 'Putovní mužský kruh - Setkání',
-  description: 'Setkání mužského kruhu u ohně. Bezpečný prostor pro autentické sdílení, naslouchání a osobní růst mužů z Blanska a Brna.',
-  image: logoUrl,
-  startDate: '2026-03-18T17:30:00+01:00',
-  endDate: '2026-03-18T20:00:00+01:00',
-  eventStatus: 'https://schema.org/EventScheduled',
-  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-  location: {
-    '@type': 'Place',
-    name: 'Blansko - místo bude upřesněno',
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Blansko',
-      addressRegion: 'Jihomoravský kraj',
-      addressCountry: 'CZ'
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: '49.3626',
-      longitude: '16.6441'
+const defaultEventDescription =
+  'Setkání mužského kruhu u ohně. Bezpečný prostor pro autentické sdílení, naslouchání a osobní růst mužů z Blanska a Brna.';
+
+const eventSchema = event
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'Event',
+      name: event.topic ? `Putovní mužský kruh - ${event.topic}` : event.title,
+      description: event.description || defaultEventDescription,
+      image: logoUrl,
+      startDate: event.startsAt.toISOString(),
+      endDate: (event.endsAt ?? new Date(event.startsAt.getTime() + 2.5 * 60 * 60 * 1000)).toISOString(),
+      eventStatus: 'https://schema.org/EventScheduled',
+      eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+      location: {
+        '@type': 'Place',
+        name: event.place,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: event.locality,
+          addressRegion: event.addressRegion,
+          addressCountry: event.addressCountry,
+        },
+        geo: {
+          '@type': 'GeoCoordinates',
+          latitude: '49.3626',
+          longitude: '16.6441',
+        },
+      },
+      organizer: {
+        '@type': 'Organization',
+        name: 'Putovní mužský kruh',
+        url: 'https://putovnykruh.cz',
+      },
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'CZK',
+        availability: 'https://schema.org/InStock',
+        url: 'https://putovnykruh.cz/#prihlaska',
+        validFrom: new Date().toISOString(),
+      },
+      audience: {
+        '@type': 'Audience',
+        audienceType: 'Muži z Blanska, Brna a okolí',
+      },
+      keywords: 'mužský kruh Blansko, mužský kruh Brno, setkání mužů, sdílení u ohně, Blanensko',
+      inLanguage: 'cs',
     }
-  },
-  organizer: {
-    '@type': 'Organization',
-    name: 'Putovní mužský kruh',
-    url: 'https://putovnykruh.cz'
-  },
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'CZK',
-    availability: 'https://schema.org/InStock',
-    url: 'https://putovnykruh.cz/#prihlaska',
-    validFrom: new Date().toISOString()
-  },
-  audience: {
-    '@type': 'Audience',
-    audienceType: 'Muži z Blanska, Brna a okolí'
-  },
-  keywords: 'mužský kruh Blansko, mužský kruh Brno, setkání mužů, sdílení u ohně, Blanensko',
-  inLanguage: 'cs'
-};
+  : null;
 
 // Select schemas based on page type
-const schemas = type === 'event' 
+const schemas = type === 'event' && eventSchema
   ? [organizationSchema, localBusinessSchema, eventSchema]
   : [organizationSchema, localBusinessSchema];
 ---

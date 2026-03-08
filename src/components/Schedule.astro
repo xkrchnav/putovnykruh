@@ -3,6 +3,18 @@
  * Schedule + Signup form - the core conversion section
  * Next circle date + inline signup form (commitment-based)
  */
+import type { CircleEntry } from '../lib/circles';
+import { circleTopicLabel, formatCircleDateTime } from '../lib/circles';
+
+interface Props {
+  nextCircle: CircleEntry;
+  followingCircle?: CircleEntry | null;
+}
+
+const { nextCircle, followingCircle = null } = Astro.props;
+
+const nextCircleTopic = circleTopicLabel(nextCircle);
+const followingCircleTopic = followingCircle ? circleTopicLabel(followingCircle) : null;
 ---
 
 <section id="prihlaska" class="section signup-section" aria-labelledby="prihlaska-title">
@@ -15,19 +27,19 @@
     <div class="signup__card card">
       <div class="signup__details">
         <div class="signup__meta">
-          <div class="signup__meta-item">
-            <span class="signup__meta-label">Kdy</span>
-            <span class="signup__meta-value">18. 3. 2026 o 17:30</span>
+            <div class="signup__meta-item">
+              <span class="signup__meta-label">Kdy</span>
+              <span class="signup__meta-value">{formatCircleDateTime(nextCircle.data.startsAt)}</span>
+            </div>
+            <div class="signup__meta-item">
+              <span class="signup__meta-label">Kde</span>
+              <span class="signup__meta-value">{nextCircle.data.place}</span>
+            </div>
+            <div class="signup__meta-item">
+              <span class="signup__meta-label">Téma</span>
+              <span class="signup__meta-value">{nextCircleTopic}</span>
+            </div>
           </div>
-          <div class="signup__meta-item">
-            <span class="signup__meta-label">Kde</span>
-            <span class="signup__meta-value">Bílovice nad Svitavou</span>
-          </div>
-          <div class="signup__meta-item">
-            <span class="signup__meta-label">Téma</span>
-            <span class="signup__meta-value">bude upřesněno</span>
-          </div>
-        </div>
         <p class="signup__desc">
           Každé setkání má jasný rámec: respekt, důvěra a prostor mluvit bez přerušování.
         </p>
@@ -110,7 +122,20 @@
 
     <div class="signup__upcoming">
       <p class="signup__upcoming-label">Další termín</p>
-      <p class="signup__upcoming-date"><strong>1. 4. 2026 17:30</strong> &ndash; místo a téma budou upřesněny</p>
+      {
+        followingCircle ? (
+          <p class="signup__upcoming-date">
+            <strong>{formatCircleDateTime(followingCircle.data.startsAt)}</strong>
+            {' '}
+            &ndash;
+            {' '}
+            {followingCircle.data.place}
+            {followingCircleTopic ? `, ${followingCircleTopic}` : ''}
+          </p>
+        ) : (
+          <p class="signup__upcoming-date">Další termín bude brzy vypsán.</p>
+        )
+      }
     </div>
   </div>
 </section>

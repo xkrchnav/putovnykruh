@@ -11,19 +11,38 @@ import ContactForm from '../components/ContactForm.astro';
 import PastCircles from '../components/PastCircles.astro';
 import VisitedPlacesMap from '../components/VisitedPlacesMap.astro';
 import Footer from '../components/Footer.astro';
+import { getCirclesState } from '../lib/circles';
+
+const { nextCircle, followingCircle, pastCircles } = await getCirclesState();
+
+if (!nextCircle) {
+  throw new Error('No upcoming circle found in content collection "circles".');
+}
+
+const schemaEvent = {
+  title: nextCircle.data.title,
+  description: nextCircle.data.description,
+  startsAt: nextCircle.data.startsAt,
+  endsAt: nextCircle.data.endsAt,
+  place: nextCircle.data.place,
+  locality: nextCircle.data.locality,
+  addressRegion: nextCircle.data.addressRegion,
+  addressCountry: nextCircle.data.addressCountry,
+  topic: nextCircle.data.topic,
+};
 ---
 
-<BaseLayout schemaType="event">
+<BaseLayout schemaType="event" schemaEvent={schemaEvent}>
   <Header />
   <main>
-    <Hero />
+    <Hero upcomingCircle={nextCircle} />
     <WhoWeAre />
     <Testimonials />
-    <Schedule />
+    <Schedule nextCircle={nextCircle} followingCircle={followingCircle} />
     <HowWeWork />
     <Pillars />
     <VisitedPlacesMap />
-    <PastCircles />
+    <PastCircles circles={pastCircles} />
     <ContactForm />
   </main>
   <Footer />
