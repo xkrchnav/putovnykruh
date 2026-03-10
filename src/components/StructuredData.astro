@@ -5,7 +5,6 @@
 interface Props {
   type?: 'homepage' | 'event';
   event?: {
-    title: string;
     description: string;
     startsAt: Date;
     endsAt?: Date;
@@ -127,15 +126,33 @@ const localBusinessSchema = {
 const defaultEventDescription =
   'Setkání mužského kruhu u ohně. Bezpečný prostor pro autentické sdílení, naslouchání a osobní růst mužů z Blanska a Brna.';
 
+function formatSchemaDateTime(date: Date): string {
+  const datePart = new Intl.DateTimeFormat('cs-CZ', {
+    timeZone: 'Europe/Prague',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(date);
+
+  const timePart = new Intl.DateTimeFormat('cs-CZ', {
+    timeZone: 'Europe/Prague',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).format(date);
+
+  return `${datePart}T${timePart}`;
+}
+
 const eventSchema = event
   ? {
       '@context': 'https://schema.org',
       '@type': 'Event',
-      name: event.topic ? `Putovní mužský kruh - ${event.topic}` : event.title,
+      name: event.topic ? `Putovní mužský kruh - ${event.topic}` : 'Putovní mužský kruh - bude upřesněno',
       description: event.description || defaultEventDescription,
       image: logoUrl,
-      startDate: event.startsAt.toISOString(),
-      endDate: (event.endsAt ?? new Date(event.startsAt.getTime() + 2.5 * 60 * 60 * 1000)).toISOString(),
+      startDate: formatSchemaDateTime(event.startsAt),
+      endDate: formatSchemaDateTime(event.endsAt ?? new Date(event.startsAt.getTime() + 2.5 * 60 * 60 * 1000)),
       eventStatus: 'https://schema.org/EventScheduled',
       eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
       location: {

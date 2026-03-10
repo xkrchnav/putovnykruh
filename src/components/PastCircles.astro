@@ -5,7 +5,7 @@
 import { Image } from "astro:assets";
 import { render } from 'astro:content';
 import type { CircleEntry } from '../lib/circles';
-import { formatCircleDate } from '../lib/circles';
+import { circleTopicLabel, formatCircleDate } from '../lib/circles';
 
 interface Props {
   circles: CircleEntry[];
@@ -36,8 +36,7 @@ const renderedCircles = await Promise.all(
             <span class="past-event__date">{formatCircleDate(circle.data.startsAt)}</span>
             <span class="past-event__location">{circle.data.place}</span>
           </div>
-          <h3>{circle.data.title}</h3>
-          <p>{circle.data.description}</p>
+          <h3>{circleTopicLabel(circle)}</h3>
 
           <div class="past-event__body prose">
             <Content />
@@ -114,12 +113,6 @@ const renderedCircles = await Promise.all(
     text-transform: none;
     color: var(--color-heading);
     margin-bottom: var(--space-sm);
-  }
-
-  .past-event > p {
-    font-size: 0.95rem;
-    color: var(--color-text-muted);
-    margin-bottom: var(--space-md);
   }
 
   .past-event__body {

@@ -5,6 +5,7 @@
  */
 import type { CircleEntry } from '../lib/circles';
 import { circleTopicLabel, formatCircleDateTime } from '../lib/circles';
+import { render } from 'astro:content';
 
 interface Props {
   nextCircle: CircleEntry;
@@ -15,6 +16,7 @@ const { nextCircle, followingCircle = null } = Astro.props;
 
 const nextCircleTopic = circleTopicLabel(nextCircle);
 const followingCircleTopic = followingCircle ? circleTopicLabel(followingCircle) : null;
+const { Content } = await render(nextCircle);
 ---
 
 <section id="prihlaska" class="section signup-section" aria-labelledby="prihlaska-title">
@@ -41,13 +43,11 @@ const followingCircleTopic = followingCircle ? circleTopicLabel(followingCircle)
             </div>
           </div>
         <p class="signup__desc">
-          Každé setkání má jasný rámec: respekt, důvěra a prostor mluvit bez přerušování.
+          {nextCircle.data.description}
         </p>
-        <ul class="styled-list">
-          <li>Příchod ideálně 10 minut před začátkem</li>
-          <li>Otevřenost bez hodnocení a bez rad na sílu</li>
-          <li>Diskrétnost: co zazní v kruhu, zůstává v kruhu</li>
-        </ul>
+        <div class="signup__content prose">
+          <Content />
+        </div>
       </div>
 
       <hr class="divider--wide" />
@@ -124,14 +124,17 @@ const followingCircleTopic = followingCircle ? circleTopicLabel(followingCircle)
       <p class="signup__upcoming-label">Další termín</p>
       {
         followingCircle ? (
-          <p class="signup__upcoming-date">
-            <strong>{formatCircleDateTime(followingCircle.data.startsAt)}</strong>
-            {' '}
-            &ndash;
-            {' '}
-            {followingCircle.data.place}
-            {followingCircleTopic ? `, ${followingCircleTopic}` : ''}
-          </p>
+          <>
+            <p class="signup__upcoming-date">
+              <strong>{formatCircleDateTime(followingCircle.data.startsAt)}</strong>
+              {' '}
+              &ndash;
+              {' '}
+              {followingCircle.data.place}
+              {followingCircleTopic ? `, ${followingCircleTopic}` : ''}
+            </p>
+            <p class="signup__upcoming-desc">{followingCircle.data.description}</p>
+          </>
         ) : (
           <p class="signup__upcoming-date">Další termín bude brzy vypsán.</p>
         )
@@ -196,6 +199,11 @@ const followingCircleTopic = followingCircle ? circleTopicLabel(followingCircle)
 
   .signup__desc {
     font-size: 1.05rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .signup__content {
+    color: var(--color-text-muted);
     margin-bottom: var(--space-lg);
   }
 
@@ -332,7 +340,13 @@ const followingCircleTopic = followingCircle ? circleTopicLabel(followingCircle)
 
   .signup__upcoming-date {
     color: var(--color-text-muted);
+    margin-bottom: var(--space-xs);
+  }
+
+  .signup__upcoming-desc {
+    color: var(--color-text-muted);
     margin-bottom: 0;
+    font-size: 0.95rem;
   }
 </style>
 

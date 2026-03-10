@@ -6,13 +6,14 @@
 import { Image } from 'astro:assets';
 import heroLogo from '../assets/images/image03.jpg';
 import type { CircleEntry } from '../lib/circles';
-import { formatCircleDateTime } from '../lib/circles';
+import { circleTopicLabel, formatCircleDateTime } from '../lib/circles';
 
 interface Props {
   upcomingCircle?: CircleEntry | null;
 }
 
 const { upcomingCircle = null } = Astro.props;
+const upcomingCircleTopic = upcomingCircle ? circleTopicLabel(upcomingCircle) : null;
 ---
 
 <section id="domov" class="hero" aria-labelledby="hero-title">
@@ -43,7 +44,7 @@ const { upcomingCircle = null } = Astro.props;
           <p class="hero__upcoming-label">Nejbližší kruh</p>
           <p class="hero__upcoming-meta">{formatCircleDateTime(upcomingCircle.data.startsAt)}</p>
           <p class="hero__upcoming-meta">{upcomingCircle.data.place}</p>
-          {upcomingCircle.data.topic && <p class="hero__upcoming-topic">{upcomingCircle.data.topic}</p>}
+          {upcomingCircleTopic && <p class="hero__upcoming-topic">{upcomingCircleTopic}</p>}
         </div>
       )
     }

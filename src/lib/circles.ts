@@ -47,12 +47,14 @@ export function formatCircleDateTime(date: Date): string {
     day: 'numeric',
     month: 'numeric',
     year: 'numeric',
+    timeZone: 'Europe/Prague',
   }).format(date);
 
   const timePart = new Intl.DateTimeFormat('cs-CZ', {
     hour: '2-digit',
     minute: '2-digit',
     hour12: false,
+    timeZone: 'Europe/Prague',
   }).format(date);
 
   return `${datePart} o ${timePart}`;
@@ -63,6 +65,7 @@ export function formatCircleDate(date: Date): string {
     day: 'numeric',
     month: 'numeric',
     year: 'numeric',
+    timeZone: 'Europe/Prague',
   }).format(date);
 }
 
