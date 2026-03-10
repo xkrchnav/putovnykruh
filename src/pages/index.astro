@@ -13,7 +13,8 @@ import VisitedPlacesMap from '../components/VisitedPlacesMap.astro';
 import Footer from '../components/Footer.astro';
 import { getCirclesState } from '../lib/circles';
 
-const { nextCircle, followingCircle, pastCircles } = await getCirclesState();
+const { nextCircle, upcomingCircles, pastCircles } = await getCirclesState();
+const nextUpcomingCircles = upcomingCircles.slice(1, 4);
 
 if (!nextCircle) {
   throw new Error('No upcoming circle found in content collection "circles".');
@@ -37,7 +38,7 @@ const schemaEvent = {
     <Hero upcomingCircle={nextCircle} />
     <WhoWeAre />
     <Testimonials />
-    <Schedule nextCircle={nextCircle} followingCircle={followingCircle} />
+    <Schedule nextCircle={nextCircle} nextUpcomingCircles={nextUpcomingCircles} />
     <HowWeWork />
     <Pillars />
     <VisitedPlacesMap />

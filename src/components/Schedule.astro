@@ -9,14 +9,14 @@ import { render } from 'astro:content';
 
 interface Props {
   nextCircle: CircleEntry;
-  followingCircle?: CircleEntry | null;
+  nextUpcomingCircles?: CircleEntry[];
 }
 
-const { nextCircle, followingCircle = null } = Astro.props;
+const { nextCircle, nextUpcomingCircles = [] } = Astro.props;
 
 const nextCircleTopic = circleTopicLabel(nextCircle);
-const followingCircleTopic = followingCircle ? circleTopicLabel(followingCircle) : null;
 const { Content } = await render(nextCircle);
+const upcomingLabel = nextUpcomingCircles.length > 1 ? 'Další termíny' : 'Další termín';
 ---
 
 <section id="prihlaska" class="section signup-section" aria-labelledby="prihlaska-title">
@@ -121,20 +121,30 @@ const { Content } = await render(nextCircle);
     </div>
 
     <div class="signup__upcoming">
-      <p class="signup__upcoming-label">Další termín</p>
+      <p class="signup__upcoming-label">{upcomingLabel}</p>
       {
-        followingCircle ? (
-          <>
-            <p class="signup__upcoming-date">
-              <strong>{formatCircleDateTime(followingCircle.data.startsAt)}</strong>
-              {' '}
-              &ndash;
-              {' '}
-              {followingCircle.data.place}
-              {followingCircleTopic ? `, ${followingCircleTopic}` : ''}
-            </p>
-            <p class="signup__upcoming-desc">{followingCircle.data.description}</p>
-          </>
+        nextUpcomingCircles.length > 0 ? (
+          <ul class="signup__upcoming-list">
+            {
+              nextUpcomingCircles.map((circle) => {
+                const topic = circleTopicLabel(circle);
+
+                return (
+                  <li class="signup__upcoming-item">
+                    <p class="signup__upcoming-date">
+                      <strong>{formatCircleDateTime(circle.data.startsAt)}</strong>
+                      {' '}
+                      &ndash;
+                      {' '}
+                      {circle.data.place}
+                      {topic ? `, ${topic}` : ''}
+                    </p>
+                    <p class="signup__upcoming-desc">{circle.data.description}</p>
+                  </li>
+                );
+              })
+            }
+          </ul>
         ) : (
           <p class="signup__upcoming-date">Další termín bude brzy vypsán.</p>
         )
@@ -341,6 +351,18 @@ const { Content } = await render(nextCircle);
   .signup__upcoming-date {
     color: var(--color-text-muted);
     margin-bottom: var(--space-xs);
+  }
+
+  .signup__upcoming-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .signup__upcoming-item + .signup__upcoming-item {
+    margin-top: var(--space-md);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-border);
   }
 
   .signup__upcoming-desc {
