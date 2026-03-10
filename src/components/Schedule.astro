@@ -105,7 +105,8 @@ const upcomingLabel = nextUpcomingCircles.length > 1 ? 'Další termíny' : 'Dal
           </div>
 
           <button type="submit" class="btn btn--primary btn--large signup__submit">
-            Zavazuji se &ndash; přijdu
+            <span class="signup__submit-line">Zavazuji se,</span>
+            <span class="signup__submit-line signup__submit-line--break">přijdu</span>
           </button>
 
           <div class="signup__message" id="signup__message" role="alert" aria-live="polite"></div>
@@ -286,8 +287,29 @@ const upcomingLabel = nextUpcomingCircles.length > 1 ? 'Další termíny' : 'Dal
   }
 
   .signup__submit {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.35em;
     width: 100%;
     max-width: 28rem;
+  }
+
+  .signup__submit-line {
+    white-space: nowrap;
+  }
+
+  .signup__submit-line--break {
+    flex-basis: 100%;
+  }
+
+  @media (min-width: 30rem) {
+    .signup__submit {
+      flex-wrap: nowrap;
+    }
+
+    .signup__submit-line--break {
+      flex-basis: auto;
+    }
   }
 
   .signup__note {
@@ -430,6 +452,7 @@ const upcomingLabel = nextUpcomingCircles.length > 1 ? 'Další termíny' : 'Dal
 
     const form = event.target as SignupForm;
     const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const initialSubmitMarkup = submitButton.innerHTML;
     const messageEl = document.getElementById('signup__message');
 
     // Validate form
@@ -492,7 +515,7 @@ const upcomingLabel = nextUpcomingCircles.length > 1 ? 'Další termíny' : 'Dal
     } finally {
       // Re-enable submit button
       submitButton.disabled = false;
-      submitButton.textContent = 'Zavazuji se – přijdu';
+      submitButton.innerHTML = initialSubmitMarkup;
     }
   }
 

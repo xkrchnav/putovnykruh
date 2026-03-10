@@ -206,7 +206,10 @@ img {
   background: transparent;
   cursor: pointer;
   transition: all var(--transition-base);
-  white-space: nowrap;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.35;
+  word-break: normal;
 }
 
 .btn:hover,
