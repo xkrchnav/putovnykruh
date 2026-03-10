@@ -5,7 +5,7 @@ import { z } from 'astro/zod';
 const PRAGUE_DATE_TIME_REGEX = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/;
 
 function getTimeZoneOffsetMinutes(date: Date, timeZone: string): number {
-  const timeZoneNamePart = new Intl.DateTimeFormat('en-US', {
+  const timeZoneNamePart = new Intl.DateTimeFormat('cs-CZ', {
     timeZone,
     timeZoneName: 'shortOffset',
   })
@@ -16,7 +16,7 @@ function getTimeZoneOffsetMinutes(date: Date, timeZone: string): number {
     return 0;
   }
 
-  const normalized = timeZoneNamePart.replace('GMT', '');
+  const normalized = timeZoneNamePart.replace(/^(GMT|UTC)/, '');
   if (normalized === '' || normalized === '0') {
     return 0;
   }
