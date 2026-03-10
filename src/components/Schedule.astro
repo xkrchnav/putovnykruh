@@ -116,7 +116,11 @@ const upcomingLabel = nextUpcomingCircles.length > 1 ? 'Další termíny' : 'Dal
           </p>
         </form>
 
-        <div class="signup__alt">
+        <div class="signup__alt signup__alt--mobile">
+          <p>Nebo se připoj přes <a href="https://chat.whatsapp.com/JVL1HKS5Jj0K8hsY5YBsL4" target="_blank" rel="noopener noreferrer">WhatsApp skupinu</a>.</p>
+        </div>
+
+        <div class="signup__alt signup__alt--desktop">
           <p>Nebo se připoj přes WhatsApp:</p>
           <a
             href="https://chat.whatsapp.com/JVL1HKS5Jj0K8hsY5YBsL4"
@@ -358,6 +362,30 @@ const upcomingLabel = nextUpcomingCircles.length > 1 ? 'Další termíny' : 'Dal
     font-size: 0.9rem;
     color: var(--color-text-muted);
     margin-bottom: var(--space-md);
+  }
+
+  .signup__alt--mobile a {
+    color: #25d366;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
+  .signup__alt--mobile {
+    display: block;
+  }
+
+  .signup__alt--desktop {
+    display: none;
+  }
+
+  @media (min-width: 30rem) {
+    .signup__alt--mobile {
+      display: none;
+    }
+
+    .signup__alt--desktop {
+      display: block;
+    }
   }
 
   .signup__upcoming {

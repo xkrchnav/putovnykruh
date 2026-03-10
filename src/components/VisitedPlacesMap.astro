@@ -41,7 +41,14 @@ const placesJson = JSON.stringify(places);
           ))}
         </ul>
 
-        <div class="places__cta">
+        <div class="places__cta places__cta--mobile">
+          <p>
+            Chceš se přidat? Ozvi se nám přes
+            <a href="https://chat.whatsapp.com/JVL1HKS5Jj0K8hsY5YBsL4" target="_blank" rel="noopener noreferrer">WhatsApp skupinu</a>.
+          </p>
+        </div>
+
+        <div class="places__cta places__cta--desktop">
           <p>
             Máš svoje místo, kde by se mohl konat další kruh?
             <strong> Poskytni ho a pozvi kruh k sobě domů.</strong>
@@ -170,6 +177,30 @@ const placesJson = JSON.stringify(places);
 
   .places__cta p {
     margin-bottom: var(--space-md);
+  }
+
+  .places__cta--mobile {
+    display: block;
+  }
+
+  .places__cta--mobile a {
+    color: #25d366;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
+  .places__cta--desktop {
+    display: none;
+  }
+
+  @media (min-width: 48rem) {
+    .places__cta--mobile {
+      display: none;
+    }
+
+    .places__cta--desktop {
+      display: block;
+    }
   }
 
   .places__note {
