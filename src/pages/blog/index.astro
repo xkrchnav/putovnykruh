@@ -1,0 +1,227 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import type { CollectionEntry } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+const posts = allPosts.sort(
+  (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime(),
+);
+
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat('cs-CZ', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(date);
+}
+
+type BlogEntry = CollectionEntry<'blog'>;
+---
+
+<BaseLayout
+  title="Blog | Putovní mužský kruh"
+  description="Zamyšlení, zkušenosti a příběhy z putovního mužského kruhu či jiné inspirace."
+>
+  <Header />
+  <main>
+    <section class="section blog-listing" aria-labelledby="blog-title">
+      <div class="container">
+        <a href="/" class="back-link">← Zpět na hlavní stránku</a>
+        <h1 id="blog-title">Blog</h1>
+        <hr class="divider" />
+        <p class="blog-listing__intro">
+          Zamyšlení, zkušenosti a příběhy z mužského kruhu či jiné inspirace.
+        </p>
+
+        <div class="blog-grid">
+          {
+            posts.map((post: BlogEntry) => (
+              <article class="blog-card">
+                {post.data.image && (
+                  <a href={`/blog/${post.id}`} class="blog-card__img-wrap" tabindex="-1" aria-hidden="true">
+                    <Image
+                      src={post.data.image}
+                      alt={post.data.title}
+                      width={800}
+                      height={450}
+                      format="webp"
+                      class="blog-card__img"
+                    />
+                  </a>
+                )}
+                <div class="blog-card__body">
+                  <div class="blog-card__meta">
+                    <time datetime={post.data.publishedAt.toISOString()}>
+                      {formatDate(post.data.publishedAt)}
+                    </time>
+                    {post.data.author && (
+                      <span class="blog-card__meta-sep">·</span>
+                      <span class="blog-card__author">{post.data.author}</span>
+                    )}
+                  </div>
+                  <h2 class="blog-card__title">
+                    <a href={`/blog/${post.id}`}>{post.data.title}</a>
+                  </h2>
+                  <p class="blog-card__desc">{post.data.description}</p>
+                  <a href={`/blog/${post.id}`} class="btn blog-card__cta">Číst více →</a>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .back-link {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    margin-bottom: var(--space-xl);
+    transition: color var(--transition-fast);
+  }
+
+  .back-link:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  h1 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .blog-listing__intro {
+    color: var(--color-text-muted);
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+
+  @media (min-width: 40rem) {
+    .blog-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .blog-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .blog-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: border-color var(--transition-base), transform var(--transition-base);
+  }
+
+  .blog-card:hover {
+    border-color: rgba(255, 100, 30, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .blog-card__img-wrap {
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+  }
+
+  .blog-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-base);
+  }
+
+  .blog-card:hover .blog-card__img {
+    transform: scale(1.04);
+  }
+
+  .blog-card__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: var(--space-lg);
+    gap: var(--space-sm);
+  }
+
+  .blog-card__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 0.8rem;
+    color: var(--color-text-dim);
+    font-family: var(--font-heading);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .blog-card__meta time {
+    color: var(--color-accent);
+  }
+
+  .blog-card__meta-sep {
+    color: var(--color-text-dim);
+  }
+
+  .blog-card__author {
+    color: var(--color-text-muted);
+  }
+
+  .blog-card__title {
+    font-size: 1.1rem;
+    letter-spacing: 0.03em;
+    text-transform: none;
+    margin-bottom: 0;
+    line-height: 1.35;
+  }
+
+  .blog-card__title a {
+    color: var(--color-heading);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .blog-card__title a:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .blog-card__desc {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    flex: 1;
+    margin-bottom: 0;
+  }
+
+  .blog-card__cta {
+    align-self: flex-start;
+    margin-top: var(--space-md);
+    font-size: 0.75rem;
+    padding: 0.6rem 1.4rem;
+    letter-spacing: 0.12em;
+  }
+</style>

@@ -1,0 +1,170 @@
+---
+/**
+ * Latest blog posts — shown after Minulé kruhy on the homepage
+ */
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+}
+
+const { posts } = Astro.props;
+
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat('cs-CZ', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(date);
+}
+---
+
+<section class="section latest-blog" aria-labelledby="blog-teaser-title">
+  <div class="container">
+    <h2 id="blog-teaser-title">Z blogu</h2>
+    <hr class="divider" />
+    <p class="latest-blog__intro">
+      Zamyšlení a zkušenosti z kruhu a odjinud.
+    </p>
+
+    <div class="latest-blog__grid">
+      {
+        posts.map((post) => (
+          <article class="teaser-card">
+            {post.data.image && (
+              <a href={`/blog/${post.id}`} class="teaser-card__img-wrap" tabindex="-1" aria-hidden="true">
+                <Image
+                  src={post.data.image}
+                  alt={post.data.title}
+                  width={480}
+                  height={270}
+                  format="webp"
+                  loading="lazy"
+                  class="teaser-card__img"
+                />
+              </a>
+            )}
+            <div class="teaser-card__body">
+              <time class="teaser-card__date" datetime={post.data.publishedAt.toISOString()}>
+                {formatDate(post.data.publishedAt)}
+              </time>
+              <h3 class="teaser-card__title">
+                <a href={`/blog/${post.id}`}>{post.data.title}</a>
+              </h3>
+              <p class="teaser-card__desc">{post.data.description}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="latest-blog__more">
+      <a href="/blog" class="btn">Všechny články →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .latest-blog__intro {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .latest-blog__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 40rem) {
+    .latest-blog__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .teaser-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: border-color var(--transition-base), transform var(--transition-base);
+  }
+
+  .teaser-card:hover {
+    border-color: rgba(255, 100, 30, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .teaser-card__img-wrap {
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+  }
+
+  .teaser-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-base);
+  }
+
+  .teaser-card:hover .teaser-card__img {
+    transform: scale(1.04);
+  }
+
+  .teaser-card__body {
+    padding: var(--space-md) var(--space-lg) var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .teaser-card__date {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .teaser-card__title {
+    font-size: 1rem;
+    text-transform: none;
+    letter-spacing: 0.02em;
+    line-height: 1.35;
+    margin-bottom: 0;
+  }
+
+  .teaser-card__title a {
+    color: var(--color-heading);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .teaser-card__title a:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .teaser-card__desc {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .latest-blog__more {
+    margin-top: var(--space-2xl);
+    text-align: center;
+  }
+</style>

@@ -1,0 +1,298 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat('cs-CZ', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(date);
+}
+---
+
+<BaseLayout
+  title={`${post.data.title} | Blog | Putovní mužský kruh`}
+  description={post.data.description}
+  ogImage={post.data.image ? undefined : undefined}
+>
+  <Header />
+  <main>
+    {
+      post.data.image && (
+        <div class="article-hero">
+          <Image
+            src={post.data.image}
+            alt={post.data.title}
+            width={1200}
+            height={500}
+            format="webp"
+            class="article-hero__img"
+          />
+          <div class="article-hero__overlay" aria-hidden="true" />
+        </div>
+      )
+    }
+
+    <article class="section article-content" aria-labelledby="article-title">
+      <div class="container article-container">
+        <a href="/blog" class="back-link">← Zpět na blog</a>
+
+        <header class="article-header">
+          <div class="article-meta">
+            <time datetime={post.data.publishedAt.toISOString()}>
+              {formatDate(post.data.publishedAt)}
+            </time>
+            {
+              post.data.author && (
+                <span class="article-meta__sep">·</span>
+                <span class="article-meta__author-wrap">
+                  {post.data.authorIcon && (
+                    <Image
+                      src={post.data.authorIcon}
+                      alt={post.data.author}
+                      width={32}
+                      height={32}
+                      format="webp"
+                      class="article-meta__avatar"
+                    />
+                  )}
+                  <span class="article-meta__author">{post.data.author}</span>
+                </span>
+              )
+            }
+          </div>
+
+          <h1 id="article-title">{post.data.title}</h1>
+          <hr class="divider" />
+          <p class="article-lead">{post.data.description}</p>
+        </header>
+
+        <div class="prose">
+          <Content />
+        </div>
+
+        <footer class="article-footer">
+          <hr class="divider--wide" />
+          <a href="/blog" class="btn">← Zpět na blog</a>
+        </footer>
+      </div>
+    </article>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .article-hero {
+    position: relative;
+    width: 100%;
+    max-height: 28rem;
+    overflow: hidden;
+    margin-top: 4rem; /* header height */
+  }
+
+  .article-hero__img {
+    width: 100%;
+    height: 100%;
+    max-height: 28rem;
+    object-fit: cover;
+    display: block;
+  }
+
+  .article-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 50%,
+      var(--color-bg) 100%
+    );
+  }
+
+  .article-container {
+    max-width: 44rem;
+  }
+
+  .back-link {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    margin-bottom: var(--space-xl);
+    transition: color var(--transition-fast);
+  }
+
+  .back-link:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .article-header {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 0.8rem;
+    font-family: var(--font-heading);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-dim);
+    margin-bottom: var(--space-lg);
+  }
+
+  .article-meta time {
+    color: var(--color-accent);
+  }
+
+  .article-meta__sep {
+    color: var(--color-text-dim);
+  }
+
+  .article-meta__author-wrap {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .article-meta__avatar {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--color-border);
+  }
+
+  .article-meta__author {
+    color: var(--color-text-muted);
+  }
+
+  h1 {
+    margin-bottom: var(--space-sm);
+    text-transform: none;
+    letter-spacing: 0.04em;
+    line-height: 1.15;
+  }
+
+  .article-lead {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-top: var(--space-lg);
+    margin-bottom: 0;
+    font-style: italic;
+  }
+
+  /* Prose typography */
+  .prose {
+    color: var(--color-text);
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+
+  .prose :global(h2) {
+    font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+    text-transform: none;
+    letter-spacing: 0.03em;
+    color: var(--color-heading);
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-xs);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .prose :global(h3) {
+    font-size: 1.1rem;
+    text-transform: none;
+    letter-spacing: 0.02em;
+    color: var(--color-heading);
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .prose :global(p) {
+    margin-bottom: var(--space-lg);
+    color: var(--color-text);
+  }
+
+  .prose :global(a) {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .prose :global(a:hover) {
+    color: var(--color-accent-hover);
+  }
+
+  .prose :global(strong) {
+    color: var(--color-heading);
+    font-weight: 600;
+  }
+
+  .prose :global(em) {
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  .prose :global(blockquote) {
+    border-left: 3px solid var(--color-fire);
+    padding-left: var(--space-lg);
+    margin-left: 0;
+    margin-block: var(--space-xl);
+    color: var(--color-text-muted);
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    padding-left: var(--space-xl);
+    margin-bottom: var(--space-lg);
+  }
+
+  .prose :global(li) {
+    margin-bottom: var(--space-sm);
+    color: var(--color-text);
+  }
+
+  .prose :global(img) {
+    border-radius: 0.5rem;
+    margin-block: var(--space-xl);
+    width: 100%;
+    height: auto;
+  }
+
+  .prose :global(hr) {
+    border: none;
+    height: 1px;
+    background: var(--color-border);
+    margin-block: var(--space-2xl);
+  }
+
+  .article-footer {
+    margin-top: var(--space-3xl);
+  }
+</style>

@@ -11,10 +11,17 @@ import ContactForm from '../components/ContactForm.astro';
 import PastCircles from '../components/PastCircles.astro';
 import VisitedPlacesMap from '../components/VisitedPlacesMap.astro';
 import Footer from '../components/Footer.astro';
+import LatestBlogPosts from '../components/LatestBlogPosts.astro';
 import { getCirclesState } from '../lib/circles';
+import { getCollection } from 'astro:content';
 
 const { nextCircle, upcomingCircles, pastCircles } = await getCirclesState();
 const nextUpcomingCircles = upcomingCircles.slice(1, 4);
+
+const allBlogPosts = await getCollection('blog');
+const latestBlogPosts = allBlogPosts
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
+  .slice(0, 3);
 
 if (!nextCircle) {
   throw new Error('No upcoming circle found in content collection "circles".');
@@ -43,6 +50,7 @@ const schemaEvent = {
     <Pillars />
     <VisitedPlacesMap />
     <PastCircles circles={pastCircles} />
+    <LatestBlogPosts posts={latestBlogPosts} />
     <ContactForm />
   </main>
   <Footer />

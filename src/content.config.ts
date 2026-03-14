@@ -72,4 +72,17 @@ const circles = defineCollection({
     }),
 });
 
-export const collections = { circles };
+const blog = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      publishedAt: z.coerce.date(),
+      author: z.string().optional(),
+      authorIcon: image().optional(),
+      image: image().optional(),
+    }),
+});
+
+export const collections = { circles, blog };
