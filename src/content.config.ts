@@ -54,10 +54,10 @@ const circles = defineCollection({
   schema: ({ image }) =>
     z.object({
       topic: z.string().optional(),
-      description: z.string(),
+      description: z.string().optional(),
       startsAt: pragueDateTimeSchema,
       endsAt: pragueDateTimeSchema.optional(),
-      place: z.string(),
+      place: z.string().optional().default('místo bude upřesněno'),
       locality: z.string().default('Blansko'),
       addressRegion: z.string().default('Jihomoravský kraj'),
       addressCountry: z.string().default('CZ'),

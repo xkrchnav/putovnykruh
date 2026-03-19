@@ -3,9 +3,9 @@
  * Schedule + Signup form - the core conversion section
  * Next circle date + inline signup form (commitment-based)
  */
-import type { CircleEntry } from '../lib/circles';
-import { circleTopicLabel, formatCircleDateTime } from '../lib/circles';
-import { render } from 'astro:content';
+import type { CircleEntry } from "../lib/circles";
+import { circleTopicLabel, formatCircleDateTime } from "../lib/circles";
+import { render } from "astro:content";
 
 interface Props {
   nextCircle: CircleEntry;
@@ -16,10 +16,15 @@ const { nextCircle, nextUpcomingCircles = [] } = Astro.props;
 
 const nextCircleTopic = circleTopicLabel(nextCircle);
 const { Content } = await render(nextCircle);
-const upcomingLabel = nextUpcomingCircles.length > 1 ? 'Další termíny' : 'Další termín';
+const upcomingLabel =
+  nextUpcomingCircles.length > 1 ? "Další termíny" : "Další termín";
 ---
 
-<section id="prihlaska" class="section signup-section" aria-labelledby="prihlaska-title">
+<section
+  id="prihlaska"
+  class="section signup-section"
+  aria-labelledby="prihlaska-title"
+>
   <div class="container">
     <div class="signup__hero">
       <h2 id="prihlaska-title">Nejbližší kruh</h2>
@@ -29,28 +34,27 @@ const upcomingLabel = nextUpcomingCircles.length > 1 ? 'Další termíny' : 'Dal
     <div class="signup__card card">
       <div class="signup__details">
         <div class="signup__meta">
-            <div class="signup__meta-item">
-              <span class="signup__meta-label">Kdy</span>
-              <span class="signup__meta-value">{formatCircleDateTime(nextCircle.data.startsAt)}</span>
-            </div>
-            <div class="signup__meta-item">
-              <span class="signup__meta-label">Kde</span>
-              <span class="signup__meta-value">{nextCircle.data.place}</span>
-            </div>
-            <div class="signup__meta-item">
-              <span class="signup__meta-label">Téma</span>
-              <span class="signup__meta-value">{nextCircleTopic}</span>
-            </div>
+          <div class="signup__meta-item">
+            <span class="signup__meta-label">Kdy</span>
+            <span class="signup__meta-value"
+              >{formatCircleDateTime(nextCircle.data.startsAt)}</span
+            >
           </div>
+          <div class="signup__meta-item">
+            <span class="signup__meta-label">Kde</span>
+            <span class="signup__meta-value">{nextCircle.data.place}</span>
+          </div>
+          <div class="signup__meta-item">
+            <span class="signup__meta-label">Téma</span>
+            <span class="signup__meta-value">{nextCircleTopic}</span>
+          </div>
+        </div>
         <p class="signup__desc">
           {nextCircle.data.description}
         </p>
         <div class="signup__content prose">
           <Content />
-          <p>
-            Každé setkání má jasný rámec: respekt, důvěra a prostor mluvit bez přerušování.
-            Téma je pouze vodítko.
-          </p>
+          <p>Téma je pouze vodítko.</p>
           <ul class="styled-list">
             <li>Příchod ideálně 10 minut před začátkem</li>
             <li>Otevřenost bez hodnocení a bez rad na sílu</li>
@@ -64,10 +68,17 @@ const upcomingLabel = nextUpcomingCircles.length > 1 ? 'Další termíny' : 'Dal
       <div class="signup__form-wrap">
         <h3 class="signup__form-title">Dej své slovo</h3>
         <p class="signup__form-desc">
-          Tvoje přihláška není kliknutí. Je to <strong>mužské slovo</strong> &ndash; závazek vůči sobě a&nbsp;ostatním. Počítáme s&nbsp;tebou.
+          Tvoje přihláška není kliknutí. Je to <strong>mužské slovo</strong> &ndash;
+          závazek vůči sobě a&nbsp;ostatním. Počítáme s&nbsp;tebou.
         </p>
 
-        <form class="signup__form" id="signup__form" method="post" action="#" novalidate>
+        <form
+          class="signup__form"
+          id="signup__form"
+          method="post"
+          action="#"
+          novalidate
+        >
           <div class="signup__fields">
             <div>
               <label for="signup-meno" class="sr-only">Jméno</label>
@@ -83,7 +94,9 @@ const upcomingLabel = nextUpcomingCircles.length > 1 ? 'Další termíny' : 'Dal
               />
             </div>
             <div>
-              <label for="signup-kontakt" class="sr-only">Telefon nebo e-mail</label>
+              <label for="signup-kontakt" class="sr-only"
+                >Telefon nebo e-mail</label
+              >
               <input
                 type="text"
                 id="signup-kontakt"
@@ -104,20 +117,38 @@ const upcomingLabel = nextUpcomingCircles.length > 1 ? 'Další termíny' : 'Dal
             </label>
           </div>
 
-          <button type="submit" class="btn btn--primary btn--large signup__submit">
+          <button
+            type="submit"
+            class="btn btn--primary btn--large signup__submit"
+          >
             <span class="signup__submit-line">Zavazuji se,</span>
-            <span class="signup__submit-line signup__submit-line--break">přijdu</span>
+            <span class="signup__submit-line signup__submit-line--break"
+              >přijdu</span
+            >
           </button>
 
-          <div class="signup__message" id="signup__message" role="alert" aria-live="polite"></div>
+          <div
+            class="signup__message"
+            id="signup__message"
+            role="alert"
+            aria-live="polite"
+          >
+          </div>
 
           <p class="signup__note">
-            Všechno je zdarma. Žádné poplatky. Jen tvoje přítomnost a&nbsp;odvaha.
+            Všechno je zdarma. Žádné poplatky. Jen tvoje přítomnost
+            a&nbsp;odvaha.
           </p>
         </form>
 
         <div class="signup__alt signup__alt--mobile">
-          <p>Nebo se připoj přes <a href="https://chat.whatsapp.com/JVL1HKS5Jj0K8hsY5YBsL4" target="_blank" rel="noopener noreferrer">WhatsApp skupinu</a>.</p>
+          <p>
+            Nebo se připoj přes <a
+              href="https://chat.whatsapp.com/JVL1HKS5Jj0K8hsY5YBsL4"
+              target="_blank"
+              rel="noopener noreferrer">WhatsApp skupinu</a
+            >.
+          </p>
         </div>
 
         <div class="signup__alt signup__alt--desktop">
@@ -139,25 +170,22 @@ const upcomingLabel = nextUpcomingCircles.length > 1 ? 'Další termíny' : 'Dal
       {
         nextUpcomingCircles.length > 0 ? (
           <ul class="signup__upcoming-list">
-            {
-              nextUpcomingCircles.map((circle) => {
-                const topic = circleTopicLabel(circle);
+            {nextUpcomingCircles.map((circle) => {
+              const topic = circleTopicLabel(circle);
 
-                return (
-                  <li class="signup__upcoming-item">
-                    <p class="signup__upcoming-date">
-                      <strong>{formatCircleDateTime(circle.data.startsAt)}</strong>
-                      {' '}
-                      &ndash;
-                      {' '}
-                      {circle.data.place}
-                      {topic ? `, ${topic}` : ''}
-                    </p>
-                    <p class="signup__upcoming-desc">{circle.data.description}</p>
-                  </li>
-                );
-              })
-            }
+              return (
+                <li class="signup__upcoming-item">
+                  <p class="signup__upcoming-date">
+                    <strong>
+                      {formatCircleDateTime(circle.data.startsAt)}
+                    </strong>{" "}
+                    &ndash; {circle.data.place}
+                    {topic ? `, ${topic}` : ""}
+                  </p>
+                  <p class="signup__upcoming-desc">{circle.data.description}</p>
+                </li>
+              );
+            })}
           </ul>
         ) : (
           <p class="signup__upcoming-date">Další termín bude brzy vypsán.</p>
@@ -169,8 +197,11 @@ const upcomingLabel = nextUpcomingCircles.length > 1 ? 'Další termíny' : 'Dal
 
 <style>
   .signup-section {
-    background:
-      radial-gradient(ellipse at 50% 0%, rgba(180, 60, 0, 0.08) 0%, transparent 50%);
+    background: radial-gradient(
+      ellipse at 50% 0%,
+      rgba(180, 60, 0, 0.08) 0%,
+      transparent 50%
+    );
   }
 
   .signup__hero {
@@ -237,7 +268,11 @@ const upcomingLabel = nextUpcomingCircles.length > 1 ? 'Další termíny' : 'Dal
 
   .signup__form-title {
     font-size: clamp(1.3rem, 3vw, 1.8rem);
-    background: linear-gradient(135deg, var(--color-fire-bright), var(--color-accent));
+    background: linear-gradient(
+      135deg,
+      var(--color-fire-bright),
+      var(--color-accent)
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -442,19 +477,20 @@ const upcomingLabel = nextUpcomingCircles.length > 1 ? 'Další termíny' : 'Dal
     readonly elements: FormElements;
   }
 
-  const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbxuz-7bQYjVz3YlGAHslGdCIDUFI8tZd7XUnGMK8Vnb9LIRudL_Wet6EXQe6s4RuoPLiA/exec';
+  const GOOGLE_SHEET_URL =
+    "https://script.google.com/macros/s/AKfycbxuz-7bQYjVz3YlGAHslGdCIDUFI8tZd7XUnGMK8Vnb9LIRudL_Wet6EXQe6s4RuoPLiA/exec";
 
-  function showMessage(message: string, type: 'success' | 'error'): void {
-    const messageEl = document.getElementById('signup__message');
+  function showMessage(message: string, type: "success" | "error"): void {
+    const messageEl = document.getElementById("signup__message");
     if (!messageEl) return;
 
     messageEl.textContent = message;
     messageEl.className = `signup__message visible ${type}`;
 
     // Auto-hide success message after 5 seconds
-    if (type === 'success') {
+    if (type === "success") {
       setTimeout(() => {
-        messageEl.classList.remove('visible');
+        messageEl.classList.remove("visible");
       }, 5000);
     }
   }
@@ -467,7 +503,7 @@ const upcomingLabel = nextUpcomingCircles.length > 1 ? 'Další termíny' : 'Dal
   function validatePhone(phone: string): boolean {
     // Czech/Slovak phone number format (with or without prefix)
     const phoneRegex = /^(\+420|00420|\+421|00421|0)?[0-9]{9}$/;
-    return phoneRegex.test(phone.replace(/\s/g, ''));
+    return phoneRegex.test(phone.replace(/\s/g, ""));
   }
 
   function validateKontakt(kontakt: string): boolean {
@@ -479,9 +515,11 @@ const upcomingLabel = nextUpcomingCircles.length > 1 ? 'Další termíny' : 'Dal
     event.preventDefault();
 
     const form = event.target as SignupForm;
-    const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const submitButton = form.querySelector(
+      'button[type="submit"]',
+    ) as HTMLButtonElement;
     const initialSubmitMarkup = submitButton.innerHTML;
-    const messageEl = document.getElementById('signup__message');
+    const messageEl = document.getElementById("signup__message");
 
     // Validate form
     const meno = form.elements.meno.value.trim();
@@ -489,57 +527,60 @@ const upcomingLabel = nextUpcomingCircles.length > 1 ? 'Další termíny' : 'Dal
     const slovo = form.elements.slovo.checked;
 
     if (!meno) {
-      showMessage('Prosím, zadej svoje jméno.', 'error');
+      showMessage("Prosím, zadej svoje jméno.", "error");
       form.elements.meno.focus();
       return;
     }
 
     if (!kontakt) {
-      showMessage('Prosím, zadej telefon nebo e-mail.', 'error');
+      showMessage("Prosím, zadej telefon nebo e-mail.", "error");
       form.elements.kontakt.focus();
       return;
     }
 
     if (!validateKontakt(kontakt)) {
-      showMessage('Prosím, zadej platný telefon nebo e-mail.', 'error');
+      showMessage("Prosím, zadej platný telefon nebo e-mail.", "error");
       form.elements.kontakt.focus();
       return;
     }
 
     if (!slovo) {
-      showMessage('Musíš dát své slovo, že přijdeš.', 'error');
+      showMessage("Musíš dát své slovo, že přijdeš.", "error");
       form.elements.slovo.focus();
       return;
     }
 
     // Disable submit button
     submitButton.disabled = true;
-    submitButton.textContent = 'Odesílám...';
+    submitButton.textContent = "Odesílám...";
 
     try {
       const formData = new FormData();
-      formData.append('meno', meno);
-      formData.append('kontakt', kontakt);
-      formData.append('slovo', 'ano');
-      formData.append('timestamp', new Date().toISOString());
+      formData.append("meno", meno);
+      formData.append("kontakt", kontakt);
+      formData.append("slovo", "ano");
+      formData.append("timestamp", new Date().toISOString());
 
       await fetch(GOOGLE_SHEET_URL, {
-        method: 'POST',
+        method: "POST",
         body: formData,
-        mode: 'no-cors', // Google Apps Script requires no-cors mode
+        mode: "no-cors", // Google Apps Script requires no-cors mode
       });
 
       // With no-cors, we can't read the response, so we assume success if no error was thrown
-      showMessage('Tvoje slovo bylo přijato! Počítáme s tebou. 🔥', 'success');
+      showMessage("Tvoje slovo bylo přijato! Počítáme s tebou. 🔥", "success");
       form.reset();
 
       // Optional: Scroll to success message
       if (messageEl) {
-        messageEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        messageEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
       }
     } catch (error) {
-      console.error('Form submission error:', error);
-      showMessage('Něco se pokazilo. Zkus to prosím znovu nebo se připoj přes WhatsApp.', 'error');
+      console.error("Form submission error:", error);
+      showMessage(
+        "Něco se pokazilo. Zkus to prosím znovu nebo se připoj přes WhatsApp.",
+        "error",
+      );
     } finally {
       // Re-enable submit button
       submitButton.disabled = false;
@@ -548,8 +589,10 @@ const upcomingLabel = nextUpcomingCircles.length > 1 ? 'Další termíny' : 'Dal
   }
 
   // Attach event listener to the form
-  const signupForm = document.getElementById('signup__form') as SignupForm | null;
+  const signupForm = document.getElementById(
+    "signup__form",
+  ) as SignupForm | null;
   if (signupForm) {
-    signupForm.addEventListener('submit', handleSubmit);
+    signupForm.addEventListener("submit", handleSubmit);
   }
 </script>

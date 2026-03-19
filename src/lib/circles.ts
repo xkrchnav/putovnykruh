@@ -70,5 +70,5 @@ export function formatCircleDate(date: Date): string {
 }
 
 export function circleTopicLabel(circle: CircleEntry): string {
-  return circle.data.topic ?? 'bude upřesněno';
+  return circle.data.topic ?? 'téma bude upřesněna';
 }

@@ -3,20 +3,24 @@
  * Who we are - founder trust section (SEO/E-E-A-T support)
  * Uses real founder portraits
  */
-import { Image } from 'astro:assets';
-import jozoPhoto from '../assets/images/jozo.jpg';
-import martinPhoto from '../assets/images/martin.jpeg';
+import { Image } from "astro:assets";
+import jozoPhoto from "../assets/images/jozo.jpg";
+import martinPhoto from "../assets/images/martin.jpeg";
 ---
 
-<section id="kdo-jsme" class="section founders" aria-labelledby="kdo-jsme-title">
+<section
+  id="kdo-jsme"
+  class="section founders"
+  aria-labelledby="kdo-jsme-title"
+>
   <div class="container">
     <h2 id="kdo-jsme-title">Kdo jsme</h2>
     <hr class="divider" />
 
     <p class="founders__intro">
-      Chodili jsme na kruhy dlouho a postupně nám začalo dávat hluboký smysl posunout to dál.
-      Přinést tenhle způsob setkávání do našich končin — a otevřít ho i dalším mužům, kteří hledají
-      opravdovost, oporu a směr.
+      Chodili jsme na kruhy dlouho a postupně nám začalo dávat hluboký smysl
+      posunout to dál. Přinést tenhle způsob setkávání do našich končin — a
+      otevřít ho i dalším mužům, kteří hledají opravdovost, oporu a směr.
     </p>
 
     <div class="founders__grid">
@@ -32,12 +36,23 @@ import martinPhoto from '../assets/images/martin.jpeg';
         />
         <h3>Jožo, <span data-founder-age data-born-year="1985"></span></h3>
         <p>
-Mám rád zdieľanie v kruhu. Pomerne dlho mi však trvalo, kým som pochopil, že muž sa stáva mužom len v prítomnosti iných mužov. Po rozvode rodičov som vyrastal cca od dvanástich rokov bez otca. Myslel som si, že mi mama dá všetko, čo potrebujem.
- </p> <p>
-Aj keď som neskôr na seminároch počúval, že ‚muž potrebuje muža‘, v duchu som si obhajoval mamu a klamal som sám sebe, aký chlap zo mňa vyrástol. No v realite som často cítil slabosť. Až neskôr mi došlo, že hoci som doma milujúcim partnerom, ten skutočný rast a dočerpanie sily prichádza až medzi chlapmi.
- </p> <p>
-Pochopil som, že riešiť všetko so ženou je často vyčerpávajúce pre obe strany – ju to zbytočne zaťažuje a mne to nedáva to, čo hľadám. Dnes, keď sa mi kopia témy, viem, že mám kam ísť. A to je úžasné. Som veľmi vďačný, že s Martinom môžeme pre nás všetkých držať tento priestor.
-         
+          Mám rád zdieľanie v kruhu. Pomerne dlho mi však trvalo, kým som
+          pochopil, že muž sa stáva mužom len v prítomnosti iných mužov. Po
+          rozvode rodičov som vyrastal cca od dvanástich rokov bez otca. Myslel
+          som si, že mi mama dá všetko, čo potrebujem.
+        </p>
+        <p>
+          Aj keď som neskôr na seminároch počúval, že ‚muž potrebuje muža‘, v
+          duchu som si obhajoval mamu a klamal som sám sebe, aký chlap zo mňa
+          vyrástol. No v realite som často cítil slabosť. Až neskôr mi došlo, že
+          hoci som doma milujúcim partnerom, ten skutočný rast a dočerpanie sily
+          prichádza až medzi chlapmi.
+        </p>
+        <p>
+          Pochopil som, že riešiť všetko so ženou je často vyčerpávajúce pre obe
+          strany – ju to zbytočne zaťažuje a mne to nedáva to, čo hľadám. Dnes,
+          keď sa mi kopia témy, viem, že mám kam ísť. A to je úžasné. Som veľmi
+          vďačný, že s Martinom môžeme pre nás všetkých držať tento priestor.
         </p>
       </article>
 
@@ -52,19 +67,17 @@ Pochopil som, že riešiť všetko so ženou je často vyčerpávajúce pre obe 
           format="webp"
         />
         <h3>Martin, <span data-founder-age data-born-year="1988"></span></h3>
-        <p>
-
-        </p>
+        <p>Zatím neví, co k tomu dodat :-).</p>
       </article>
     </div>
   </div>
 </section>
 
 <script is:inline>
-  const founderAgeElements = document.querySelectorAll('[data-founder-age]');
+  const founderAgeElements = document.querySelectorAll("[data-founder-age]");
 
   founderAgeElements.forEach((element) => {
-    const bornYear = Number(element.getAttribute('data-born-year'));
+    const bornYear = Number(element.getAttribute("data-born-year"));
     const currentYear = new Date().getFullYear();
     if (!Number.isNaN(bornYear)) {
       element.textContent = String(currentYear - bornYear);
@@ -74,7 +87,11 @@ Pochopil som, že riešiť všetko so ženou je často vyčerpávajúce pre obe 
 
 <style>
   .founders {
-    background: radial-gradient(ellipse at 50% 0%, rgba(180, 60, 0, 0.08) 0%, transparent 55%);
+    background: radial-gradient(
+      ellipse at 50% 0%,
+      rgba(180, 60, 0, 0.08) 0%,
+      transparent 55%
+    );
   }
 
   .founders__intro {
@@ -124,5 +141,4 @@ Pochopil som, že riešiť všetko so ženou je často vyčerpávajúce pre obe 
     margin-bottom: var(--space-lg);
     font-size: 0.98rem;
   }
-
 </style>
