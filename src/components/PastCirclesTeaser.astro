@@ -1,0 +1,141 @@
+---
+/**
+ * Subtle photo teaser for the past circles archive on the homepage
+ */
+import { Image } from 'astro:assets';
+import type { CircleEntry } from '../lib/circles';
+import { formatCircleDate } from '../lib/circles';
+
+interface Props {
+  circles: CircleEntry[];
+}
+
+const { circles } = Astro.props;
+
+const teaserItems = circles
+  .filter((circle) => circle.data.gallery.length > 0)
+  .slice(0, 4)
+  .map((circle) => ({
+    circle,
+    image: circle.data.gallery[0],
+  }));
+---
+
+{
+  teaserItems.length > 0 && (
+    <section class="section past-preview" aria-labelledby="past-preview-title">
+      <div class="container">
+        <div class="past-preview__header">
+          <div>
+            <h2 id="past-preview-title">Z minulých kruhů</h2>
+            <p class="past-preview__intro">Pár záběrů z posledních setkání.</p>
+          </div>
+
+          <a href="/minule-kruhy" class="past-preview__link">Celý archiv →</a>
+        </div>
+
+        <div class="past-preview__grid">
+          {teaserItems.map(({ circle, image }) => (
+            <a
+              href="/minule-kruhy"
+              class="past-preview__item"
+              aria-label={`Otevřít archiv minulých kruhů: ${circle.data.place}, ${formatCircleDate(circle.data.startsAt)}`}
+            >
+              <Image
+                src={image.src}
+                alt={image.alt}
+                width={640}
+                height={480}
+                format="webp"
+                loading="lazy"
+                class="past-preview__img"
+              />
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .past-preview {
+    padding-top: 0;
+  }
+
+  .past-preview__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    align-items: flex-start;
+    margin-bottom: var(--space-lg);
+  }
+
+  @media (min-width: 40rem) {
+    .past-preview__header {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: end;
+    }
+  }
+
+  .past-preview__intro {
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+  }
+
+  .past-preview__link {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .past-preview__link:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .past-preview__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 52rem) {
+    .past-preview__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .past-preview__item {
+    display: block;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+    transition: border-color var(--transition-base), transform var(--transition-base);
+  }
+
+  .past-preview__item:hover {
+    border-color: rgba(255, 100, 30, 0.25);
+    transform: translateY(-1px);
+  }
+
+  .past-preview__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--transition-base);
+  }
+
+  .past-preview__item:hover .past-preview__img {
+    transform: scale(1.03);
+  }
+</style>

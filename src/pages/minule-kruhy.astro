@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PastCircles from '../components/PastCircles.astro';
+import { getCirclesState } from '../lib/circles';
+
+const { pastCircles } = await getCirclesState();
+---
+
+<BaseLayout
+  title="Minulé kruhy | Putovní mužský kruh"
+  description="Archiv minulých setkání Putovního mužského kruhu. Témata, místa a ohlédnutí za tím, co už jsme spolu prošli."
+>
+  <Header />
+  <main>
+    <PastCircles
+      circles={pastCircles}
+      headingLevel="h1"
+      backHref="/"
+      backLabel="← Zpět na hlavní stránku"
+    />
+  </main>
+  <Footer />
+</BaseLayout>

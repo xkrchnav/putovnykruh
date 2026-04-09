@@ -1,6 +1,6 @@
 ---
 /**
- * Past Circles - compact, collapsible history
+ * Past circles archive
  */
 import { Image } from "astro:assets";
 import { render } from 'astro:content';
@@ -9,9 +9,20 @@ import { circleTopicLabel, formatCircleDate } from '../lib/circles';
 
 interface Props {
   circles: CircleEntry[];
+  headingLevel?: 'h1' | 'h2';
+  backHref?: string;
+  backLabel?: string;
 }
 
-const { circles } = Astro.props;
+const {
+  circles,
+  headingLevel = 'h2',
+  backHref,
+  backLabel,
+} = Astro.props;
+
+const HeadingTag = headingLevel;
+const titleId = 'minule-kruhy-title';
 
 const renderedCircles = await Promise.all(
   circles.map(async (circle) => {
@@ -21,53 +32,92 @@ const renderedCircles = await Promise.all(
 );
 ---
 
-<section class="section" aria-labelledby="minule-title">
+<section class="section" aria-labelledby={titleId}>
   <div class="container">
-    <h2 id="minule-title">Minulé kruhy</h2>
+    {
+      backHref && backLabel && (
+        <a href={backHref} class="back-link">{backLabel}</a>
+      )
+    }
+
+    <HeadingTag id={titleId}>Minulé kruhy</HeadingTag>
     <hr class="divider" />
     <p class="past__intro">
       Každý kruh je jiný. Tady jsou naše dosavadní setkání.
     </p>
 
-    <div class="past__timeline">
-      {renderedCircles.map(({ circle, Content }) => (
-        <article class="past-event">
-          <div class="past-event__header">
-            <span class="past-event__date">{formatCircleDate(circle.data.startsAt)}</span>
-            <span class="past-event__location">{circle.data.place}</span>
-          </div>
-          <h3>{circleTopicLabel(circle)}</h3>
-
-          <div class="past-event__body prose">
-            <Content />
-          </div>
-
-          {
-            circle.data.gallery.length > 0 && (
-              <div class={`gallery ${circle.data.gallery.length >= 4 ? 'gallery--four' : ''}`}>
-                {circle.data.gallery.map((image: CircleEntry['data']['gallery'][number]) => (
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    width={800}
-                    height={900}
-                    loading="lazy"
-                    format="webp"
-                  />
-                ))}
+    {
+      renderedCircles.length > 0 ? (
+        <div class="past__timeline">
+          {renderedCircles.map(({ circle, Content }) => (
+            <article class="past-event">
+              <div class="past-event__header">
+                <span class="past-event__date">{formatCircleDate(circle.data.startsAt)}</span>
+                <span class="past-event__location">{circle.data.place}</span>
               </div>
-            )
-          }
-        </article>
-      ))}
-    </div>
+              <h3>{circleTopicLabel(circle)}</h3>
+
+              <div class="past-event__body prose">
+                <Content />
+              </div>
+
+              {
+                circle.data.gallery.length > 0 && (
+                  <div class={`gallery ${circle.data.gallery.length >= 4 ? 'gallery--four' : ''}`}>
+                    {circle.data.gallery.map((image: CircleEntry['data']['gallery'][number]) => (
+                      <Image
+                        src={image.src}
+                        alt={image.alt}
+                        width={800}
+                        height={900}
+                        loading="lazy"
+                        format="webp"
+                      />
+                    ))}
+                  </div>
+                )
+              }
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p class="past__empty">Archiv se teprve plní. Až proběhnou první kruhy, najdeš je tady.</p>
+      )
+    }
   </div>
 </section>
 
 <style>
+  .back-link {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    margin-bottom: var(--space-xl);
+    transition: color var(--transition-fast);
+  }
+
+  .back-link:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
   .past__intro {
     color: var(--color-text-muted);
     margin-bottom: var(--space-2xl);
+  }
+
+  .past__empty {
+    padding: var(--space-xl);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0;
   }
 
   .past__timeline {
