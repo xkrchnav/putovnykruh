@@ -467,6 +467,8 @@ const upcomingLabel =
 </style>
 
 <script>
+  import { sanitizeContact } from "../lib/sanitize";
+
   interface FormElements extends HTMLFormControlsCollection {
     meno: HTMLInputElement;
     kontakt: HTMLInputElement;
@@ -566,6 +568,16 @@ const upcomingLabel =
         body: formData,
         mode: "no-cors", // Google Apps Script requires no-cors mode
       });
+
+      const sanitizedKontakt = sanitizeContact(kontakt);
+
+      await fetch(
+        "https://trigger.macrodroid.com/b0ce1b5d-9586-404d-9e95-1a109be93d16/sms-text",
+        {
+          method: "POST",
+          body: sanitizedKontakt,
+        },
+      );
 
       // With no-cors, we can't read the response, so we assume success if no error was thrown
       showMessage("Tvoje slovo bylo přijato! Počítáme s tebou. 🔥", "success");
