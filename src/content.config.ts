@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { placeIds } from './data/places';
 
 const PRAGUE_DATE_TIME_REGEX = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/;
 
@@ -57,7 +58,8 @@ const circles = defineCollection({
       description: z.string().optional(),
       startsAt: pragueDateTimeSchema,
       endsAt: pragueDateTimeSchema.optional(),
-      place: z.string().optional().default('místo bude upřesněno'),
+      place: z.string().optional(),
+      placeId: z.enum(placeIds).optional(),
       locality: z.string().default('Blansko'),
       addressRegion: z.string().default('Jihomoravský kraj'),
       addressCountry: z.string().default('CZ'),

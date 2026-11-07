@@ -13,6 +13,7 @@ import PastCirclesTeaser from '../components/PastCirclesTeaser.astro';
 import Footer from '../components/Footer.astro';
 import LatestBlogPosts from '../components/LatestBlogPosts.astro';
 import { getCirclesState } from '../lib/circles';
+import { resolvePlace } from '../lib/places';
 import { getCollection } from 'astro:content';
 
 const { nextCircle, upcomingCircles, pastCircles } = await getCirclesState();
@@ -27,15 +28,20 @@ if (!nextCircle) {
   throw new Error('No upcoming circle found in content collection "circles".');
 }
 
+const nextPlace = resolvePlace(nextCircle.data);
+
 const schemaEvent = {
   description: nextCircle.data.description ?? '',
   startsAt: nextCircle.data.startsAt,
   endsAt: nextCircle.data.endsAt,
-  place: nextCircle.data.place,
+  place: nextPlace.name,
   locality: nextCircle.data.locality,
   addressRegion: nextCircle.data.addressRegion,
   addressCountry: nextCircle.data.addressCountry,
   topic: nextCircle.data.topic,
+  lat: nextPlace.lat,
+  lng: nextPlace.lng,
+  mapUrl: nextPlace.mapUrl,
 };
 ---
 

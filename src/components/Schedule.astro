@@ -5,6 +5,7 @@
  */
 import type { CircleEntry } from "../lib/circles";
 import { circleTopicLabel, formatCircleDateTime } from "../lib/circles";
+import { resolvePlace } from "../lib/places";
 import { render } from "astro:content";
 
 interface Props {
@@ -15,6 +16,7 @@ interface Props {
 const { nextCircle, nextUpcomingCircles = [] } = Astro.props;
 
 const nextCircleTopic = circleTopicLabel(nextCircle);
+const nextPlace = resolvePlace(nextCircle.data);
 const { Content } = await render(nextCircle);
 const upcomingLabel =
   nextUpcomingCircles.length > 1 ? "Další termíny" : "Další termín";
@@ -42,12 +44,60 @@ const upcomingLabel =
           </div>
           <div class="signup__meta-item">
             <span class="signup__meta-label">Kde</span>
-            <span class="signup__meta-value">{nextCircle.data.place}</span>
+            <span class="signup__meta-value">{nextPlace.name}</span>
           </div>
           <div class="signup__meta-item">
             <span class="signup__meta-label">Téma</span>
             <span class="signup__meta-value">{nextCircleTopic}</span>
           </div>
+        </div>
+
+        <div class="signup__actions">
+          {
+            nextPlace.mapUrl && (
+              <a
+                class="btn signup__action"
+                href={nextPlace.mapUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Mapa místa ↗
+              </a>
+            )
+          }
+          <a
+            class="btn signup__action"
+            href={`/kruh/${nextCircle.id}.ics`}
+            type="text/calendar"
+            download={`kruh-${nextCircle.id}.ics`}
+          >
+            <svg
+              class="signup__action-icon"
+              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+              aria-hidden="true"
+            >
+              <rect
+                x="3"
+                y="5"
+                width="18"
+                height="16"
+                rx="2"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <path
+                d="M3 10h18M8 3v4M16 3v4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+            Přidat do kalendáře
+          </a>
         </div>
         <p class="signup__desc">
           {nextCircle.data.description}
@@ -172,6 +222,7 @@ const upcomingLabel =
           <ul class="signup__upcoming-list">
             {nextUpcomingCircles.map((circle) => {
               const topic = circleTopicLabel(circle);
+              const place = resolvePlace(circle.data);
 
               return (
                 <li class="signup__upcoming-item">
@@ -179,10 +230,30 @@ const upcomingLabel =
                     <strong>
                       {formatCircleDateTime(circle.data.startsAt)}
                     </strong>{" "}
-                    &ndash; {circle.data.place}
+                    &ndash; {place.name}
                     {topic ? `, ${topic}` : ""}
                   </p>
                   <p class="signup__upcoming-desc">{circle.data.description}</p>
+                  <p class="signup__upcoming-links">
+                    {
+                      place.mapUrl && (
+                        <a
+                          href={place.mapUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Mapa ↗
+                        </a>
+                      )
+                    }
+                    <a
+                      href={`/kruh/${circle.id}.ics`}
+                      type="text/calendar"
+                      download={`kruh-${circle.id}.ics`}
+                    >
+                      Do kalendáře (.ics)
+                    </a>
+                  </p>
                 </li>
               );
             })}
@@ -255,6 +326,26 @@ const upcomingLabel =
   .signup__desc {
     font-size: 1.05rem;
     margin-bottom: var(--space-md);
+  }
+
+  .signup__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+  }
+
+  .signup__action {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: 0.55rem 1.1rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+  }
+
+  .signup__action-icon {
+    flex: none;
   }
 
   .signup__content {
@@ -463,6 +554,15 @@ const upcomingLabel =
     color: var(--color-text-muted);
     margin-bottom: 0;
     font-size: 0.95rem;
+  }
+
+  .signup__upcoming-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-top: var(--space-xs);
+    margin-bottom: 0;
+    font-size: 0.85rem;
   }
 </style>
 

@@ -7,6 +7,7 @@ import { Image } from 'astro:assets';
 import heroLogo from '../assets/images/image03.jpg';
 import type { CircleEntry } from '../lib/circles';
 import { circleTopicLabel, formatCircleDateTime } from '../lib/circles';
+import { resolvePlace } from '../lib/places';
 
 interface Props {
   upcomingCircle?: CircleEntry | null;
@@ -14,6 +15,7 @@ interface Props {
 
 const { upcomingCircle = null } = Astro.props;
 const upcomingCircleTopic = upcomingCircle ? circleTopicLabel(upcomingCircle) : null;
+const upcomingPlace = upcomingCircle ? resolvePlace(upcomingCircle.data) : null;
 ---
 
 <section id="domov" class="hero" aria-labelledby="hero-title">
@@ -43,7 +45,21 @@ const upcomingCircleTopic = upcomingCircle ? circleTopicLabel(upcomingCircle) : 
         <div class="hero__upcoming card" aria-label="Nejbližší kruh">
           <p class="hero__upcoming-label">Nejbližší kruh</p>
           <p class="hero__upcoming-meta">{formatCircleDateTime(upcomingCircle.data.startsAt)}</p>
-          <p class="hero__upcoming-meta">{upcomingCircle.data.place}</p>
+          <p class="hero__upcoming-meta">
+            {
+              upcomingPlace?.mapUrl ? (
+                <a
+                  href={upcomingPlace.mapUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {upcomingPlace.name} ↗
+                </a>
+              ) : (
+                upcomingPlace?.name
+              )
+            }
+          </p>
           {upcomingCircleTopic && <p class="hero__upcoming-topic">{upcomingCircleTopic}</p>}
         </div>
       )

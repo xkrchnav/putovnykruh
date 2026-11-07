@@ -22,6 +22,9 @@ interface EventData {
   addressRegion: string;
   addressCountry: string;
   topic?: string;
+  lat?: number;
+  lng?: number;
+  mapUrl?: string;
 }
 
 interface ArticleData {
@@ -132,6 +135,16 @@ const eventSchema =
             addressRegion: event.addressRegion,
             addressCountry: event.addressCountry,
           },
+          ...(event.lat != null && event.lng != null
+            ? {
+                geo: {
+                  '@type': 'GeoCoordinates',
+                  latitude: event.lat,
+                  longitude: event.lng,
+                },
+              }
+            : {}),
+          ...(event.mapUrl ? { hasMap: event.mapUrl } : {}),
         },
         organizer: { '@id': ORG_ID },
         offers: {
