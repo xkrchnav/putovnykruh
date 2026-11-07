@@ -46,7 +46,7 @@ function formatDate(date: Date): string {
 <BaseLayout
   title={`${post.data.title} | Putovní kruh`}
   description={post.data.description}
-  lang="sk"
+  lang={post.data.lang}
   ogImage={ogImage}
   ogImageAlt={post.data.title}
   ogType="article"
@@ -58,6 +58,7 @@ function formatDate(date: Date): string {
     author: post.data.author,
     image: ogImage,
     url: articleUrl,
+    lang: post.data.lang,
   }}
 >
   <Header />

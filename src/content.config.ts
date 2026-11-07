@@ -82,6 +82,7 @@ const blog = defineCollection({
       author: z.string().optional(),
       authorIcon: image().optional(),
       image: image().optional(),
+      lang: z.enum(['cs', 'sk']).default('sk'),
     }),
 });
 
