@@ -10,7 +10,7 @@ interface Props {
   ogImage?: string;
   ogImageAlt?: string;
   ogType?: 'website' | 'article';
-  schemaType?: 'homepage' | 'event' | 'article';
+  schemaType?: 'website' | 'event' | 'article';
   schemaEvent?: {
     description: string;
     startsAt: Date;
@@ -39,7 +39,7 @@ const {
   ogImage = '/images/og-image.jpg',
   ogImageAlt = 'Putovní mužský kruh - logo a symbol ohně',
   ogType = 'website',
-  schemaType = 'homepage',
+  schemaType = 'website',
   schemaEvent = null,
   schemaArticle = null,
 } = Astro.props;
