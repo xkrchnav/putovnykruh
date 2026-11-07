@@ -1,0 +1,47 @@
+name: Facebook – nové články a termíny
+
+# Po každém mergi do main publikuje nové články blogu a nové termíny kruhů
+# na facebookovou stránku. Detaily a nastavení tokenu: docs/facebook.md
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/content/blog/**'
+      - 'src/content/circles/**'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Jen vypsat, co by se publikovalo'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: facebook-post
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (celá historie kvůli diffu)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Publikovat na Facebook
+        env:
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run && '1' || '0' }}
+        run: node scripts/facebook-post.mjs

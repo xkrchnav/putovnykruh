@@ -186,3 +186,12 @@ npm run build
 ```
 
 This validates MDX frontmatter, content collection types, and final static output.
+
+---
+
+## Facebook automation
+
+New blog posts and upcoming circle dates are published to the Facebook page by
+`.github/workflows/facebook.yml`. Setup (Meta app, page token, repo secrets) and
+the manual part (events cannot be created through the Graph API) are documented
+in [`docs/facebook.md`](docs/facebook.md).
