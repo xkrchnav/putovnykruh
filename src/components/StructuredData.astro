@@ -12,6 +12,7 @@
  *   Event geo coordinates — same reason; PostalAddress is accurate, geo wasn't.
  */
 import logoImage from '../assets/images/image03.jpg';
+import { facebookUrl, whatsappUrl } from '../data/social';
 
 interface EventData {
   description: string;
@@ -72,7 +73,23 @@ const organizationSchema = {
     { '@type': 'Person', name: 'Jožo' },
     { '@type': 'Person', name: 'Martin' },
   ],
-  sameAs: ['https://chat.whatsapp.com/JVL1HKS5Jj0K8hsY5YBsL4'],
+  sameAs: [facebookUrl, whatsappUrl],
+};
+
+/**
+ * WebSite — jeden uzel pro celý web. Drží pohromadě jméno značky a její
+ * varianty ("Putovní kruh"), vydavatele a jazyk. Není tu SearchAction,
+ * protože web nemá vlastní vyhledávání.
+ */
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': 'https://putovnykruh.cz/#website',
+  name: 'Putovní mužský kruh',
+  alternateName: 'Putovní kruh',
+  url: 'https://putovnykruh.cz/',
+  inLanguage: 'cs',
+  publisher: { '@id': ORG_ID },
 };
 
 function formatSchemaDateTime(date: Date): string {
@@ -189,7 +206,9 @@ const articleSchema =
       }
     : null;
 
-const schemas = [organizationSchema, eventSchema, articleSchema].filter((schema) => schema !== null);
+const schemas = [organizationSchema, websiteSchema, eventSchema, articleSchema].filter(
+  (schema) => schema !== null,
+);
 ---
 
 {schemas.map((schema) => (

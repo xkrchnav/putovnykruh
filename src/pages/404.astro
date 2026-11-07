@@ -1,0 +1,87 @@
+---
+/**
+ * 404 — odkaz je starý nebo se stránka přestěhovala.
+ * Stránka se neindexuje, ale nabízí cestu dál.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Stránka nenalezena | Putovní mužský kruh"
+  description="Tuhle adresu nemáme. Zkus se vrátit na hlavní stránku, přečíst si blog nebo se podívat na minulé kruhy."
+  noindex={true}
+>
+  <Header />
+  <main>
+    <section class="section notfound" aria-labelledby="notfound-title">
+      <div class="container notfound__content">
+        <p class="notfound__code">404</p>
+        <h1 id="notfound-title">Tady nic není</h1>
+        <hr class="divider" />
+        <p class="notfound__text">
+          Tenhle odkaz je starý, nebo se stránka přestěhovala. Nic se neděje — sešel jsi z cesty,
+          ne z kruhu. Vrať se odsud:
+        </p>
+        <div class="notfound__actions">
+          <a href="/" class="btn btn--primary">Hlavní stránka</a>
+          <a href="/blog/" class="btn">Blog</a>
+          <a href="/minule-kruhy/" class="btn">Minulé kruhy</a>
+        </div>
+        <p class="notfound__cta">
+          Chceš přijít na nejbližší kruh? <a href="/#prihlaska">Dej své slovo</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .notfound__content {
+    max-width: 40rem;
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  .notfound__code {
+    font-family: var(--font-heading);
+    font-size: clamp(3rem, 12vw, 6rem);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+    opacity: 0.35;
+    margin-bottom: var(--space-md);
+  }
+
+  h1 {
+    font-size: clamp(2rem, 6vw, 3rem);
+    margin-bottom: var(--space-sm);
+  }
+
+  .notfound__content .divider {
+    margin-inline: auto;
+  }
+
+  .notfound__text {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-top: var(--space-lg);
+  }
+
+  .notfound__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+  }
+
+  .notfound__cta {
+    color: var(--color-text-muted);
+    margin-top: var(--space-2xl);
+  }
+</style>
