@@ -6,7 +6,7 @@
 
 <header class="site-header">
   <nav class="container nav" aria-label="Hlavní navigace">
-    <a href="/" class="nav__logo">Putovní kruh</a>
+    <a href="/" class="nav__logo">Putovní mužský kruh</a>
     <button class="nav__toggle" aria-label="Menu" aria-expanded="false">
       <span class="nav__toggle-bar"></span>
       <span class="nav__toggle-bar"></span>
@@ -71,6 +71,7 @@
     text-transform: uppercase;
     color: var(--color-heading);
     text-decoration: none;
+    white-space: nowrap;
   }
 
   .nav__logo:hover {
@@ -154,16 +155,50 @@
     }
   }
 
+  /* Od 1024 px musí osm položek zůstat na jednom řádku i s delším názvem
+     „Putovní mužský kruh“ — zmenšíme logo a mezery mezi odkazy. */
+  @media (min-width: 64rem) {
+    .nav__logo {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+    }
+
+    .nav__links {
+      gap: 1.2rem;
+    }
+  }
+
   /* Mezi 640 a 1024 px je sedm položek na jeden řádek těsné — zmenšíme mezery,
      aby se logo nelámalo do dvou řádků. */
-  @media (min-width: 40rem) and (max-width: 64rem) {
+  @media (min-width: 40rem) and (max-width: 63.99rem) {
+    .nav__logo {
+      font-size: 0.66rem;
+      letter-spacing: 0.04em;
+    }
+
     .nav__links {
-      gap: var(--space-md);
+      gap: 0.6rem;
     }
 
     .nav__links a {
-      font-size: 0.7rem;
-      letter-spacing: 0.06em;
+      font-size: 0.64rem;
+      letter-spacing: 0.04em;
+    }
+  }
+
+  /* Nejužší pásmo 640–768 px: osm položek se sem vejde jen s menším písmem. */
+  @media (min-width: 40rem) and (max-width: 48rem) {
+    .nav__logo {
+      font-size: 0.62rem;
+    }
+
+    .nav__links {
+      gap: 0.45rem;
+    }
+
+    .nav__links a {
+      font-size: 0.6rem;
+      letter-spacing: 0.03em;
     }
   }
 </style>
