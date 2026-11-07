@@ -3,7 +3,7 @@
 // Targets: Event schema for circle meetings, LocalBusiness for geo-targeting
 
 interface Props {
-  type?: 'homepage' | 'event';
+  type?: 'homepage' | 'event' | 'article';
   event?: {
     description: string;
     startsAt: Date;
@@ -14,9 +14,17 @@ interface Props {
     addressCountry: string;
     topic?: string;
   } | null;
+  article?: {
+    title: string;
+    description: string;
+    publishedAt: Date;
+    author?: string;
+    image?: string;
+    url: string;
+  } | null;
 }
 
-const { type = 'homepage', event = null } = Astro.props;
+const { type = 'homepage', event = null, article = null } = Astro.props;
 import logoImage from '../assets/images/image03.jpg';
 
 const siteUrl = Astro.site ?? new URL('https://putovnykruh.cz');
@@ -26,6 +34,7 @@ const logoUrl = new URL(logoImage.src, siteUrl).toString();
 const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
+  '@id': 'https://putovnykruh.cz/#organization',
   name: 'Putovní mužský kruh',
   description: 'Bezpečný prostor pro muže na Blanensku a v Brně. Sdílení u ohně, autentické rozhovory, mužská podpora.',
   url: 'https://putovnykruh.cz',
@@ -219,10 +228,48 @@ const eventSchema = event
     }
   : null;
 
+const articleSchema = article
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: article.title,
+      description: article.description,
+      datePublished: article.publishedAt.toISOString(),
+      dateModified: article.publishedAt.toISOString(),
+      inLanguage: 'sk',
+      url: article.url,
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': article.url,
+      },
+      image: article.image ? new URL(article.image, siteUrl).toString() : logoUrl,
+      author: article.author
+        ? { '@type': 'Person', name: article.author }
+        : { '@type': 'Organization', name: 'Putovní mužský kruh', url: 'https://putovnykruh.cz' },
+      publisher: {
+        '@type': 'Organization',
+        '@id': 'https://putovnykruh.cz/#organization',
+        name: 'Putovní mužský kruh',
+        logo: {
+          '@type': 'ImageObject',
+          url: logoUrl,
+        },
+      },
+      isPartOf: {
+        '@type': 'Blog',
+        '@id': 'https://putovnykruh.cz/blog/',
+        name: 'Blog Putovního mužského kruhu',
+      },
+      keywords: 'mužský kruh, mužský kruh Brno, mužský kruh Blansko, mužské kruhy, sdílení u ohně',
+    }
+  : null;
+
 // Select schemas based on page type
-const schemas = type === 'event' && eventSchema
-  ? [organizationSchema, localBusinessSchema, eventSchema]
-  : [organizationSchema, localBusinessSchema];
+const schemas = type === 'article' && articleSchema
+  ? [organizationSchema, articleSchema]
+  : type === 'event' && eventSchema
+    ? [organizationSchema, localBusinessSchema, eventSchema]
+    : [organizationSchema, localBusinessSchema];
 ---
 
 {schemas.map((schema) => (

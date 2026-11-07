@@ -31,13 +31,13 @@ const teaserItems = circles
             <p class="past-preview__intro">Pár záběrů z posledních setkání.</p>
           </div>
 
-          <a href="/minule-kruhy" class="past-preview__link">Celý archiv →</a>
+          <a href="/minule-kruhy/" class="past-preview__link">Celý archiv →</a>
         </div>
 
         <div class="past-preview__grid">
           {teaserItems.map(({ circle, image }) => (
             <a
-              href="/minule-kruhy"
+              href="/minule-kruhy/"
               class="past-preview__item"
               aria-label={`Otevřít archiv minulých kruhů: ${circle.data.place}, ${formatCircleDate(circle.data.startsAt)}`}
             >

@@ -34,7 +34,7 @@ function formatDate(date: Date): string {
         posts.map((post) => (
           <article class="teaser-card">
             {post.data.image && (
-              <a href={`/blog/${post.id}`} class="teaser-card__img-wrap" tabindex="-1" aria-hidden="true">
+              <a href={`/blog/${post.id}/`} class="teaser-card__img-wrap" tabindex="-1" aria-hidden="true">
                 <Image
                   src={post.data.image}
                   alt={post.data.title}
@@ -51,7 +51,7 @@ function formatDate(date: Date): string {
                 {formatDate(post.data.publishedAt)}
               </time>
               <h3 class="teaser-card__title">
-                <a href={`/blog/${post.id}`}>{post.data.title}</a>
+                <a href={`/blog/${post.id}/`}>{post.data.title}</a>
               </h3>
               <p class="teaser-card__desc">{post.data.description}</p>
             </div>
@@ -61,7 +61,7 @@ function formatDate(date: Date): string {
     </div>
 
     <div class="latest-blog__more">
-      <a href="/blog" class="btn">Všechny články →</a>
+      <a href="/blog/" class="btn">Všechny články →</a>
     </div>
   </div>
 </section>
