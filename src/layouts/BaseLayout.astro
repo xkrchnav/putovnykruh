@@ -11,6 +11,7 @@ interface Props {
   ogImageAlt?: string;
   ogType?: 'website' | 'article';
   schemaType?: 'website' | 'event' | 'article';
+  noindex?: boolean;
   schemaEvent?: {
     description: string;
     startsAt: Date;
@@ -43,6 +44,7 @@ const {
   ogImageAlt = 'Putovní mužský kruh - logo a symbol ohně',
   ogType = 'website',
   schemaType = 'website',
+  noindex = false,
   schemaEvent = null,
   schemaArticle = null,
 } = Astro.props;
@@ -103,6 +105,15 @@ const ogImageUrl = new URL(ogImage, Astro.site);
 
     <!-- Canonical -->
     <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    <!-- RSS kanál blogu (odběr i zdroj pro automatické sdílení na Facebook) -->
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Blog – Putovní mužský kruh"
+      href="/rss.xml"
+    />
 
     <!-- Fonts - preconnect for speed, swap for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
