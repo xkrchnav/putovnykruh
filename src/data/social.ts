@@ -7,6 +7,9 @@
  */
 export const facebookUrl = 'https://www.facebook.com/profile.php?id=61596421073730';
 
+/** Profil na Google mapách (Google Business Profile). */
+export const googleMapsUrl = 'https://maps.app.goo.gl/3rZFX73eJcqCnaSS7';
+
 /** Skupinový chat, na který odkazuje web (hero, patička, kontakt). */
 export const whatsappUrl = 'https://chat.whatsapp.com/E4H3wUm4zzjBjygnEfMCio';
 
