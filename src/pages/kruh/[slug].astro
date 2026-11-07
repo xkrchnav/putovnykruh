@@ -171,6 +171,18 @@ const schemaEvent = {
                 </p>
                 <div class="circle-page__actions">
                   <a href="/#prihlaska" class="btn btn--primary">Chci přijít</a>
+                  {
+                    place.mapUrl && (
+                      <a
+                        href={place.mapUrl}
+                        class="btn"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Mapa místa ↗
+                      </a>
+                    )
+                  }
                   <a href={`/kruh/${circle.id}.ics`} class="btn">Přidat do kalendáře</a>
                 </div>
               </>
@@ -181,6 +193,18 @@ const schemaEvent = {
                 </p>
                 <div class="circle-page__actions">
                   <a href="/#prihlaska" class="btn btn--primary">Přijít na další kruh</a>
+                  {
+                    place.mapUrl && (
+                      <a
+                        href={place.mapUrl}
+                        class="btn"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Mapa místa ↗
+                      </a>
+                    )
+                  }
                   <a href="/minule-kruhy/" class="btn">Další minulé kruhy</a>
                 </div>
               </>
