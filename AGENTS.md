@@ -23,6 +23,8 @@ src/pages/index.astro          → single entry point, calls getCirclesState()
 src/lib/circles.ts             → core logic: sorting, filtering, date formatting
 src/content.config.ts          → Zod schema + custom Prague datetime parser
 src/content/circles/*.mdx      → event entries (8 files)
+src/data/places.ts             → venue registry: name, mapy.com link, GPS
+src/pages/kruh/[slug].ics.ts   → per-circle calendar file
 src/components/*.astro         → 12 PascalCase components with scoped CSS
 src/layouts/BaseLayout.astro   → HTML shell, meta, OG, GA, StructuredData
 src/styles/global.css          → design system (CSS custom properties)
@@ -40,7 +42,8 @@ MDX files in `src/content/circles/`. Named `YYYY-MM-DD-slug.mdx`.
 | description | string | yes | Used in UI + JSON-LD structured data |
 | startsAt | string→Date | yes | Format: `YYYY-MM-DDTHH:mm` (no TZ suffix) |
 | endsAt | string→Date | no | Missing → fallback startsAt + 2.5 hours |
-| place | string | yes | Human-readable venue name |
+| place | string | no | Human-readable venue name; fallback when `placeId` missing |
+| placeId | string | no | Key in `src/data/places.ts` — drives map link, GPS and JSON-LD `geo`/`hasMap` |
 | locality | string | no | Default: "Blansko" |
 | addressRegion | string | no | Default: "Jihomoravský kraj" |
 | addressCountry | string | no | Default: "CZ" |

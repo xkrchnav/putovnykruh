@@ -1,6 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
@@ -16,6 +16,23 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 
+const siteUrl = Astro.site ?? new URL('https://putovnykruh.cz');
+const articleUrl = new URL(`/blog/${post.id}/`, siteUrl).toString();
+const ogImage = post.data.image
+  ? new URL(
+      (
+        await getImage({
+          src: post.data.image,
+          width: 1200,
+          height: 630,
+          fit: 'cover',
+          format: 'jpeg',
+        })
+      ).src,
+      siteUrl,
+    ).toString()
+  : undefined;
+
 function formatDate(date: Date): string {
   return new Intl.DateTimeFormat('cs-CZ', {
     day: 'numeric',
@@ -27,9 +44,22 @@ function formatDate(date: Date): string {
 ---
 
 <BaseLayout
-  title={`${post.data.title} | Blog | Putovní mužský kruh`}
+  title={`${post.data.title} | Putovní kruh`}
   description={post.data.description}
-  ogImage={post.data.image ? undefined : undefined}
+  lang={post.data.lang}
+  ogImage={ogImage}
+  ogImageAlt={post.data.title}
+  ogType="article"
+  schemaType="article"
+  schemaArticle={{
+    title: post.data.title,
+    description: post.data.description,
+    publishedAt: post.data.publishedAt,
+    author: post.data.author,
+    image: ogImage,
+    url: articleUrl,
+    lang: post.data.lang,
+  }}
 >
   <Header />
   <main>
@@ -42,6 +72,8 @@ function formatDate(date: Date): string {
             width={1200}
             height={500}
             format="webp"
+            loading="eager"
+            fetchpriority="high"
             class="article-hero__img"
           />
           <div class="article-hero__overlay" aria-hidden="true" />
@@ -51,7 +83,7 @@ function formatDate(date: Date): string {
 
     <article class="section article-content" aria-labelledby="article-title">
       <div class="container article-container">
-        <a href="/blog" class="back-link">← Zpět na blog</a>
+        <a href="/blog/" class="back-link">← Zpět na blog</a>
 
         <header class="article-header">
           <div class="article-meta">
@@ -89,7 +121,7 @@ function formatDate(date: Date): string {
 
         <footer class="article-footer">
           <hr class="divider--wide" />
-          <a href="/blog" class="btn">← Zpět na blog</a>
+          <a href="/blog/" class="btn">← Zpět na blog</a>
         </footer>
       </div>
     </article>
