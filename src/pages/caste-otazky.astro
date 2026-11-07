@@ -1,0 +1,167 @@
+---
+/**
+ * Časté otázky. Odpovědi vycházejí jen z toho, co už na webu stojí
+ * (hero, pilíře, přihláška, texty kruhů) — nic tu není vymyšlené.
+ * FAQPage schéma se generuje ze stejného pole, takže se obsah nerozejde.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const faqs = [
+  {
+    q: 'Co je mužský kruh?',
+    a: 'Pravidelné setkání mužů u ohně. Odložíš masku, mluvíš pravdu ze srdce a nasloucháš bez odsuzování. Není to terapie ani kurz — je to prostor, kde můžeš být mezi chlapy sám sebou.',
+  },
+  {
+    q: 'Kolik to stojí?',
+    a: 'Nic. Všechno je zdarma, neplatí se žádné poplatky. Platí se chlapským slovem — že přijdeš, když řekneš, že přijdeš.',
+  },
+  {
+    q: 'Musím se přihlásit dopředu?',
+    a: 'Ano. Přihlas se přes formulář na webu nebo napiš do WhatsApp skupiny. Podle přihlášek víme, s kolika muži počítat, a ty dáváš slovo, že dorazíš.',
+  },
+  {
+    q: 'Nikoho tam neznám. Můžu přijít?',
+    a: 'Můžeš. Noví muži chodí pořád — na jeden kruh přijel nový člen až z Prostějova. Přijď ideálně deset minut před začátkem, ať se rozkoukáš a nikam nespěcháš.',
+  },
+  {
+    q: 'Kde se kruhy konají?',
+    a: 'Putujeme, místa se mění: Babí doly, Adamov, Bílovice nad Svitavou, Lysice, Žernovník a další. Aktuální místo vždy najdeš u nejbližšího termínu i s odkazem do mapy.',
+  },
+  {
+    q: 'Musím na kruhu mluvit?',
+    a: 'Nemusíš. Slovo má ten, kdo ho drží, a ticho je stejně cenné jako slova. Mluvíš jen to, co sám chceš otevřít.',
+  },
+  {
+    q: 'Zůstane to mezi námi?',
+    a: 'Ano. Co se řekne v kruhu, zůstane v kruhu. Bez výjimky. Diskrétnost je první pilíř, na kterém kruh stojí.',
+  },
+  {
+    q: 'Co když nepřijdu, i když jsem slovo dal?',
+    a: 'Ozvi se prosím dopředu — SMS nebo zprávou ve WhatsApp skupině. Počítáme s tebou a je fér dát vědět, že to tentokrát nevyjde.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout
+  title="Časté otázky o mužském kruhu | Blansko a Brno"
+  description="Kolik to stojí, jestli se musíš hlásit, co se v kruhu děje a jestli tam můžeš přijít, když nikoho neznáš. Odpovědi na to, co muži řeší před prvním kruhem."
+>
+  <Header />
+  <main>
+    <section class="section faq" aria-labelledby="faq-title">
+      <div class="container faq__container">
+        <h1 id="faq-title">Časté otázky</h1>
+        <hr class="divider" />
+        <p class="faq__intro">
+          Co muži nejčastěji řeší, než poprvé přijdou k ohni. Když tu odpověď nenajdeš, napiš nám —
+          <a href="/#kontakt">kontakt je tady</a>.
+        </p>
+
+        <div class="faq__list">
+          {
+            faqs.map((item) => (
+              <article class="faq__item">
+                <h2>{item.q}</h2>
+                <p>{item.a}</p>
+              </article>
+            ))
+          }
+        </div>
+
+        <aside class="faq__cta">
+          <p>Zbytek se dozvíš nejlíp u ohně.</p>
+          <div class="faq__actions">
+            <a href="/#prihlaska" class="btn btn--primary">Chci přijít</a>
+            <a href="/blog/2026-11-07-prvy-kruh/" class="btn">Co čekat poprvé</a>
+          </div>
+        </aside>
+
+        <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .faq__container {
+    max-width: 44rem;
+  }
+
+  .faq__container h1 {
+    font-size: clamp(1.9rem, 5vw, 3rem);
+  }
+
+  .faq__intro {
+    color: var(--color-text-muted);
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .faq__intro a {
+    color: var(--color-accent);
+  }
+
+  .faq__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .faq__item {
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .faq__item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .faq__item h2 {
+    font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+    text-transform: none;
+    letter-spacing: 0.02em;
+    color: var(--color-heading);
+    margin-bottom: var(--space-sm);
+  }
+
+  .faq__item p {
+    color: var(--color-text-muted);
+    line-height: 1.75;
+    margin-bottom: 0;
+  }
+
+  .faq__cta {
+    margin-top: var(--space-2xl);
+    padding: var(--space-xl);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    background-color: var(--color-surface);
+    text-align: center;
+  }
+
+  .faq__cta p {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-lg);
+  }
+
+  .faq__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    justify-content: center;
+  }
+</style>

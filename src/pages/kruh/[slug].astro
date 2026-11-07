@@ -1,0 +1,321 @@
+---
+/**
+ * Detail jednoho kruhu — budoucí termín i archiv.
+ *
+ * Smysl: každé setkání má vlastní URL („mužský kruh Babí doly“), archiv na
+ * /minule-kruhy/ zůstává rozcestník. Budoucí termín nese Event schéma, minulý
+ * ne — u proběhlé události nemá smysl hlásit Google, že se chystá.
+ */
+import { getCollection, render } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { formatCircleDate, formatCircleDateTime } from '../../lib/circles';
+import { resolvePlace } from '../../lib/places';
+
+export async function getStaticPaths() {
+  const circles = await getCollection('circles');
+  return circles.map((circle) => ({
+    params: { slug: circle.id },
+    props: { circle },
+  }));
+}
+
+const { circle } = Astro.props;
+const { Content } = await render(circle);
+const place = resolvePlace(circle.data);
+
+const startsAt = circle.data.startsAt;
+const endsAt = circle.data.endsAt ?? new Date(startsAt.getTime() + 2.5 * 60 * 60 * 1000);
+const isUpcoming = endsAt.getTime() >= Date.now();
+
+const topic = circle.data.topic?.trim();
+const heading = topic ?? `Mužský kruh – ${place.name}`;
+const dateLabel = formatCircleDate(startsAt);
+const dateTimeLabel = formatCircleDateTime(startsAt);
+
+const pageTitle = isUpcoming
+  ? topic
+    ? `Mužský kruh ${dateLabel}: ${topic} | Blansko a Brno`
+    : `Mužský kruh ${dateLabel} – ${place.name} | Blansko a Brno`
+  : topic
+    ? `Mužský kruh ${dateLabel}: ${topic}`
+    : `Mužský kruh ${dateLabel} – ${place.name}`;
+
+/**
+ * Meta popis se skládá po celých větách, dokud se vejde do ~160 znaků.
+ * Krátké popisy z frontmatteru (někdy 20 znaků) by jinak nechaly
+ * description prázdný a Google by si vzal náhodný text ze stránky.
+ */
+function buildDescription(): string {
+  const sentences = [
+    circle.data.description?.trim() ?? '',
+    `Setkání putovního mužského kruhu ${dateLabel}, ${place.name}.`,
+    'Muži z Blanska, Brna a okolí, u ohně, bez poplatků.',
+    'Přijď ideálně 10 minut před začátkem.',
+  ].filter(Boolean);
+
+  let text = '';
+  for (const sentence of sentences) {
+    const candidate = text ? `${text} ${sentence}` : sentence;
+    if (candidate.length > 160 && text.length >= 120) break;
+    text = candidate;
+  }
+
+  if (text.length > 160) {
+    const cut = text.slice(0, 157);
+    text = `${cut.slice(0, cut.lastIndexOf(' '))}…`;
+  }
+
+  return text;
+}
+
+const description = buildDescription();
+
+const cover = circle.data.gallery[0]?.src ?? null;
+const ogImage = cover
+  ? new URL(
+      (
+        await getImage({
+          src: cover,
+          width: 1200,
+          height: 630,
+          fit: 'cover',
+          format: 'jpeg',
+        })
+      ).src,
+      Astro.site,
+    ).toString()
+  : undefined;
+
+const schemaEvent = {
+  description: circle.data.description ?? '',
+  startsAt,
+  endsAt: circle.data.endsAt,
+  place: place.name,
+  locality: circle.data.locality,
+  addressRegion: circle.data.addressRegion,
+  addressCountry: circle.data.addressCountry,
+  topic: circle.data.topic,
+  lat: place.lat,
+  lng: place.lng,
+  mapUrl: place.mapUrl,
+};
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={description}
+  ogImage={ogImage}
+  ogImageAlt={`${heading} – mužský kruh u ohně, ${place.name}`}
+  schemaType={isUpcoming ? 'event' : 'website'}
+  schemaEvent={isUpcoming ? schemaEvent : null}
+>
+  <Header />
+  <main>
+    <article class="section circle-page" aria-labelledby="circle-title">
+      <div class="container circle-page__container">
+        <a href={isUpcoming ? '/' : '/minule-kruhy/'} class="back-link">
+          {isUpcoming ? '← Zpět na hlavní stránku' : '← Všechny minulé kruhy'}
+        </a>
+
+        <header class="circle-page__header">
+          <p class="circle-page__kicker">
+            {isUpcoming ? 'Nejbližší kruh' : 'Minulý kruh'}
+          </p>
+          <h1 id="circle-title">{heading}</h1>
+          <p class="circle-page__meta">
+            <time datetime={startsAt.toISOString()}>{dateTimeLabel}</time>
+            <span class="circle-page__sep">·</span>
+            {
+              place.mapUrl ? (
+                <a href={place.mapUrl} target="_blank" rel="noopener noreferrer">
+                  {place.name} ↗
+                </a>
+              ) : (
+                <span>{place.name}</span>
+              )
+            }
+          </p>
+          {circle.data.description && <p class="circle-page__lead">{circle.data.description}</p>}
+        </header>
+
+        <div class="prose circle-page__body">
+          <Content />
+        </div>
+
+        {
+          circle.data.gallery.length > 0 && (
+            <div class="circle-page__gallery">
+              {circle.data.gallery.map((image) => (
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  width={800}
+                  height={600}
+                  loading="lazy"
+                  format="webp"
+                />
+              ))}
+            </div>
+          )
+        }
+
+        <aside class="circle-page__cta">
+          {
+            isUpcoming ? (
+              <>
+                <p class="circle-page__cta-text">
+                  Přijď. Nic neplatíš, dáváš jen slovo, že přijdeš.
+                </p>
+                <div class="circle-page__actions">
+                  <a href="/#prihlaska" class="btn btn--primary">Chci přijít</a>
+                  <a href={`/kruh/${circle.id}.ics`} class="btn">Přidat do kalendáře</a>
+                </div>
+              </>
+            ) : (
+              <>
+                <p class="circle-page__cta-text">
+                  Chceš být u dalšího ohně? Termíny hlásíme dopředu.
+                </p>
+                <div class="circle-page__actions">
+                  <a href="/#prihlaska" class="btn btn--primary">Přijít na další kruh</a>
+                  <a href="/minule-kruhy/" class="btn">Další minulé kruhy</a>
+                </div>
+              </>
+            )
+          }
+        </aside>
+      </div>
+    </article>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .circle-page__container {
+    max-width: 46rem;
+  }
+
+  .back-link {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    margin-bottom: var(--space-xl);
+    transition: color var(--transition-fast);
+  }
+
+  .back-link:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .circle-page__header {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .circle-page__kicker {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: var(--space-sm);
+  }
+
+  h1 {
+    font-size: clamp(1.9rem, 5vw, 3rem);
+    text-transform: none;
+    letter-spacing: 0.02em;
+    line-height: 1.15;
+    margin-bottom: var(--space-md);
+  }
+
+  .circle-page__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-dim);
+  }
+
+  .circle-page__meta a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+
+  .circle-page__meta a:hover {
+    color: var(--color-accent);
+  }
+
+  .circle-page__sep {
+    color: var(--color-border);
+  }
+
+  .circle-page__lead {
+    margin-top: var(--space-lg);
+    color: var(--color-text-muted);
+    font-style: italic;
+    font-size: 1.05rem;
+  }
+
+  .circle-page__body {
+    color: var(--color-text);
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+
+  .circle-page__body :global(p) {
+    margin-bottom: var(--space-lg);
+  }
+
+  .circle-page__body :global(a) {
+    color: var(--color-accent);
+  }
+
+  .circle-page__gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+    margin-block: var(--space-xl);
+  }
+
+  .circle-page__gallery :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    display: block;
+  }
+
+  .circle-page__cta {
+    margin-top: var(--space-2xl);
+    padding: var(--space-xl);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    background-color: var(--color-surface);
+    text-align: center;
+  }
+
+  .circle-page__cta-text {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-lg);
+  }
+
+  .circle-page__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    justify-content: center;
+  }
+</style>

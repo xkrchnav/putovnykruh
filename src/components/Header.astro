@@ -17,6 +17,7 @@
       <li><a href="/minule-kruhy/">Minulé kruhy</a></li>
       <li><a href="/#miesta">Místa</a></li>
       <li><a href="/blog/">Blog</a></li>
+      <li><a href="/caste-otazky/">Otázky</a></li>
       <li><a href="/#piliere">Pilíře</a></li>
       <li><a href="/#kontakt">Kontakt</a></li>
     </ul>
@@ -150,6 +151,19 @@
       font-size: 0.75rem;
       font-weight: 400;
       padding: 0;
+    }
+  }
+
+  /* Mezi 640 a 1024 px je sedm položek na jeden řádek těsné — zmenšíme mezery,
+     aby se logo nelámalo do dvou řádků. */
+  @media (min-width: 40rem) and (max-width: 64rem) {
+    .nav__links {
+      gap: var(--space-md);
+    }
+
+    .nav__links a {
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
     }
   }
 </style>

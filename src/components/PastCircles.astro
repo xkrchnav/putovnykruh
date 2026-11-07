@@ -1,9 +1,8 @@
 ---
 /**
- * Past circles archive
+ * Archiv kruhů — rozcestník. Plné texty a fotky mají vlastní stránky
+ * (/kruh/<slug>/), tady zůstává datum, místo, téma a odkaz.
  */
-import { Image } from "astro:assets";
-import { render } from 'astro:content';
 import type { CircleEntry } from '../lib/circles';
 import { circleTopicLabel, formatCircleDate } from '../lib/circles';
 import { resolvePlace } from '../lib/places';
@@ -15,83 +14,40 @@ interface Props {
   backLabel?: string;
 }
 
-const {
-  circles,
-  headingLevel = 'h2',
-  backHref,
-  backLabel,
-} = Astro.props;
+const { circles, headingLevel = 'h2', backHref, backLabel } = Astro.props;
 
 const HeadingTag = headingLevel;
 const titleId = 'minule-kruhy-title';
 
-const renderedCircles = await Promise.all(
-  circles.map(async (circle) => {
-    const { Content } = await render(circle);
-    return { circle, Content, place: resolvePlace(circle.data) };
-  }),
-);
+const items = circles.map((circle) => ({ circle, place: resolvePlace(circle.data) }));
 ---
 
 <section class="section" aria-labelledby={titleId}>
   <div class="container">
-    {
-      backHref && backLabel && (
-        <a href={backHref} class="back-link">{backLabel}</a>
-      )
-    }
+    {backHref && backLabel && <a href={backHref} class="back-link">{backLabel}</a>}
 
     <HeadingTag id={titleId}>Minulé kruhy</HeadingTag>
     <hr class="divider" />
     <p class="past__intro">
-      Každý kruh je jiný. Tady jsou naše dosavadní setkání.
+      Každý kruh je jiný. Tady jsou naše dosavadní setkání — klikni na téma a uvidíš, co se tenkrát řešilo.
     </p>
 
     {
-      renderedCircles.length > 0 ? (
+      items.length > 0 ? (
         <div class="past__timeline">
-          {renderedCircles.map(({ circle, Content, place }) => (
+          {items.map(({ circle, place }) => (
             <article class="past-event">
               <div class="past-event__header">
                 <span class="past-event__date">{formatCircleDate(circle.data.startsAt)}</span>
-                <span class="past-event__location">
-                  {
-                    place.mapUrl ? (
-                      <a
-                        href={place.mapUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {place.name}
-                      </a>
-                    ) : (
-                      place.name
-                    )
-                  }
-                </span>
+                <span class="past-event__location">{place.name}</span>
               </div>
-              <h3>{circleTopicLabel(circle)}</h3>
-
-              <div class="past-event__body prose">
-                <Content />
-              </div>
-
-              {
-                circle.data.gallery.length > 0 && (
-                  <div class={`gallery ${circle.data.gallery.length >= 4 ? 'gallery--four' : ''}`}>
-                    {circle.data.gallery.map((image: CircleEntry['data']['gallery'][number]) => (
-                      <Image
-                        src={image.src}
-                        alt={image.alt}
-                        width={800}
-                        height={900}
-                        loading="lazy"
-                        format="webp"
-                      />
-                    ))}
-                  </div>
-                )
-              }
+              <h3>
+                <a href={`/kruh/${circle.id}/`}>{circleTopicLabel(circle)}</a>
+              </h3>
+              {circle.data.description && <p class="past-event__body">{circle.data.description}</p>}
+              <a class="past-event__link" href={`/kruh/${circle.id}/`}>
+                Co jsme spolu prošli →
+              </a>
             </article>
           ))}
         </div>
@@ -180,17 +136,35 @@ const renderedCircles = await Promise.all(
     margin-bottom: var(--space-sm);
   }
 
+  .past-event h3 a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .past-event h3 a:hover {
+    color: var(--color-accent);
+  }
+
   .past-event__body {
     color: var(--color-text-muted);
     font-size: 0.95rem;
     line-height: 1.7;
-  }
-
-  .past-event__body :global(p) {
     margin-bottom: var(--space-sm);
   }
 
-  .past-event__body :global(a) {
+  .past-event__link {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-dim);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .past-event__link:hover {
     color: var(--color-accent);
   }
 </style>
