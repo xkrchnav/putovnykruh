@@ -13,4 +13,7 @@ export const googleMapsUrl = 'https://maps.app.goo.gl/3rZFX73eJcqCnaSS7';
 /** Skupinový chat, na který odkazuje web (hero, patička, kontakt). */
 export const whatsappUrl = 'https://chat.whatsapp.com/E4H3wUm4zzjBjygnEfMCio';
 
+/** Instagramová stránka kruhu. */
+export const instagramUrl = 'https://www.instagram.com/putovnykruh.cz/';
+
 export const contactEmail = 'info@putovnykruh.cz';
