@@ -52,6 +52,13 @@ export const places = {
     lat: 49.456505,
     lng: 16.539618,
   },
+  // Biocentrum Chrlice (Brno-Chrlice). Souřadnice lavičky u vody; ohnistě se ověřuje.
+  'chrlice-biotop': {
+    name: 'Chrlice Biotop',
+    mapUrl: 'https://mapy.com/s/lukulotate',
+    lat: 49.1355292,
+    lng: 16.6413745,
+  },
 } satisfies Record<string, Place>;
 
 export type PlaceId = keyof typeof places;
