@@ -13,8 +13,8 @@ Termíny, historie a poznámky k plánování. Témata k copy-paste jsou v [tema
 
 | Datum | Místo | Téma |
 |---|---|---|
-| po 30. 11. 2026, 18:00 | Brno-Chrlice, Biotop | Samota, nebo opuštěnost — vypsáno |
-| ~10. 12. 2026 | Bílovice nad Svitavou, u Jirky | záloha, na webu zatím nic |
+| po 30. 11. 2026, 18:00 | Bílovice nad Svitavou, u Jirky | Samota, nebo opuštěnost — vypsáno |
+| ~10. 12. 2026 | — | zvážit druhý prosincový kruh, zatím nevypsáno |
 | čt 7. 1. 2027 | — | Práce s nejistotou |
 | čt 21. 1. 2027 | — | Prohra |
 | čt 4. 2. 2027 | — | Kolik musí být, aby to stačilo |
@@ -25,8 +25,7 @@ Termíny, historie a poznámky k plánování. Témata k copy-paste jsou v [tema
 24. 12. vypadává (Štědrý den). Místa k termínům od ledna zatím nejsou — doplní se podle
 toho, kdo je ochotný hostit.
 
-V Chrlicích se ohniště teprve ověřuje (Milan). Když tam oheň nepůjde, termín zůstává a mění
-se místo. Bílovice u Jirky držíme jako zálohu — na webu o nich zatím nic není.
+Chrlice vypadly — biotop má zákaz ohňů, Milan to ověřil. 30. 11. tedy opět u Jirky v Bílovicích.
 
 ## Co už jsme měli
 
