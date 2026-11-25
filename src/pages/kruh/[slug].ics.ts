@@ -58,8 +58,17 @@ export const GET: APIRoute = ({ props }) => {
   const endsAt = circle.data.endsAt ?? new Date(startsAt.getTime() + 2.5 * 60 * 60 * 1000);
   const summary = `Putovní mužský kruh – ${circleTopicLabel(circle)}`;
 
-  const location = [place.name, circle.data.locality, circle.data.addressRegion]
-    .filter(Boolean)
+  const locationParts = [place.name, circle.data.locality, circle.data.addressRegion].filter(
+    (part): part is string => Boolean(part),
+  );
+  // Když název místa už obec obsahuje („Bílovice nad Svitavou, u Jirky"), neopakovat ji.
+  const location = locationParts
+    .filter((part, index) => {
+      const lower = part.toLowerCase();
+      return locationParts
+        .slice(0, index)
+        .every((prev) => !lower.includes(prev.toLowerCase()) && !prev.toLowerCase().includes(lower));
+    })
     .join(', ');
 
   const description = [
